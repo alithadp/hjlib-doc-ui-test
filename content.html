@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>HJ-Lib Documentation</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- tabs -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#Overview">
+            <img alt="Brand" src="https://wiki.rice.edu/confluence/download/attachments/4425835/habanero.png?version=1&modificationDate=1312519609464&api=v2" height="25" style="padding-left: 10px; padding-right: 10px;">
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#Overview" id="1">Overview<span class="sr-only">(current)</span></a></li>
+            <li><a href="#HJ-Lib" id="2">HJ-Lib</a></li>
+            <li><a href="#Java8" id="Java8">Java 8</a></li>
+            <li><a href="#MPI" id="MPI">MPI</a></li>
+            <li class="dropdown">
+              <a href="#Dropdown1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown 1<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#InstallationGuide">Installation Guide</a></li>
+                <li><a href="#EnvironmentConfiguration">Environment &amp; Configuration</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#Dropdown2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown 2<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#CorrectnessPerformance">Correctness &amp; Performance Tools</a></li>
+                <li><a href="#JavaProfiling">Java Profiling</a></li>
+              </ul>
+            </li>
+            <li><a href="#FAQs">FAQs</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="i.e. async">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- overview -->
+    <div class="tabContent" id="tabContent1">
+      <h3>Unit 1: Task-level Parallelism</h2>
+      <div class="list-group">
+        <a href="#" class="list-group-item">Async</a>
+        <a href="#" class="list-group-item">Finish</a>
+      </div>
+      <h3>Unit 2: Functional Parallelism</h2>
+      <div class="list-group">
+        <a href="#" class="list-group-item">Future</a>
+        <a href="#" class="list-group-item">Finish Accumulators</a>
+      </div>
+      <h3>Unit 3: Loop-level Parallelism</h2>
+      <div class="list-group">
+        <a href="#" class="list-group-item">ForAll</a>
+        <a href="#" class="list-group-item">ForallChunked</a>
+        <a href="#" class="list-group-item">ForallPhased</a>
+        <a href="#" class="list-group-item">Next</a>
+        <a href="#" class="list-group-item">Barriers</a>
+        <a href="#" class="list-group-item">HjRegion</a>
+      </div>
+    </div>
+    <!-- hj-lib -->
+    <div class="tabContent" id="tabContent2">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1">
+                Actor
+              </a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+              Description here
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1">
+                        <p>
+                          Actor
+                          <span style="float: right">Actor&lt;Message-Type&gt;</span>
+                        </p>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      Description here
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#collapse2" href="#collapse2">
+                Construct #2
+              </a>
+            </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse in">
+            <div class="panel-body">
+              Anim pariatur cliche...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Documentation built by Alitha Partono and Marie Hoeger.</p>
+      </div>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="myscript.js"></script>
+  </body>
+</html>
