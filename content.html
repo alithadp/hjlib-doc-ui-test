@@ -5,18 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <title>HJ-Lib Documentation</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- CSS custom style sheet -->
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
   </head>
   <body>
     <!-- tabs -->
@@ -34,14 +30,14 @@
             <li><a href="#Java8" id="Java8">Java 8</a></li>
             <li><a href="#MPI" id="MPI">MPI</a></li>
             <li class="dropdown">
-              <a href="#Dropdown1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown 1<span class="caret"></span></a>
+              <a href="#Dropdown1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#InstallationGuide">Installation Guide</a></li>
                 <li><a href="#EnvironmentConfiguration">Environment &amp; Configuration</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#Dropdown2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown 2<span class="caret"></span></a>
+              <a href="#Dropdown2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#CorrectnessPerformance">Correctness &amp; Performance Tools</a></li>
                 <li><a href="#JavaProfiling">Java Profiling</a></li>
@@ -61,17 +57,17 @@
 
     <!-- overview -->
     <div class="tabContent" id="tabContent1">
-      <h3>Unit 1: Task-level Parallelism</h2>
+      <h3>Unit 1: Task-level Parallelism</h3>
       <div class="list-group">
         <a href="#" class="list-group-item">Async</a>
         <a href="#" class="list-group-item">Finish</a>
       </div>
-      <h3>Unit 2: Functional Parallelism</h2>
+      <h3>Unit 2: Functional Parallelism</h3>
       <div class="list-group">
         <a href="#" class="list-group-item">Future</a>
         <a href="#" class="list-group-item">Finish Accumulators</a>
       </div>
-      <h3>Unit 3: Loop-level Parallelism</h2>
+      <h3>Unit 3: Loop-level Parallelism</h3>
       <div class="list-group">
         <a href="#" class="list-group-item">ForAll</a>
         <a href="#" class="list-group-item">ForallChunked</a>
@@ -94,22 +90,85 @@
           </div>
           <div id="collapse1" class="panel-collapse collapse in">
             <div class="panel-body">
-              Description here
+              <p>Description here</p>
               <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1">
-                        <p>
-                          Actor
-                          <span style="float: right">Actor&lt;Message-Type&gt;</span>
-                        </p>
+                      <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1-1">
+                          Actor <span style="float: right">Actor&lt;Message-Type&gt;</span>
                       </a>
                     </h4>
                   </div>
-                  <div id="collapse1" class="panel-collapse collapse in">
+                  <div id="collapse1-1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                      Description here
+                      <p>A concurrent, message-processing component of a parallel message-passing system. An actor can process messages, send messages, change local state, and create new actors.</p>
+                      <!-- Not really sure how the Javadoc link should look... -->
+                      <p><a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/runtime/actors/Actor.html">Actor Javadoc</a></p>
+                      <table class="table table-condensed">
+                        <tr>
+                          <th class="col-md-2">Method</th>
+                          <th class="col-md-2">Description</th>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">start()</td>
+                          <td class="col-md-2">Allows the actor to process messages.</td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">process(T message)</td>
+                          <td class="col-md-2">This method must be implemented by the user and specifies an actor’s “behavior” when processing messages. Messages are processed one at a time.</td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">send(T message)</td>
+                          <td class="col-md-2">Sends a message to the actor (can be performed by actor or non-actor). For example, anActor.send(aMessage) sends aMessage to an Actor. The order of messages is preserved between the same sender and receiver.</td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">pause()</td>
+                          <td class="col-md-2">Changes the state of the actor so that it will no longer process messages until resume() is called. However, sent messages will still accumulate to be processed later. This is a non-blocking operation. Using pause and resume around asynchronous tasks spawned in the process method produces the same result as using a finish construct. Pause and resume should be used instead of a finish for better performance.</td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">resume()</td>
+                          <td class="col-md-2">Changes the state of the actor so that it will continue to process messages. See pause() for notes on performance.</td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">exit()</td>
+                          <td class="col-md-2">Signals intention for the actor to terminate. Actors should be terminated by calling exit in the process method if some stop condition is sent to the actor.</td>
+                        </tr>
+                      </table>
+                      <h5>Used With:</h5>
+                      <ul class="list-inline">
+                        <li><a href="#">Finish</a></li>
+                      </ul>
+                      <h5>Related Constructs:</h5>
+                      <dl class="dl-horizontal">
+                        <dt><a href="#">Selector&lt;Message_Type&gt;</a></dt>
+                        <dd>A selector has multiple mailboxes, while an actor only has one.</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1-2">
+                          Selector <span style="float: right">Selector&lt;Message-Type&gt;</span>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse1-2" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      <p>A special actor with multiple numbered mailboxes, that can enable or disable the processing of messages from any mailbox.</p>
+                      <!-- Not really sure how the Javadoc link should look... -->
+                      <p><a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/experimental/actors/Selector.html">Selector Javadoc</a></p>
+                      <h5>Used With:</h5>
+                      <ul class="list-inline">
+                        <li><a href="#">Finish</a></li>
+                      </ul>
+                      <h5>Related Constructs:</h5>
+                      <dl class="dl-horizontal">
+                        <dt><a href="#">Actor&lt;Message_Type&gt;</a></dt>
+                        <dd>A selector has multiple mailboxes, while an actor only has one.</dd>
+                      </dl>
                     </div>
                   </div>
                 </div>
@@ -121,13 +180,57 @@
           <div class="panel-heading">
             <h4 class="panel-title">
               <a data-toggle="collapse" data-parent="#collapse2" href="#collapse2">
-                Construct #2
+                High Level Construct Name
               </a>
             </h4>
           </div>
           <div id="collapse2" class="panel-collapse collapse in">
             <div class="panel-body">
-              Anim pariatur cliche...
+              <p>Description</p>
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#collapse2" href="#collapse2-1">
+                          Construct Name <span style="float: right">HJ Name</span>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapse2-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      <p>Description</p>
+                      <p><a href="#">Javadoc</a></p>
+                      <table class="table table-condensed">
+                        <tr>
+                          <th class="col-md-2">Method</th>
+                          <th class="col-md-2">Description</th>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">Method 1</td>
+                          <td class="col-md-2">Description 1</td>
+                        </tr>
+                        <tr>
+                          <td class="col-md-2">Method 2</td>
+                          <td class="col-md-2">Description 2</td>
+                        </tr>
+                      </table>
+                      <h5>Used With:</h5>
+                      <ul class="list-inline">
+                        <li><a href="#">Construct 1</a></li>
+                        <li><a href="#">Construct 2</a></li>
+                        <li><a href="#">Construct 3</a></li>
+                      </ul>
+                      <h5>Related Constructs:</h5>
+                      <dl class="dl-horizontal">
+                        <dt><a href="#">Construct 1</a></dt>
+                        <dd>Difference/Note 1</dd>
+                        <dt><a href="#">Construct 2</a></dt>
+                        <dd>Difference/Note 2</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

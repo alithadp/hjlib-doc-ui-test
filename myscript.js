@@ -5,9 +5,8 @@ $(document).ready(function () {
 		$('#tabContent' + j).hide();
 	}
 
-	for (i = 1; i < 3; i++) {
-		$('#collapse' + i).collapse('hide');
-	}
+	$(".collapse").collapse();
+	$('#accordion').collapse({hide: true});
 });
 
 $('.nav a').click(function (e) {
