@@ -19,31 +19,31 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#Overview">
-            <img alt="Brand" src="https://wiki.rice.edu/confluence/download/attachments/4425835/habanero.png?version=1&modificationDate=1312519609464&api=v2" height="25" style="padding-left: 10px; padding-right: 10px;">
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" src="https://wiki.rice.edu/confluence/download/attachments/4425835/habanero.png?version=1&amp;modificationDate=1312519609464&amp;api=v2" height="25" style="padding-left: 10px; padding-right: 10px;">
           </a>
         </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse">
+        <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#Overview" id="1">Overview<span class="sr-only">(current)</span></a></li>
-            <li><a href="#HJ-Lib" id="2">HJ-Lib</a></li>
-            <li><a href="#Java8" id="Java8">Java 8</a></li>
-            <li><a href="#MPI" id="MPI">MPI</a></li>
+            <li class="active"><a href="#Overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
+            <li><a href="#HJ-Lib" data-toggle="tab">HJ-Lib</a></li>
+            <li><a href="#Java8" data-toggle="tab">Java 8</a></li>
+            <li><a href="#MPI" data-toggle="tab">MPI</a></li>
             <li class="dropdown">
-              <a href="#Dropdown1" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup<span class="caret"></span></a>
+              <a href="#Setup" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#InstallationGuide">Installation Guide</a></li>
-                <li><a href="#EnvironmentConfiguration">Environment &amp; Configuration</a></li>
+                <li><a href="#InstallationGuide" data-toggle="tab">Installation Guide</a></li>
+                <li><a href="#EnvironmentConfiguration" data-toggle="tab">Environment &amp; Configuration</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#Dropdown2" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+              <a href="#Tools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#CorrectnessPerformance">Correctness &amp; Performance Tools</a></li>
-                <li><a href="#JavaProfiling">Java Profiling</a></li>
+                <li><a href="#CorrectnessPerformance" data-toggle="tab">Correctness &amp; Performance Tools</a></li>
+                <li><a href="#JavaProfiling" data-toggle="tab">Java Profiling</a></li>
               </ul>
             </li>
-            <li><a href="#FAQs">FAQs</a></li>
+            <li><a href="#FAQs" data-toggle="tab">FAQs</a></li>
           </ul>
           <form class="navbar-form navbar-right" role="search">
             <div class="form-group">
@@ -56,7 +56,8 @@
     </nav>
 
     <!-- overview -->
-    <div class="tabContent" id="tabContent1">
+    <div class="tab-content">
+    <div class="tab-pane" id="Overview">
       <h3>Unit 1: Task-level Parallelism</h3>
       <div class="list-group">
         <a href="#" class="list-group-item">Async</a>
@@ -78,29 +79,29 @@
       </div>
     </div>
     <!-- hj-lib -->
-    <div class="tabContent" id="tabContent2">
+    <div class="tab-pane active" id="HJ-Lib">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1">
+              <a data-toggle="collapse" data-parent="accordion" href="#primary-actor">
                 Actor
               </a>
             </h4>
           </div>
-          <div id="collapse1" class="panel-collapse collapse in">
+          <div id="primary-actor" class="panel-collapse collapse">
             <div class="panel-body">
               <p>Description here</p>
-              <div class="panel-group" id="accordion">
+              <div class="panel-group" id="accordion-actor">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1-1">
+                      <a data-toggle="collapse" data-parent="accordion-actor" href="#actor">
                           Actor <span style="float: right">Actor&lt;Message-Type&gt;</span>
                       </a>
                     </h4>
                   </div>
-                  <div id="collapse1-1" class="panel-collapse collapse in">
+                  <div id="actor" class="panel-collapse collapse">
                     <div class="panel-body">
                       <p>A concurrent, message-processing component of a parallel message-passing system. An actor can process messages, send messages, change local state, and create new actors.</p>
                       <!-- Not really sure how the Javadoc link should look... -->
@@ -150,12 +151,12 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#collapse1" href="#collapse1-2">
+                      <a data-toggle="collapse" data-parent="accordion-actor" href="#selector">
                           Selector <span style="float: right">Selector&lt;Message-Type&gt;</span>
                       </a>
                     </h4>
                   </div>
-                  <div id="collapse1-2" class="panel-collapse collapse in">
+                  <div id="selector" class="panel-collapse collapse">
                     <div class="panel-body">
                       <p>A special actor with multiple numbered mailboxes, that can enable or disable the processing of messages from any mailbox.</p>
                       <!-- Not really sure how the Javadoc link should look... -->
@@ -166,7 +167,7 @@
                       </ul>
                       <h5>Related Constructs:</h5>
                       <dl class="dl-horizontal">
-                        <dt><a href="#">Actor&lt;Message_Type&gt;</a></dt>
+                        <dt><a href="#" data-toggle="collapse" data-target="#actor">Actor&lt;Message_Type&gt;</a></dt>
                         <dd>A selector has multiple mailboxes, while an actor only has one.</dd>
                       </dl>
                     </div>
@@ -184,7 +185,7 @@
               </a>
             </h4>
           </div>
-          <div id="collapse2" class="panel-collapse collapse in">
+          <div id="collapse2" class="panel-collapse collapse">
             <div class="panel-body">
               <p>Description</p>
               <div class="panel-group" id="accordion">
@@ -196,7 +197,7 @@
                       </a>
                     </h4>
                   </div>
-                  <div id="collapse2-1" class="panel-collapse collapse in">
+                  <div id="collapse2-1" class="panel-collapse collapse">
                     <div class="panel-body">
                       <p>Description</p>
                       <p><a href="#">Javadoc</a></p>
@@ -216,7 +217,7 @@
                       </table>
                       <h5>Used With:</h5>
                       <ul class="list-inline">
-                        <li><a href="#">Construct 1</a></li>
+                        <li><a href="#" id="anchorlink" data-toggle="collapse" data-target="#actor">Construct 1</a></li>
                         <li><a href="#">Construct 2</a></li>
                         <li><a href="#">Construct 3</a></li>
                       </ul>
@@ -235,6 +236,14 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="tab-pane" id="Java8"></div>
+    <div class="tab-pane" id="MPI"></div>
+    <div class="tab-pane" id="EnvironmentConfiguration"></div>
+    <div class="tab-pane" id="JavaProfiling"></div>
+    <div class="tab-pane" id="CorrectnessPerformance"></div>
+    <div class="tab-pane" id="InstallationGuide"></div>
+    <div class="tab-pane" id="FAQs"></div>
     </div>
 
     <!-- footer -->
