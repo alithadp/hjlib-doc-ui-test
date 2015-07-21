@@ -10,9 +10,10 @@ $(document).ready(function () {
 
 function goToLink(link) {
 	hashtag = link.replace("#", "").split("-");
+
+	$('.navbar a[href="#' + hashtag[0] + '"]').tab('show');
+
 	if (hashtag.length > 1) {
-		$('.navbar a[href="#' + hashtag[0] + '"]').tab('show');
-		
 		if (hashtag.length > 2) {
 			$('#' + hashtag[0] + "-" + hashtag[1]).collapse('show');
 		}
