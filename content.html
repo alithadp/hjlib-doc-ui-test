@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#Overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
-            <li><a href="#HJ-Lib" data-toggle="tab">HJ-Lib</a></li>
+            <li><a href="#HJLib" data-toggle="tab">HJ-Lib</a></li>
             <li><a href="#Java8" data-toggle="tab">Java 8</a></li>
             <li><a href="#MPI" data-toggle="tab">MPI</a></li>
             <li class="dropdown">
@@ -79,33 +79,36 @@
       </div>
     </div>
     <!-- hj-lib -->
-    <div class="tab-pane" id="HJ-Lib">
+    <div class="tab-pane" id="HJLib">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="accordion" href="#primary-actor">
+              <a data-toggle="collapse" data-parent="#accordion" href="#HJLib-actor">
                 Actor
               </a>
             </h4>
           </div>
-          <div id="primary-actor" class="panel-collapse collapse">
+          <div id="HJLib-actor" class="panel-collapse collapse">
             <div class="panel-body">
               <p>Description here</p>
               <div class="panel-group" id="accordion-actor">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="accordion-actor" href="#actor">
+                      <a data-toggle="collapse" data-parent="#accordion-actor" href="#HJLib-actor-actor">
                           Actor <span style="float: right">Actor&lt;Message-Type&gt;</span>
                       </a>
                     </h4>
                   </div>
-                  <div id="actor" class="panel-collapse collapse">
+                  <div id="HJLib-actor-actor" class="panel-collapse collapse">
                     <div class="panel-body">
                       <p>A concurrent, message-processing component of a parallel message-passing system. An actor can process messages, send messages, change local state, and create new actors.</p>
                       <!-- Not really sure how the Javadoc link should look... -->
-                      <p><a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/runtime/actors/Actor.html">Actor Javadoc</a></p>
+                      <h5>Javadoc Link(s):</h5>
+                      <ul class="list-inline">
+                        <li><a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/runtime/actors/Actor.html">Actor</a></li>
+                      </ul>
                       <table class="table table-condensed">
                         <tr>
                           <th class="col-md-2">Method</th>
@@ -142,7 +145,7 @@
                       </ul>
                       <h5>Related Constructs:</h5>
                       <dl class="dl-horizontal">
-                        <dt><a href="#">Selector&lt;Message_Type&gt;</a></dt>
+                        <dt><a href="#HJLib-actor-selector">Selector&lt;Message_Type&gt;</a></dt>
                         <dd>A selector has multiple mailboxes, while an actor only has one.</dd>
                       </dl>
                     </div>
@@ -151,12 +154,12 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="accordion-actor" href="#selector">
+                      <a data-toggle="collapse" data-parent="#accordion-actor" href="#HJLib-actor-selector">
                           Selector <span style="float: right">Selector&lt;Message-Type&gt;</span>
                       </a>
                     </h4>
                   </div>
-                  <div id="selector" class="panel-collapse collapse">
+                  <div id="HJLib-actor-selector" class="panel-collapse collapse">
                     <div class="panel-body">
                       <p>A special actor with multiple numbered mailboxes, that can enable or disable the processing of messages from any mailbox.</p>
                       <!-- Not really sure how the Javadoc link should look... -->
@@ -167,7 +170,7 @@
                       </ul>
                       <h5>Related Constructs:</h5>
                       <dl class="dl-horizontal">
-                        <dt><a href="#" data-toggle="collapse" data-target="#actor">Actor&lt;Message_Type&gt;</a></dt>
+                        <dt><a href="#" data-toggle="collapse" data-target="#HJLib-actor-actor">Actor&lt;Message_Type&gt;</a></dt>
                         <dd>A selector has multiple mailboxes, while an actor only has one.</dd>
                       </dl>
                     </div>
@@ -180,27 +183,32 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#collapse2" href="#collapse2">
+              <a data-toggle="collapse" data-parent="#accordion" href="#HJLib-panel">
                 High Level Construct Name
               </a>
             </h4>
           </div>
-          <div id="collapse2" class="panel-collapse collapse">
+          <div id="HJLib-panel" class="panel-collapse collapse">
             <div class="panel-body">
               <p>Description</p>
-              <div class="panel-group" id="accordion">
+              <div class="panel-group" id="accordion-panel">
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#collapse2" href="#collapse2-1">
+                      <a data-toggle="collapse" data-parent="#accordion-panel" href="#HJLib-panel-construct">
                           Construct Name <span style="float: right">HJ Name</span>
                       </a>
                     </h4>
                   </div>
-                  <div id="collapse2-1" class="panel-collapse collapse">
+                  <div id="HJLib-panel-construct" class="panel-collapse collapse">
                     <div class="panel-body">
                       <p>Description</p>
-                      <p><a href="#">Javadoc</a></p>
+                      <h5>Javadoc Link(s):</h5>
+                      <ul class="list-inline">
+                        <li><a href="#">Link 1</a></li>
+                        <li><a href="#">Link 2</a></li>
+                        <li><a href="#">Link 3</a></li>
+                      </ul>
                       <table class="table table-condensed">
                         <tr>
                           <th class="col-md-2">Method</th>
@@ -217,7 +225,7 @@
                       </table>
                       <h5>Used With:</h5>
                       <ul class="list-inline">
-                        <li><a href="#" id="anchorlink" data-toggle="collapse" data-target="#actor">Construct 1</a></li>
+                        <li><a href="#HJLib-actor-actor" id="anchorlink">Actor</a></li>
                         <li><a href="#">Construct 2</a></li>
                         <li><a href="#">Construct 3</a></li>
                       </ul>
