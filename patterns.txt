@@ -1,0 +1,44 @@
+Format of Tab IDs:
+No spaces, no dashes, no special characters.
+ex: Overview; HJLib; Java8
+
+Format of Category/Instruction IDs:
+<tab name>-<category name>
+ex: HJLib-Actor; InstallationGuide-MavenSetup
+
+Format of Construct IDs:
+<tab name>-<category name>-<construct name>
+ex: HJLib-Actor-Selector; Java8-AtomicVariables-AtomicLong
+
+
+NOTE: All <a> links should be the ID of target element
+
+---------------------------------------------------------------
+
+XML Tag		| What it should look like in HTML
+---------------------------------------------------------------
+tab 		| tab-pane divs inside one tab-content div (with navbar acting as tabs)
+category 	| panel div inside panel-group div with h4 panel-title
+construct 	| panel div inside panel-group div with h4 panel-title
+description | <p></p>
+javadoc		| <h5>Javadoc Link(s)</h5> followed by a <ul class="list-inline">
+method		| <table class="table table-condensed"> with <th> Method & Description
+			| followed by a series of <td>s.
+			| All <td> and <th> should have class="col-md-2"
+usedwith	| <h5>Used With</h5> followed by a <ul class="list-inline">
+link 		| Enclose specified text with <a href=""></a>
+instruction | panel div inside panel-group div with h4 panel-title
+step		| A <ol> list
+code 		| Enclose text element in <pre></pre>
+flag		| <table class="table table-condensed"> with <th> Flag & Description
+			| followed by a series of <td>s.
+			| All <td> and <th> should have class="col-md-2"
+quote		| Enclose text element in <blockquote><p></p></blockquote>
+question	| Enclose text element in <h5></h5> and add "Q: " to front.
+answer		| Enclose text element in <p></p> and add "A: " to front.
+img 		| Use <img src="..." class="img-responsive">
+list 		| Enclose name attribute in <h5></h5> and start a <ul></ul>
+item 		| Enclose text element in <li></li>
+op 			| <table class="table table-condensed"> with <th> Operation & Description
+			| followed by a series of <td>s.
+			| All <td> and <th> should have class="col-md-2"
