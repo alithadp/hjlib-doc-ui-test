@@ -252,6 +252,7 @@
         </div>
       </div>
     </div>
+    <!-- java 8 -->
     <div class="tab-pane" id="Java8">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -323,7 +324,75 @@
     <div class="tab-pane" id="EnvironmentConfiguration"></div>
     <div class="tab-pane" id="JavaProfiling"></div>
     <div class="tab-pane" id="CorrectnessPerformance"></div>
-    <div class="tab-pane" id="InstallationGuide"></div>
+    <!-- installation -->
+    <div class="tab-pane" id="InstallationGuide">
+      <div class="panel-group" id="installation-accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#installation-accordion" href="#installation-java8">
+                Java 8 Setup
+              </a>
+            </h4>
+          </div>
+          <div id="installation-java8" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ol>
+                <li>
+                  <p>You may already have Java 8 installed on your computer. To check whether you have Java 8 installed on your machine, go to the command line and type the following java -version. If you see something as follows:</p>
+                  <pre>$ java -version
+java version "1.8.0_25"
+Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.25-b02, mixed mode)</pre>
+                </li>
+                <li>
+                  <p>If the Java version shows 1.8.*, you already have Java 8 installed on your machine. If you do have Java 8 already installed on your machine, please skip to Maven setup. If you do not already have it installed, you will need a Java 8 installation on your machine and have your JAVA HOME and PATH point to the new installation. Java 8 can be downloaded and installed from the <a href="https://www.google.com/url?q=https%3A%2F%2Fjdk8.java.net%2Fdownload.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNFlsqVvnoz-qITcoDkNupatvNqr6Q" target="_blank">Oracle website</a>.</p>
+                  <blockquote>
+                    <p>
+                      For Macs: To set up environment variables on your machine, a .bash_profile needs to be created and edited; please refer to <a href="http://www.google.com/url?q=http%3A%2F%2Fhathaway.cc%2Fpost%2F69201163472%2Fhow-to-edit-your-path-environment-variables-on-mac&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNHbLR1sjYCFd-d7leAp4Sq526997A" target="_blank">this website</a> for instructions. Here is an example of what should be on your machine’s .bash_profile:
+                        <pre>JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
+export JAVA_HOME=${JAVA8_HOME}
+export PATH=$JAVA_HOME/bin:$PATH</pre>
+                    </p>
+                  </blockquote>
+                  <blockquote>
+                    <p>
+                      For Windows: To set up environment variables on your machine, please refer to <a href="http://www.google.com/url?q=http%3A%2F%2Fwww.computerhope.com%2Fissues%2Fch000549.htm&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNEgjd6yBvzOSImlIE9icZz6SwVLRQ" target="_blank">this website</a>.
+                    </p>
+                  </blockquote>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#installation-accordion" href="#installation-maven">
+                Maven Setup
+              </a>
+            </h4>
+          </div>
+          <div id="installation-maven" class="panel-collapse collapse">
+            <div class="panel-body">
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#installation-accordion" href="#installation-hjlib">
+                HJ-Lib Setup
+              </a>
+            </h4>
+          </div>
+          <div id="installation-hjlib" class="panel-collapse collapse">
+            <div class="panel-body">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="tab-pane" id="FAQs"></div>
     </div>
 

@@ -2,6 +2,10 @@ body {
 	padding-top: 20px;
 }
 
+blockquote p {
+	font-size: 14px;
+}
+
 .tab-content {
 	padding: 40px 70px;
 }
