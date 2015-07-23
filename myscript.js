@@ -11,7 +11,6 @@ $(document).ready(function () {
 
 function goToLink(link) {
 	hashtag = link.replace("#", "").split("-");
-	alert(hashtag);
 
 	// Show tab
 	$('.navbar a[href="#' + hashtag[0] + '"]').tab('show');
