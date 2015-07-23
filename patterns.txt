@@ -11,7 +11,8 @@ Format of Construct IDs:
 ex: HJLib-Actor-Selector; Java8-AtomicVariables-AtomicLong
 
 
-NOTE: All <a> links should be the ID of target element
+NOTE: All <a> internal links should be the ID of target element.
+	  Additionally, these internal links should have class="anchorlink"
 
 ---------------------------------------------------------------
 
