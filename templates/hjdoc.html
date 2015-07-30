@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang = "en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:py="http://genshi.edgewall.org/">
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>HJ-Lib Documentation</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
+
+    <!-- CSS custom style sheet -->
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"></link>
+  </head>
+
+  <body>
+    <!-- tabs -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img alt="Brand" src="https://wiki.rice.edu/confluence/download/attachments/4425835/habanero.png?version=1&amp;modificationDate=1312519609464&amp;api=v2" height="25" style="padding-left: 10px; padding-right: 10px;"></img>
+          </a>
+        </div>        
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#Overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
+            <li><a href="#HJLib" data-toggle="tab">HJ-Lib</a></li>
+            <li><a href="#Java8" data-toggle="tab">Java 8</a></li>
+            <li><a href="#MPI" data-toggle="tab">MPI</a></li>
+            <li class="dropdown">
+              <a href="#Setup" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#InstallationGuide" data-toggle="tab">Installation Guide</a></li>
+                <li><a href="#EnvironmentConfiguration" data-toggle="tab">Environment &amp; Configuration</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#Tools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#CorrectnessPerformance" data-toggle="tab">Correctness &amp; Performance Tools</a></li>
+                <li><a href="#JavaProfiling" data-toggle="tab">Java Profiling</a></li>
+              </ul>
+            </li>
+            <li><a href="#FAQs" data-toggle="tab">FAQs</a></li>
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="i.e. async"/>
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- overview -->
+    <div class="tab-content">
+    <div class="tab-pane active" id="Overview">
+      <h3>Unit 1: Task-level Parallelism</h3>
+      <div class="list-group">
+        <a href="#" class="list-group-item">Async</a>
+        <a href="#" class="list-group-item">Finish</a>
+      </div>
+      <h3>Unit 2: Functional Parallelism</h3>
+      <div class="list-group">
+        <a href="#" class="list-group-item">Future</a>
+        <a href="#" class="list-group-item">Finish Accumulators</a>
+      </div>
+      <h3>Unit 3: Loop-level Parallelism</h3>
+      <div class="list-group">
+        <a href="#" class="list-group-item">ForAll</a>
+        <a href="#" class="list-group-item">ForallChunked</a>
+        <a href="#" class="list-group-item">ForallPhased</a>
+        <a href="#" class="list-group-item">Next</a>
+        <a href="#" class="list-group-item">Barriers</a>
+        <a href="#" class="list-group-item">HjRegion</a>
+      </div>
+    </div>
+
+    <!-- hj-lib -->
+    <py:for each="tab in tabs">
+    <div class="tab-pane" id="${tab.name}">
+      <div class="panel-group" id="${tab.name}accordion">
+        <py:for each="category in tab.categoryList">
+          <!-- change to iterate over categories -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="${tab.name}accordion" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}">
+                  ${category.name}
+                </a>
+              </h4>
+            </div>
+            <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}">
+              <div class="panel-body">             
+                <p>${category.description}</p>
+                <py:for each="construct in category.constructs">
+                <div class="panel-group" id="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','-').replace('(','-').replace(')','').split('&lt;',1)[0]}">
+                            ${construct.name} <span style="float: right">${construct.javaname}</span>
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','-').replace('(','-').replace(')','').split('&lt;',1)[0]}" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>${construct.description}</p>
+                        <p>Javadoc Link(s):          
+                          <ul class="list-inline">
+                            <py:for each="javadoc in construct.javadocs">
+                              <li><a href="${javadoc.link}">${javadoc.name}</a></li>
+                            </py:for>
+                          </ul>
+                        </p>
+                        <py:if test="construct.methods">
+                          <table class="table table-condensed">
+                            <tr>
+                              <th class="col-md-2">Method</th>
+                              <th class="col-md-2">Description</th>
+                            </tr>
+                            <py:for each="method in construct.methods">
+                              <tr>
+                                <td class="col-md-2">${method.method}</td>
+                                <td class="col-md-2">${method.description}</td>
+                              </tr>
+                            </py:for>
+                          </table>
+                        </py:if>
+                        <py:if test="construct.usedwith">
+                          <h5>Used With:</h5>
+                          <ul class="list-inline">
+                            <py:for each="usedwith in construct.usedwith">
+                              <li><a href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}-${usedwith.lower().replace(' ','').replace('/','-').replace('(','-').replace(')','').split('&lt;',1)[0]}">${usedwith}</a></li>
+                            </py:for>
+                          </ul>
+                        </py:if>
+                        <h5>Related Constructs:</h5>
+                        <dl class="dl-horizontal">
+                          <dt><a href="#">N/A</a></dt>
+                          <dd>Will be filled in future</dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </py:for>
+              </div>
+            </div>
+          </div>
+        </py:for>
+      </div>
+    </div>
+    </py:for>
+    <div class="tab-pane" id="Java8"></div>
+    <div class="tab-pane" id="MPI"></div>
+    <div class="tab-pane" id="EnvironmentConfiguration"></div>
+    <div class="tab-pane" id="JavaProfiling"></div>
+    <div class="tab-pane" id="CorrectnessPerformance"></div>
+    <div class="tab-pane" id="InstallationGuide"></div>
+    <div class="tab-pane" id="FAQs"></div>
+    </div>
+
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Documentation built by Alitha Partono and Marie Hoeger.</p>
+      </div>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="myscript.js"></script>
+  </body>
+</html>
