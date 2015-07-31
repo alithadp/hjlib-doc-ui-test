@@ -3,6 +3,7 @@ import os
 import dataclasses as data
 import xml.etree.ElementTree as ET
 
+categoryToTab = {}
 constructToCategory = {}
 javaToConstruct = {}
 
@@ -100,9 +101,10 @@ def getCategoryList(filename, tabname, relatedconstructs):
 					elif name in key[1] or javaname in key[1]:
 						construct.related[key[0]] = relatedconstructs[key]
 				newCat.addConstruct(construct)
-				javaToConstruct[construct.javaname] = construct.name
+				if javaname != "":
+					javaToConstruct[construct.javaname] = construct.name
 				constructToCategory[construct.name] = newCat.name
-				print construct.related
+		categoryToTab[newCat.name] = tabname
 		categoryList.append(newCat)
 	return data.Tab(tabname, categoryList)
 
@@ -119,7 +121,7 @@ def makeHTML():
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs
 	#testCat = data.getTestCategories()
-	stream = tmpl.generate(tabs=testCat, constructToCategory=constructToCategory, javaToConstruct=javaToConstruct)
+	stream = tmpl.generate(tabs=testCat, constructToCategory=constructToCategory, javaToConstruct=javaToConstruct, categoryToTab=categoryToTab)
 	f = open("test.html", "w")
 	out = stream.render('html', doctype='html')
 	f.write(out)

@@ -85,15 +85,15 @@
     <!-- hj-lib -->
     <py:for each="tab in tabs">
     <?python
-      def getID(tabname, name):
+      def getID(name):
         id = ""
         if name in constructToCategory:
-          id = tabname + "-" + stripChars(constructToCategory[name]) + "-" + stripChars(name)
+          id = categoryToTab[constructToCategory[name]] + "-" + stripChars(constructToCategory[name]) + "-" + stripChars(name)
         elif name in javaToConstruct:
           newname = javaToConstruct[name]
-          id = tabname + "-" + stripChars(constructToCategory[newname]) + "-" + stripChars(newname)
-        else:
-          id = tabname + "-" + stripChars(name)
+          id = categoryToTab[constructToCategory[newname]] + "-" + stripChars(constructToCategory[newname]) + "-" + stripChars(newname)
+        elif name in categoryToTab:
+          id = categoryToTab[name] + "-" + stripChars(name)
         return id
 
       def stripChars(text):
@@ -110,12 +110,12 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion-${tab.name}" href="#${getID(tab.name, category.name)}">
+                <a data-toggle="collapse" data-parent="#accordion-${tab.name}" href="#${getID(category.name)}">
                   ${category.name}
                 </a>
               </h4>
             </div>
-            <div id="${getID(tab.name, category.name)}" class="panel-collapse collapse">
+            <div id="${getID(category.name)}" class="panel-collapse collapse">
               <div class="panel-body">             
                 <p>${category.description}</p>
                 <div class="panel-group" id="accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}">
@@ -123,12 +123,12 @@
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" href="#${getID(tab.name, construct.name)}">
+                        <a data-toggle="collapse" data-parent="#accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" href="#${getID(construct.name)}">
                             ${construct.name} <span style="float: right">${construct.javaname}</span>
                         </a>
                       </h4>
                     </div>
-                    <div id="${getID(tab.name, construct.name)}" class="panel-collapse collapse">
+                    <div id="${getID(construct.name)}" class="panel-collapse collapse">
                       <div class="panel-body">
                         <p>${construct.description}</p>
                         <p>Javadoc Link(s):          
@@ -156,7 +156,7 @@
                           <h5>Used With:</h5>
                           <ul class="list-inline">
                             <py:for each="usedwith in construct.usedwith">
-                              <li><a href="#${getID(tab.name, usedwith)}" class="anchorlink">${usedwith}</a></li>
+                              <li><a href="#${getID(usedwith)}" class="anchorlink">${usedwith}</a></li>
                             </py:for>
                           </ul>
                         </py:if>
@@ -164,8 +164,8 @@
                           <h5>Related Constructs:</h5>
                           <dl class="dl-horizontal">
                             <py:for each="key in construct.related">
-                              <dt><a href="#">${key}</a></dt>
-                              <dd>${construct.related[key]}<!--Note here--></dd>
+                              <dt><a href="#${getID(key)}" class="anchorlink">${key}</a></dt>
+                              <dd>${construct.related[key]}</dd>
                             </py:for>
                           </dl>
                         </py:if>

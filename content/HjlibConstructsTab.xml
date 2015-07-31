@@ -60,7 +60,7 @@
 			<usedwith>newCountEureka</usedwith>
 			<usedwith>newTimerEureka</usedwith>
 		</construct>
-		<construct name="Finish Eureka" java="finish (eureka)">
+		<construct name="Finish Eureka" java="finish(eureka)">
 			<description>Creates a new finish scope that is registered to a eureka object. A finish eureka guarantees that all spawned asyncs and futures enclosed in the statements scope have terminated, either by completing execution or by a resolved eureka.</description>
 			<javadoc name="finish">http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/experimental/ModuleZ.html#finish-edu.rice.hj.experimental.api.HjEureka-edu.rice.hj.api.HjSuspendable-</javadoc>
 			<usedwith>HjEureka</usedwith>

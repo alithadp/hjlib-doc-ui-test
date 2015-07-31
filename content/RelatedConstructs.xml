@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <relatedconstructs>
 	<pair>
-		<thing>Actor &lt;Message_Type&gt;</thing>
-		<thing>Selector &lt;Message_Type&gt;</thing>
+		<thing>Actor&lt;Message_Type&gt;</thing>
+		<thing>Selector&lt;Message_Type&gt;</thing>
 		<note>A selector has multiple mailboxes, while an actor only has one.</note>
 	</pair>
 	<pair>
@@ -32,8 +32,8 @@
 	</pair>
 	<pair>
 		<thing>finish</thing>
-		<thing>finish(accum_1, ...)</thing>
-		<note>A finish (accum_1, ...) has finish accumulators registered to its scope, while a finish does not. If a finish contains finish accumulators within its scope, they should be registered.</note>
+		<thing>finish(accum)</thing>
+		<note>A finish (accum) has finish accumulators registered to its scope, while a finish does not. If a finish contains finish accumulators within its scope, they should be registered.</note>
 	</pair>
 	<pair>
 		<thing>finish</thing>
