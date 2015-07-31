@@ -7,8 +7,6 @@ constructToCategory = {}
 javaToConstruct = {}
 
 def findNodesViaTag(root, tag):
-	if tag == "javaname":
-		print "-",root.tag
 	# return self if tag matches
 	if root.tag == tag:
 		return [root]
@@ -45,7 +43,6 @@ def getUsedWith(node):
 	items = []
 	for node in usedWithNodes:
 		items.append(node.text)
-	print items
 	return items
 
 def getMethods(node):
@@ -70,8 +67,7 @@ def getCategoryList(filename, tabname, hjlib):
 	# add categories
 	for node in categoryNodelist:
 		description = findNodesViaTag(node, "description")
-		newCat = data.Category(getAttribute(node, "name"), description[0].text)
-		print newCat.name, newCat.description
+		newCat = data.Category(getAttribute(node, “name”), description[0].text)
 
 		# add constructs to category
 		constructs = findNodesViaTag(node, "construct")
@@ -81,7 +77,6 @@ def getCategoryList(filename, tabname, hjlib):
 				"""
 				if hjlib:
 					name = getAttribute(constructNode, 1)
-					print name, "~~~~~", javaname
 					construct = data.Construct(name, getDescription(constructNode))
 					construct.javaname = javaname
 				else: 
@@ -94,9 +89,6 @@ def getCategoryList(filename, tabname, hjlib):
 				construct.methods += getMethods(constructNode)
 				construct.usedwith += getUsedWith(constructNode)
 				construct.javadocs += getLinks(constructNode)
-				print construct.name, construct.description
-				print construct.usedwith
-				print "=="
 				newCat.addConstruct(construct)
 				javaToConstruct[construct.javaname] = construct.name
 				constructToCategory[construct.name] = newCat.name
@@ -111,7 +103,6 @@ def makeHTML():
 	tabs = []
 	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", True))
 	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", False))
-	print tabs
 
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs
