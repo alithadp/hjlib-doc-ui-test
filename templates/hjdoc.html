@@ -98,7 +98,7 @@
         return id
 
       def stripChars(text):
-        chars = [' ', '/', '(s)', '-', '(', ')']
+        chars = [' ', '/', '(s)', '-', '(', ')', '<', '>']
         for c in chars:
           text = text.replace(c, '')
         return text.lower()
