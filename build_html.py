@@ -96,9 +96,9 @@ def getCategoryList(filename, tabname, relatedconstructs):
 				construct.usedwith += getUsedWith(constructNode)
 				construct.javadocs += getLinks(constructNode)
 				for key in relatedconstructs:
-					if name in key[0] or javaname in key[0]:
+					if name in key[0] or (javaname != "" and javaname in key[0]):
 						construct.related[key[1]] = relatedconstructs[key]
-					elif name in key[1] or javaname in key[1]:
+					elif name in key[1] or (javaname != "" and javaname in key[1]):
 						construct.related[key[0]] = relatedconstructs[key]
 				newCat.addConstruct(construct)
 				if javaname != "":
@@ -114,9 +114,12 @@ def makeHTML():
 	    auto_reload=True
 	)
 	relatedConstructsList = getRelatedConstructs()
+
 	tabs = []
 	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", relatedConstructsList))
 	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", relatedConstructsList))
+	print "------"
+	print relatedConstructsList
 
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs
