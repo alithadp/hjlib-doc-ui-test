@@ -3,6 +3,8 @@ import os
 import dataclasses as data
 import xml.etree.ElementTree as ET
 
+constructToCategory = {}
+
 def findNodesViaTag(root, tag):
 	if tag == "javaname":
 		print "-",root.tag
@@ -89,6 +91,7 @@ def getCategoryList(filename, tabname, hjlib):
 				print construct.usedwith
 				print "=="
 				newCat.addConstruct(construct)
+				constructToCategory[construct.javaname] = newCat.name
 		categoryList.append(newCat)
 	return data.Tab(tabname, categoryList)
 
@@ -101,11 +104,12 @@ def makeHTML():
 	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", True))
 	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", False))
 	print tabs
+	print constructToCategory
 
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs
 	#testCat = data.getTestCategories()
-	stream = tmpl.generate(tabs=testCat)
+	stream = tmpl.generate(tabs=testCat, constructlist=constructToCategory)
 	f = open("test.html", "w")
 	out = stream.render('html', doctype='html')
 	f.write(out)

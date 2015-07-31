@@ -134,10 +134,17 @@
                           </table>
                         </py:if>
                         <py:if test="construct.usedwith">
+                          <?python
+                            def getID(tabname, name):
+                              if name in constructlist:
+                                return tabname + "-" + constructlist[name].lower().replace(' ','').replace('/','').replace('(s)','s') + "-" + name.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]
+                              else:
+                                return tabname + "-" + name.lower().replace(' ','').replace('/','').replace('(s)','s')
+                          ?>
                           <h5>Used With:</h5>
                           <ul class="list-inline">
                             <py:for each="usedwith in construct.usedwith">
-                              <li><a href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}-${usedwith.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]}" class="anchorlink">${usedwith}</a></li>
+                              <li><a href="#${getID(tab.name, usedwith)}" class="anchorlink">${usedwith}</a></li>
                             </py:for>
                           </ul>
                         </py:if>
