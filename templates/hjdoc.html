@@ -118,8 +118,8 @@
             <div id="${getID(tab.name, category.name)}" class="panel-collapse collapse">
               <div class="panel-body">             
                 <p>${category.description}</p>
-                <py:for each="construct in category.constructs">
                 <div class="panel-group" id="accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}">
+                  <py:for each="construct in category.constructs">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h4 class="panel-title">
@@ -168,8 +168,8 @@
                       </div>
                     </div>
                   </div>
+                  </py:for>
                 </div>
-              </py:for>
               </div>
             </div>
           </div>

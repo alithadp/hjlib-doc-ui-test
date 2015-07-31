@@ -67,21 +67,13 @@ def getCategoryList(filename, tabname, hjlib):
 	# add categories
 	for node in categoryNodelist:
 		description = findNodesViaTag(node, "description")
-		newCat = data.Category(getAttribute(node, “name”), description[0].text)
+		newCat = data.Category(getAttribute(node, "name"), description[0].text)
 
 		# add constructs to category
 		constructs = findNodesViaTag(node, "construct")
 		for constructNode in constructs:
 			if type(constructNode) is not list:
 				javaname = getAttribute(constructNode, "java")
-				"""
-				if hjlib:
-					name = getAttribute(constructNode, 1)
-					construct = data.Construct(name, getDescription(constructNode))
-					construct.javaname = javaname
-				else: 
-					construct = data.Construct(javaname, getDescription(constructNode))
-				"""
 				name = getAttribute(constructNode, "name")
 				print name, "~~~~~", javaname
 				construct = data.Construct(name, getDescription(constructNode))
