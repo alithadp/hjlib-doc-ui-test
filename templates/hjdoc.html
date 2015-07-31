@@ -85,31 +85,31 @@
     <!-- hj-lib -->
     <py:for each="tab in tabs">
     <div class="tab-pane" id="${tab.name}">
-      <div class="panel-group" id="${tab.name}accordion">
+      <div class="panel-group" id="accordion">
         <py:for each="category in tab.categoryList">
           <!-- change to iterate over categories -->
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="${tab.name}accordion" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}">
+                <a data-toggle="collapse" data-parent="#accordion" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}">
                   ${category.name}
                 </a>
               </h4>
             </div>
-            <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}" class="panel-collapse collapse">
+            <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" class="panel-collapse collapse">
               <div class="panel-body">             
                 <p>${category.description}</p>
                 <py:for each="construct in category.constructs">
-                <div class="panel-group" id="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}">
+                <div class="panel-group" id="accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','-').replace('(','-').replace(')','').split('&lt;',1)[0]}">
+                        <a data-toggle="collapse" data-parent="#accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]}">
                             ${construct.name} <span style="float: right">${construct.javaname}</span>
                         </a>
                       </h4>
                     </div>
-                    <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','-').replace('(','-').replace(')','').split('&lt;',1)[0]}" class="panel-collapse collapse">
+                    <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]}" class="panel-collapse collapse">
                       <div class="panel-body">
                         <p>${construct.description}</p>
                         <p>Javadoc Link(s):          
@@ -137,7 +137,7 @@
                           <h5>Used With:</h5>
                           <ul class="list-inline">
                             <py:for each="usedwith in construct.usedwith">
-                              <li><a href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','-').replace('(s)','s')}-${usedwith.lower().replace(' ','').replace('/','-').replace('(','-').replace(')','').split('&lt;',1)[0]}">${usedwith}</a></li>
+                              <li><a href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}-${usedwith.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]}" class="anchorlink">${usedwith}</a></li>
                             </py:for>
                           </ul>
                         </py:if>
@@ -171,7 +171,7 @@
     <!-- footer -->
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Documentation built by Alitha Partono and Marie Hoeger.</p>
+        <p class="text-muted">Documentation built by Alitha Partono and Marie Hoeger using <a href="http://getbootstrap.com">Twitter Bootstrap</a> and <a href="http://genshi.edgewall.org">Genshi</a>.</p>
       </div>
     </footer>
 
