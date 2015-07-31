@@ -84,6 +84,25 @@
 
     <!-- hj-lib -->
     <py:for each="tab in tabs">
+    <?python
+      def getID(tabname, name):
+        id = ""
+        if name in constructToCategory:
+          id = tabname + "-" + stripChars(constructToCategory[name]) + "-" + stripChars(name).split('&lt;',1)[0]
+        elif name in javaToConstruct:
+          newname = javaToConstruct[name]
+          id = tabname + "-" + stripChars(constructToCategory[newname]) + "-" + stripChars(newname).split('&lt;',1)[0]
+        else:
+          id = tabname + "-" + stripChars(name)
+        print id
+        return id
+
+      def stripChars(text):
+        chars = [' ', '/', '(s)', '-', '(', ')']
+        for c in chars:
+          text = text.replace(c, '')
+        return text.lower()
+    ?>
     <div class="tab-pane" id="${tab.name}">
       <div class="panel-group" id="accordion">
         <py:for each="category in tab.categoryList">
@@ -91,12 +110,12 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}">
+                <a data-toggle="collapse" data-parent="#accordion" href="#${getID(tab.name, category.name)}">
                   ${category.name}
                 </a>
               </h4>
             </div>
-            <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" class="panel-collapse collapse">
+            <div id="${getID(tab.name, category.name)}" class="panel-collapse collapse">
               <div class="panel-body">             
                 <p>${category.description}</p>
                 <py:for each="construct in category.constructs">
@@ -104,12 +123,12 @@
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" href="#${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]}">
+                        <a data-toggle="collapse" data-parent="#accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" href="#${getID(tab.name, construct.name)}">
                             ${construct.name} <span style="float: right">${construct.javaname}</span>
                         </a>
                       </h4>
                     </div>
-                    <div id="${tab.name}-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}-${construct.javaname.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]}" class="panel-collapse collapse">
+                    <div id="${getID(tab.name, construct.name)}" class="panel-collapse collapse">
                       <div class="panel-body">
                         <p>${construct.description}</p>
                         <p>Javadoc Link(s):          
@@ -134,13 +153,6 @@
                           </table>
                         </py:if>
                         <py:if test="construct.usedwith">
-                          <?python
-                            def getID(tabname, name):
-                              if name in constructlist:
-                                return tabname + "-" + constructlist[name].lower().replace(' ','').replace('/','').replace('(s)','s') + "-" + name.lower().replace(' ','').replace('/','').replace('(','').replace(')','').split('&lt;',1)[0]
-                              else:
-                                return tabname + "-" + name.lower().replace(' ','').replace('/','').replace('(s)','s')
-                          ?>
                           <h5>Used With:</h5>
                           <ul class="list-inline">
                             <py:for each="usedwith in construct.usedwith">
@@ -165,7 +177,6 @@
       </div>
     </div>
     </py:for>
-    <div class="tab-pane" id="Java8"></div>
     <div class="tab-pane" id="MPI"></div>
     <div class="tab-pane" id="EnvironmentConfiguration"></div>
     <div class="tab-pane" id="JavaProfiling"></div>
