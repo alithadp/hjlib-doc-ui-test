@@ -88,29 +88,29 @@
       def getID(tabname, name):
         id = ""
         if name in constructToCategory:
-          id = tabname + "-" + stripChars(constructToCategory[name]) + "-" + stripChars(name).split('&lt;',1)[0]
+          id = tabname + "-" + stripChars(constructToCategory[name]) + "-" + stripChars(name)
         elif name in javaToConstruct:
           newname = javaToConstruct[name]
-          id = tabname + "-" + stripChars(constructToCategory[newname]) + "-" + stripChars(newname).split('&lt;',1)[0]
+          id = tabname + "-" + stripChars(constructToCategory[newname]) + "-" + stripChars(newname)
         else:
           id = tabname + "-" + stripChars(name)
-        print id
         return id
 
       def stripChars(text):
         chars = [' ', '/', '(s)', '-', '(', ')']
         for c in chars:
           text = text.replace(c, '')
-        return text.lower()
+        
+        return text.lower().split('<',1)[0]
     ?>
     <div class="tab-pane" id="${tab.name}">
-      <div class="panel-group" id="accordion">
+      <div class="panel-group" id="accordion-${tab.name}">
         <py:for each="category in tab.categoryList">
           <!-- change to iterate over categories -->
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#${getID(tab.name, category.name)}">
+                <a data-toggle="collapse" data-parent="#accordion-${tab.name}" href="#${getID(tab.name, category.name)}">
                   ${category.name}
                 </a>
               </h4>

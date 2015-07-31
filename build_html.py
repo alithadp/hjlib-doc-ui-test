@@ -22,9 +22,9 @@ def findNodesViaTag(root, tag):
 			matches += findNodesViaTag(child, tag)
 	return matches
 
-def getAttribute(node, index=0):
-    if len(node.attrib) > 0:
-        attrib = node.attrib.values()[index]
+def getAttribute(node, key):
+    if key in node.attrib:
+        attrib = node.attrib[key]
     else:
         attrib = ""
     return str(attrib)
@@ -35,7 +35,7 @@ def getLinks(node):
 		return []
 	links = []
 	for node in linkNodes:
-		links.append(data.Link(getAttribute(node), node.text))
+		links.append(data.Link(getAttribute(node, "name"), node.text))
 	return links
 
 def getUsedWith(node):
@@ -54,7 +54,7 @@ def getMethods(node):
 	if methodNodes == []:
 		return []
 	for mynode in methodNodes:
-		methodList.append(data.Method(getAttribute(mynode), mynode.text))
+		methodList.append(data.Method(getAttribute(mynode, "name"), mynode.text))
 	return methodList
 
 def getDescription(node):
@@ -70,14 +70,15 @@ def getCategoryList(filename, tabname, hjlib):
 	# add categories
 	for node in categoryNodelist:
 		description = findNodesViaTag(node, "description")
-		newCat = data.Category(getAttribute(node), description[0].text)
+		newCat = data.Category(getAttribute(node, "name"), description[0].text)
 		print newCat.name, newCat.description
 
 		# add constructs to category
 		constructs = findNodesViaTag(node, "construct")
 		for constructNode in constructs:
 			if type(constructNode) is not list:
-				javaname = getAttribute(constructNode)
+				javaname = getAttribute(constructNode, "java")
+				"""
 				if hjlib:
 					name = getAttribute(constructNode, 1)
 					print name, "~~~~~", javaname
@@ -85,6 +86,11 @@ def getCategoryList(filename, tabname, hjlib):
 					construct.javaname = javaname
 				else: 
 					construct = data.Construct(javaname, getDescription(constructNode))
+				"""
+				name = getAttribute(constructNode, "name")
+				print name, "~~~~~", javaname
+				construct = data.Construct(name, getDescription(constructNode))
+				construct.javaname = javaname
 				construct.methods += getMethods(constructNode)
 				construct.usedwith += getUsedWith(constructNode)
 				construct.javadocs += getLinks(constructNode)
