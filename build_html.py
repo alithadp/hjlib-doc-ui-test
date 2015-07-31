@@ -58,7 +58,20 @@ def getDescription(node):
 	description = findNodesViaTag(node, "description")
 	return description[0].text
 
-def getCategoryList(filename, tabname, hjlib):
+def getRelatedConstructs():
+	tree = ET.parse('content/RelatedConstructs.xml')
+	root = tree.getroot()
+	pairNodeList = findNodesViaTag(root, "pair")
+	relatedConstructsList = {}
+
+	for node in pairNodeList:
+		constructs = findNodesViaTag(node, "thing")
+		note = findNodesViaTag(node, "note")
+		relatedConstructsList[(constructs[0].text, constructs[1].text)] = note[0].text
+
+	return relatedConstructsList
+
+def getCategoryList(filename, tabname, relatedconstructs):
 	tree = ET.parse(filename)
 	root = tree.getroot()
 	categoryNodelist = findNodesViaTag(root, "category")
@@ -81,9 +94,15 @@ def getCategoryList(filename, tabname, hjlib):
 				construct.methods += getMethods(constructNode)
 				construct.usedwith += getUsedWith(constructNode)
 				construct.javadocs += getLinks(constructNode)
+				for key in relatedconstructs:
+					if name in key[0] or javaname in key[0]:
+						construct.related[key[1]] = relatedconstructs[key]
+					elif name in key[1] or javaname in key[1]:
+						construct.related[key[0]] = relatedconstructs[key]
 				newCat.addConstruct(construct)
 				javaToConstruct[construct.javaname] = construct.name
 				constructToCategory[construct.name] = newCat.name
+				print construct.related
 		categoryList.append(newCat)
 	return data.Tab(tabname, categoryList)
 
@@ -92,9 +111,10 @@ def makeHTML():
 	    os.path.join(os.path.dirname(__file__), 'templates'),
 	    auto_reload=True
 	)
+	relatedConstructsList = getRelatedConstructs()
 	tabs = []
-	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", True))
-	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", False))
+	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", relatedConstructsList))
+	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", relatedConstructsList))
 
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs

@@ -20,6 +20,7 @@ class Construct:
 		self.javadocs = []
 		self.usedwith = []
 		self.methods = []
+		self.related = {}
 
 	def addLink(self, link):
 		self.javadocs.append(link)

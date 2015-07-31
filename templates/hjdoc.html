@@ -160,11 +160,15 @@
                             </py:for>
                           </ul>
                         </py:if>
-                        <h5>Related Constructs:</h5>
-                        <dl class="dl-horizontal">
-                          <dt><a href="#">N/A</a></dt>
-                          <dd>Will be filled in future</dd>
-                        </dl>
+                        <py:if test="construct.related">
+                          <h5>Related Constructs:</h5>
+                          <dl class="dl-horizontal">
+                            <py:for each="key in construct.related">
+                              <dt><a href="#">${key}</a></dt>
+                              <dd>${construct.related[key]}<!--Note here--></dd>
+                            </py:for>
+                          </dl>
+                        </py:if>
                       </div>
                     </div>
                   </div>
