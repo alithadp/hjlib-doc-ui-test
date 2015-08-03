@@ -58,32 +58,8 @@
       </div>
     </nav>
 
-    <!-- overview -->
+    
     <div class="tab-content">
-    <div class="tab-pane active" id="Overview">
-      <h3>Unit 1: Task-level Parallelism</h3>
-      <div class="list-group">
-        <a href="#" class="list-group-item">Async</a>
-        <a href="#" class="list-group-item">Finish</a>
-      </div>
-      <h3>Unit 2: Functional Parallelism</h3>
-      <div class="list-group">
-        <a href="#" class="list-group-item">Future</a>
-        <a href="#" class="list-group-item">Finish Accumulators</a>
-      </div>
-      <h3>Unit 3: Loop-level Parallelism</h3>
-      <div class="list-group">
-        <a href="#" class="list-group-item">ForAll</a>
-        <a href="#" class="list-group-item">ForallChunked</a>
-        <a href="#" class="list-group-item">ForallPhased</a>
-        <a href="#" class="list-group-item">Next</a>
-        <a href="#" class="list-group-item">Barriers</a>
-        <a href="#" class="list-group-item">HjRegion</a>
-      </div>
-    </div>
-
-    <!-- hj-lib -->
-    <py:for each="tab in tabs">
     <?python
       def getID(name):
         id = ""
@@ -102,8 +78,27 @@
           text = text.replace(c, '')
         
         return text.lower().split('<',1)[0]
+
+      def isActive(tabname):
+        if tabname == "Overview":
+          return "tab-pane active"
+        else:
+          return "tab-pane"
     ?>
-    <div class="tab-pane" id="${tab.name}">
+    <py:for each="tab in tabs">
+    <div class="${isActive(tab.name)}" id="${tab.name}">
+      <py:choose test="">
+      <py:when test="tab.listDictionary != []">
+        <py:for each="listpair in tab.listDictionary">
+          <h3>${listpair[0]}</h3>
+          <div class="list-group">
+            <py:for each="item in listpair[1]">
+              <a href="#${getID(item)}" class="list-group-item anchorlink">${item}</a>
+            </py:for>
+          </div>
+        </py:for>
+      </py:when>
+      <py:when test="tab.categoryList != []">
       <div class="panel-group" id="accordion-${tab.name}">
         <py:for each="category in tab.categoryList">
           <!-- change to iterate over categories -->
@@ -179,14 +174,17 @@
           </div>
         </py:for>
       </div>
+      </py:when>
+      </py:choose>
     </div>
     </py:for>
-    <div class="tab-pane" id="MPI"></div>
-    <div class="tab-pane" id="EnvironmentConfiguration"></div>
-    <div class="tab-pane" id="JavaProfiling"></div>
-    <div class="tab-pane" id="CorrectnessPerformance"></div>
-    <div class="tab-pane" id="InstallationGuide"></div>
-    <div class="tab-pane" id="FAQs"></div>
+    
+    <div class="tab-pane" id="MPI"><p>This page is underconstruction</p></div>
+    <div class="tab-pane" id="EnvironmentConfiguration"><p>This page is underconstruction</p></div>
+    <div class="tab-pane" id="JavaProfiling"><p>This page is underconstruction</p></div>
+    <div class="tab-pane" id="CorrectnessPerformance"><p>This page is underconstruction</p></div>
+    <div class="tab-pane" id="InstallationGuide"><p>This page is underconstruction</p></div>
+    <div class="tab-pane" id="FAQs"><p>This page is underconstruction</p></div>
     </div>
 
 

@@ -22,11 +22,12 @@ def findNodesViaTag(root, tag):
 	return matches
 
 def getAttribute(node, key):
-    if key in node.attrib:
-        attrib = node.attrib[key]
-    else:
-        attrib = ""
-    return str(attrib)
+	if key in node.attrib:
+		attrib = node.attrib[key]
+	else:
+		attrib = ""
+
+	return str(attrib)
 
 def getLinks(node):
 	linkNodes = findNodesViaTag(node, "javadoc")
@@ -59,6 +60,15 @@ def getDescription(node):
 	description = findNodesViaTag(node, "description")
 	return description[0].text
 
+def getList(node):
+	name = getAttribute(node, 'name')
+	items = []
+	itemNodes = findNodesViaTag(node, "item")
+	for node in itemNodes:
+		items.append(node.text)
+	
+	return (name, items)
+
 def getRelatedConstructs():
 	tree = ET.parse('content/RelatedConstructs.xml')
 	root = tree.getroot()
@@ -71,6 +81,20 @@ def getRelatedConstructs():
 		relatedConstructsList[(constructs[0].text, constructs[1].text)] = note[0].text
 
 	return relatedConstructsList
+
+def getListGroup(filename, tabname):
+	tree = ET.parse(filename)
+	root = tree.getroot()
+	listNodes = findNodesViaTag(root, "list")
+	myLists = []
+
+	for node in listNodes:
+		myLists.append(getList(node))
+
+	print "Overview: " + str(myLists)
+
+	return data.Tab(tabname, myLists, [])
+
 
 def getCategoryList(filename, tabname, relatedconstructs):
 	tree = ET.parse(filename)
@@ -106,7 +130,7 @@ def getCategoryList(filename, tabname, relatedconstructs):
 				constructToCategory[construct.name] = newCat.name
 		categoryToTab[newCat.name] = tabname
 		categoryList.append(newCat)
-	return data.Tab(tabname, categoryList)
+	return data.Tab(tabname, [], categoryList)
 
 def makeHTML():
 	loader = TemplateLoader(
@@ -116,10 +140,9 @@ def makeHTML():
 	relatedConstructsList = getRelatedConstructs()
 
 	tabs = []
+	tabs.append(getListGroup('content/OverviewTab.xml', "Overview"))
 	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", relatedConstructsList))
 	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", relatedConstructsList))
-	print "------"
-	print relatedConstructsList
 
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs

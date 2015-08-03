@@ -1,6 +1,7 @@
 class Tab:
-	def __init__(self, name, categoryList):
+	def __init__(self, name, listDictionary, categoryList):
 		self.name = name
+		self.listDictionary = listDictionary
 		self.categoryList = categoryList
 
 class Category:
