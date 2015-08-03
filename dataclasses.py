@@ -22,6 +22,8 @@ class Construct:
 		self.usedwith = []
 		self.methods = []
 		self.related = {}
+		self.MPIdatatypes = []
+		self.MPIops = []
 
 	def addLink(self, link):
 		self.javadocs.append(link)

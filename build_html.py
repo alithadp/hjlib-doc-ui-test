@@ -26,7 +26,6 @@ def getAttribute(node, key):
 		attrib = node.attrib[key]
 	else:
 		attrib = ""
-
 	return str(attrib)
 
 def getLinks(node):
@@ -60,41 +59,40 @@ def getDescription(node):
 	description = findNodesViaTag(node, "description")
 	return description[0].text
 
+def getOps(node):
+	opsList = []
+	opNodes = findNodesViaTag(node, "op")
+	for node in opNodes:
+		opsList.append(data.Method(getAttribute(node, "name"), node.text))
+	return opsList
+
 def getList(node):
 	name = getAttribute(node, 'name')
 	items = []
 	itemNodes = findNodesViaTag(node, "item")
 	for node in itemNodes:
 		items.append(node.text)
-	
 	return (name, items)
-
-def getRelatedConstructs():
-	tree = ET.parse('content/RelatedConstructs.xml')
-	root = tree.getroot()
-	pairNodeList = findNodesViaTag(root, "pair")
-	relatedConstructsList = {}
-
-	for node in pairNodeList:
-		constructs = findNodesViaTag(node, "thing")
-		note = findNodesViaTag(node, "note")
-		relatedConstructsList[(constructs[0].text, constructs[1].text)] = note[0].text
-
-	return relatedConstructsList
 
 def getListGroup(filename, tabname):
 	tree = ET.parse(filename)
 	root = tree.getroot()
 	listNodes = findNodesViaTag(root, "list")
 	myLists = []
-
 	for node in listNodes:
 		myLists.append(getList(node))
-
-	print "Overview: " + str(myLists)
-
 	return data.Tab(tabname, myLists, [])
 
+def getRelatedConstructs():
+	tree = ET.parse('content/RelatedConstructs.xml')
+	root = tree.getroot()
+	pairNodeList = findNodesViaTag(root, "pair")
+	relatedConstructsList = {}
+	for node in pairNodeList:
+		constructs = findNodesViaTag(node, "thing")
+		note = findNodesViaTag(node, "note")
+		relatedConstructsList[(constructs[0].text, constructs[1].text)] = note[0].text
+	return relatedConstructsList
 
 def getCategoryList(filename, tabname, relatedconstructs):
 	tree = ET.parse(filename)
@@ -132,6 +130,19 @@ def getCategoryList(filename, tabname, relatedconstructs):
 		categoryList.append(newCat)
 	return data.Tab(tabname, [], categoryList)
 
+def getMPI(filename):
+	tree = ET.parse(filename)
+	root = tree.getroot()
+
+	description = findNodesViaTag(root, "description")[0].text
+	newMPI = data.Construct(getAttribute(root, "name"), description)
+	newMPI.javadocs += getLinks(root)
+	newMPI.methods += getMethods(root)
+	newMPI.MPIdatatypes += getList(root)[1]
+	newMPI.MPIops += getOps(root)
+
+	return data.Tab("MPI", [], [newMPI])
+
 def makeHTML():
 	loader = TemplateLoader(
 	    os.path.join(os.path.dirname(__file__), 'templates'),
@@ -143,6 +154,7 @@ def makeHTML():
 	tabs.append(getListGroup('content/OverviewTab.xml', "Overview"))
 	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", relatedConstructsList))
 	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", relatedConstructsList))
+	tabs.append(getMPI('content/MPITab.xml'))
 
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs

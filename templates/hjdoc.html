@@ -22,10 +22,10 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="#Overview">
             <img alt="Brand" src="https://wiki.rice.edu/confluence/download/attachments/4425835/habanero.png?version=1&amp;modificationDate=1312519609464&amp;api=v2" height="25" style="padding-left: 10px; padding-right: 10px;"></img>
           </a>
-        </div>        
+        </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#Overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
@@ -85,6 +85,69 @@
         else:
           return "tab-pane"
     ?>
+    <py:def function="getConstructHTML(construct)">
+      <p>${construct.description}</p>
+      <p>Javadoc Link(s):          
+        <ul class="list-inline">
+          <py:for each="javadoc in construct.javadocs">
+            <li><a href="${javadoc.link}">${javadoc.name}</a></li>
+          </py:for>
+        </ul>
+      </p>
+      <py:if test="construct.methods">
+        <table class="table table-condensed">
+          <tr>
+            <th class="col-md-2">Method</th>
+            <th class="col-md-2">Description</th>
+          </tr>
+          <py:for each="method in construct.methods">
+            <tr>
+              <td class="col-md-2">${method.method}</td>
+              <td class="col-md-2">${method.description}</td>
+            </tr>
+          </py:for>
+        </table>
+      </py:if>
+      <py:if test="construct.usedwith">
+        <h5>Used With:</h5>
+        <ul class="list-inline">
+          <py:for each="usedwith in construct.usedwith">
+            <li><a href="#${getID(usedwith)}" class="anchorlink">${usedwith}</a></li>
+          </py:for>
+        </ul>
+      </py:if>
+      <py:if test="construct.related">
+        <h5>Related Constructs:</h5>
+        <dl class="dl-horizontal">
+          <py:for each="key in construct.related">
+            <dt><a href="#${getID(key)}" class="anchorlink">${key}</a></dt>
+            <dd>${construct.related[key]}</dd>
+          </py:for>
+        </dl>
+      </py:if>
+      <py:if test="construct.MPIdatatypes">
+        <h5>Data Types</h5>
+        <ul class="list-inline">
+          <py:for each="type in construct.MPIdatatypes">
+            <li>${type}</li>
+          </py:for>
+        </ul>
+      </py:if>
+      <py:if test="construct.MPIops">
+        <table class="table table-condensed">
+          <tr>
+            <th class="col-md-2">Reduction Operation</th>
+            <th class="col-md-2">Description</th>
+          </tr>
+          <py:for each="op in construct.MPIops">
+            <tr>
+              <td class="col-md-2">${op.method}</td>
+              <td class="col-md-2">${op.description}</td>
+            </tr>
+          </py:for>
+        </table>
+      </py:if>
+    </py:def>
     <py:for each="tab in tabs">
     <div class="${isActive(tab.name)}" id="${tab.name}">
       <py:choose test="">
@@ -98,7 +161,11 @@
           </div>
         </py:for>
       </py:when>
-      <py:when test="tab.categoryList != []">
+      <py:when test="tab.name == 'MPI'">
+        <h4>${tab.categoryList[0].name}</h4>
+        ${getConstructHTML(tab.categoryList[0])}
+      </py:when>
+      <py:when test="tab.name != 'MPI' and tab.categoryList != []">
       <div class="panel-group" id="accordion-${tab.name}">
         <py:for each="category in tab.categoryList">
           <!-- change to iterate over categories -->
@@ -125,45 +192,7 @@
                     </div>
                     <div id="${getID(construct.name)}" class="panel-collapse collapse">
                       <div class="panel-body">
-                        <p>${construct.description}</p>
-                        <p>Javadoc Link(s):          
-                          <ul class="list-inline">
-                            <py:for each="javadoc in construct.javadocs">
-                              <li><a href="${javadoc.link}">${javadoc.name}</a></li>
-                            </py:for>
-                          </ul>
-                        </p>
-                        <py:if test="construct.methods">
-                          <table class="table table-condensed">
-                            <tr>
-                              <th class="col-md-2">Method</th>
-                              <th class="col-md-2">Description</th>
-                            </tr>
-                            <py:for each="method in construct.methods">
-                              <tr>
-                                <td class="col-md-2">${method.method}</td>
-                                <td class="col-md-2">${method.description}</td>
-                              </tr>
-                            </py:for>
-                          </table>
-                        </py:if>
-                        <py:if test="construct.usedwith">
-                          <h5>Used With:</h5>
-                          <ul class="list-inline">
-                            <py:for each="usedwith in construct.usedwith">
-                              <li><a href="#${getID(usedwith)}" class="anchorlink">${usedwith}</a></li>
-                            </py:for>
-                          </ul>
-                        </py:if>
-                        <py:if test="construct.related">
-                          <h5>Related Constructs:</h5>
-                          <dl class="dl-horizontal">
-                            <py:for each="key in construct.related">
-                              <dt><a href="#${getID(key)}" class="anchorlink">${key}</a></dt>
-                              <dd>${construct.related[key]}</dd>
-                            </py:for>
-                          </dl>
-                        </py:if>
+                        ${getConstructHTML(construct)}
                       </div>
                     </div>
                   </div>
@@ -179,7 +208,7 @@
     </div>
     </py:for>
     
-    <div class="tab-pane" id="MPI"><p>This page is underconstruction</p></div>
+    <!--<div class="tab-pane" id="MPI"><p>This page is underconstruction</p></div>-->
     <div class="tab-pane" id="EnvironmentConfiguration"><p>This page is underconstruction</p></div>
     <div class="tab-pane" id="JavaProfiling"><p>This page is underconstruction</p></div>
     <div class="tab-pane" id="CorrectnessPerformance"><p>This page is underconstruction</p></div>
