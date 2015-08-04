@@ -67,6 +67,8 @@ def getOps(node):
 	return opsList
 
 def getStep(node):
+	if list(node) == []:
+		return "<p>" + node.text + "</p>"
 	html_string = ""
 	components = []
 	for elem in list(node):
@@ -214,7 +216,7 @@ def makeHTML():
 	tabs.append(getInstructionList('content/InstallationTab.xml', "InstallationGuide"))
 	tabs.append(getCategoryList('content/EnvironmentConfigurationTab.xml', "EnvironmentConfiguration", []))
 	tabs.append(getCategoryList('content/CorrectnessPerformanceTab.xml', "CorrectnessPerformance", []))
-	tabs.append(data.Tab("JavaProfiling", [], [], []))
+	tabs.append(getInstructionList('content/JavaProfilingTab.xml', "JavaProfiling"))
 	tabs.append(data.Tab("FAQs", [], [], []))
 
 	tmpl = loader.load('hjdoc.html')

@@ -2705,7 +2705,6 @@ Java version: 1.8.0_25, vendor: Oracle Corporation
           <li><p>Since we are running HelloWorld.java without configuring the javaagent option, it is likely to intermittently fail with an error as follows:</p><img src='pics/cooperative-runtime/12.png'><p>Or the following error:</p><pre>Error occurred during initialization of VM
 agent library failed to init: instrument</pre><p>To fix this error, we need to correct the setup of the javagent JVM option before attempting to run HelloWorld.java.
 Java agents provide services that allow Java programming language agents to instrument programs running on the JVM. To run HJlib programs under the cooperative runtime we need to configure the JVM to use agents available in the HJlib jar. An agent is started by adding this option to the command-line:</p><pre>-javaagent:jarpath[=options]</pre><p>We need to configure this in IntelliJ to be able to successfully run HJlib programs. Below is an image of what the configuration looks like after editing the run configuration:</p><img src='pics/cooperative-runtime/13.png'><img src='pics/cooperative-runtime/14.png'></li>
-          <li></li>
       </ol>
                 </div>
               </div>
@@ -2989,7 +2988,88 @@ public class HelloWorld {
       </div>
     </div>
     <div class="tab-pane" id="JavaProfiling">
-      <p>This page is under construction.</p>
+        <div class="panel-group" id="accordion-javaprofiling">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-javaprofiling" href="#javaprofiling-visualvminstallation">
+                    VisualVM Installation
+                  </a>
+                </h4>
+              </div>
+              <div id="javaprofiling-visualvminstallation" class="panel-collapse collapse">
+                <div class="panel-body">
+      <!--<p>${instructions.description}</p>-->
+      <ol>
+          <li><p>Go to https://visualvm.java.net/download.html and follow the instructions there to download the software.</p></li>
+          <li><p>Go to Tools > Plugins > Available Plugins.</p></li>
+          <li><p>Check the checkbox next to Startup Profiler, click Install, and go through the Plugin Installer.</p></li>
+      </ol>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-javaprofiling" href="#javaprofiling-asminstallation">
+                    ASM Installation
+                  </a>
+                </h4>
+              </div>
+              <div id="javaprofiling-asminstallation" class="panel-collapse collapse">
+                <div class="panel-body">
+      <!--<p>${instructions.description}</p>-->
+      <ol>
+          <li><p>If you do not have ASM All in your Maven repository, please download the <a href='http://mvnrepository.com/artifact/org.ow2.asm/asm-all/5.0.3'>JAR file from Maven</a>.</p></li>
+      </ol>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-javaprofiling" href="#javaprofiling-runninganhjlibprogramwithvisualvm">
+                    Running an HJ-Lib program with VisualVM
+                  </a>
+                </h4>
+              </div>
+              <div id="javaprofiling-runninganhjlibprogramwithvisualvm" class="panel-collapse collapse">
+                <div class="panel-body">
+      <!--<p>${instructions.description}</p>-->
+      <ol>
+          <li><p>Go to Applications > Profile Startup.</p></li>
+          <li><p>Click continue.</p></li>
+          <li><p>In the "Start profiling from classes:" box, define the class you want to profile. VisualVM will only profile methods in this class and any inner classes. Do NOT leave this text box empty. The profiler output may be useless if you do not define the main class of your application. Click continue.</p></li>
+          <li><p>Copy the agentpath argument and click Profile.</p><blockquote><p>If a Warning window pops up with the message "Profiled application started too soon", you ran the program before the profiler. Terminate the program and then click OK. If you are getting this warning but have not started a program, go to your Home directory and type "cd .nbprofiler" into the command line. List this directory's contents. There should be a file named after the port that is used in the application configuration specifications of Profile Startup. Delete this file and click Profile again.</p></blockquote></li>
+          <li><p>Run the HJ program using the command line with the following format:</p><blockquote><p>For Macs: java -cp [path to classes folder]:[path to HJlib JAR file]:[path to ASM All JAR file] [javaagent argument] [agentpath argument] [class name]</p><blockquote><p>
+				Example: java -cp /Users/Alitha/Desktop/322/hw_1/target/classes:/Users/Alitha/.m2/repository/edu/rice/hjlib-cooperative/0.1.4-SNAPSHOT/hjlib-cooperative-0.1.4-SNAPSHOT.jar:/Users/Alitha/.m2/repository/org/ow2/asm/asm-all/5.0.3/asm-all-5.0.3.jar -javaagent:/Users/Alitha/.m2/repository/edu/rice/hjlib-cooperative/0.1.4-SNAPSHOT/hjlib-cooperative-0.1.4-SNAPSHOT.jar -agentpath:/Applications/VisualVM.app/Contents/Resources/visualvm/profiler/lib/deployed/jdk16/mac/libprofilerinterface.jnilib=/Applications/VisualVM.app/Contents/Resources/visualvm/profiler/lib,5140 edu.rice.comp322.Homework1
+				</p></blockquote></blockquote><blockquote><p>For Windows: java -cp [path to classes folder];[path to HJlib JAR file];[path to ASM All JAR file] [javaagent argument] [agentpath argument] [class name]</p><blockquote><p>
+				Example: java -cp /Users/Alitha/Desktop/322/hw_1/target/classes;/Users/Alitha/.m2/repository/edu/rice/hjlib-cooperative/0.1.4-SNAPSHOT/hjlib-cooperative-0.1.4-SNAPSHOT.jar;/Users/Alitha/.m2/repository/org/ow2/asm/asm-all/5.0.3/asm-all-5.0.3.jar -javaagent:/Users/Alitha/.m2/repository/edu/rice/hjlib-cooperative/0.1.4-SNAPSHOT/hjlib-cooperative-0.1.4-SNAPSHOT.jar -agentpath:/Applications/VisualVM.app/Contents/Resources/visualvm/profiler/lib/deployed/jdk16/mac/libprofilerinterface.jnilib=/Applications/VisualVM.app/Contents/Resources/visualvm/profiler/lib,5140 edu.rice.comp322.Homework1
+				</p></blockquote></blockquote></li>
+          <li><p>VisualVM should automatically open a profiling session for the application once it starts up. There is some overhead when profiling a program, so it may take some time for your program to run to completion.</p></li>
+      </ol>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-javaprofiling" href="#javaprofiling-furtherreading">
+                    Further Reading
+                  </a>
+                </h4>
+              </div>
+              <div id="javaprofiling-furtherreading" class="panel-collapse collapse">
+                <div class="panel-body">
+      <!--<p>${instructions.description}</p>-->
+      <ol>
+          <li><p>https://blogs.oracle.com/nbprofiler/entry/profiling_with_visualvm_part_1</p></li>
+          <li><p>https://blogs.oracle.com/nbprofiler/entry/profiling_with_visualvm_part_2</p></li>
+      </ol>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
     <div class="tab-pane" id="FAQs">
       <p>This page is under construction.</p>
