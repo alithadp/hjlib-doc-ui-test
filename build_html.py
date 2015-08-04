@@ -66,6 +66,55 @@ def getOps(node):
 		opsList.append(data.Method(getAttribute(node, "name"), node.text))
 	return opsList
 
+def getStep(node):
+	html_string = ""
+	components = []
+	for elem in list(node):
+		desc_text = elem.text.strip()
+		if elem.tag =='description':
+			linkNodes = findNodesViaTag(elem, "link")
+			"""
+			links = {}
+			for node in linkNodes:
+				links[node.text] = getAttribute(node, "url")
+			components.append((elem.tag, elem.text, links))
+			"""
+			for link in linkNodes:
+				old_text = link.text
+				new_text = "<a href='" + getAttribute(link, "url") + "'>" + link.text + "</a>"
+				desc_text = desc_text.replace(old_text, new_text)
+			html_string = html_string + "<p>" + desc_text + "</p>"
+		elif elem.tag == 'img':
+			html_string = html_string + "<img src='" + desc_text + "'>"
+		elif elem.tag == 'code':
+			html_string = html_string + "<pre>" + desc_text + "</pre>"
+		elif elem.tag == 'quote':
+			# components.append((elem.tag, getStep(elem)))
+			html_string = html_string + "<blockquote>" + getStep(elem) + "</blockquote>"
+		"""
+		else:
+			components.append((elem.tag, elem.text))
+		"""
+
+	return html_string
+
+def getInstruction(node):
+	name = getAttribute(node, "name")
+	stepList = []
+	stepNodes = findNodesViaTag(node, "step")
+	for step in stepNodes:
+		stepList.append(getStep(step))
+	return data.Instructions(name, stepList)
+
+def getInstructionList(filename, tabname):
+	tree = ET.parse(filename)
+	root = tree.getroot()
+	instructionNodes = findNodesViaTag(root, "instruction")
+	instructionList = []
+	for node in instructionNodes:
+		instructionList.append(getInstruction(node))
+	return data.Tab(tabname, [], [], instructionList)
+
 def getList(node):
 	name = getAttribute(node, 'name')
 	items = []
@@ -81,7 +130,7 @@ def getListGroup(filename, tabname):
 	myLists = []
 	for node in listNodes:
 		myLists.append(getList(node))
-	return data.Tab(tabname, myLists, [])
+	return data.Tab(tabname, myLists, [], [])
 
 def getRelatedConstructs():
 	tree = ET.parse('content/RelatedConstructs.xml')
@@ -128,7 +177,7 @@ def getCategoryList(filename, tabname, relatedconstructs):
 				constructToCategory[construct.name] = newCat.name
 		categoryToTab[newCat.name] = tabname
 		categoryList.append(newCat)
-	return data.Tab(tabname, [], categoryList)
+	return data.Tab(tabname, [], categoryList, [])
 
 def getMPI(filename):
 	tree = ET.parse(filename)
@@ -141,7 +190,14 @@ def getMPI(filename):
 	newMPI.MPIdatatypes += getList(root)[1]
 	newMPI.MPIops += getOps(root)
 
-	return data.Tab("MPI", [], [newMPI])
+	return data.Tab("MPI", [], [newMPI], [])
+
+def testing(filename):
+	tree = ET.parse(filename)
+	root = tree.getroot()
+
+	for e in root.iter():
+		print e.text
 
 def makeHTML():
 	loader = TemplateLoader(
@@ -155,6 +211,11 @@ def makeHTML():
 	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", relatedConstructsList))
 	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", relatedConstructsList))
 	tabs.append(getMPI('content/MPITab.xml'))
+	tabs.append(getInstructionList('content/InstallationTab.xml', "InstallationGuide"))
+	tabs.append(getCategoryList('content/EnvironmentConfigurationTab.xml', "EnvironmentConfiguration", []))
+	tabs.append(getCategoryList('content/CorrectnessPerformanceTab.xml', "CorrectnessPerformance", []))
+	tabs.append(data.Tab("JavaProfiling", [], [], []))
+	tabs.append(data.Tab("FAQs", [], [], []))
 
 	tmpl = loader.load('hjdoc.html')
 	testCat = tabs

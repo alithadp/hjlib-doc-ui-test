@@ -1,8 +1,9 @@
 class Tab:
-	def __init__(self, name, listDictionary, categoryList):
+	def __init__(self, name, listDictionary, categoryList, instructionList):
 		self.name = name
 		self.listDictionary = listDictionary
 		self.categoryList = categoryList
+		self.instructionList = instructionList
 
 class Category:
 	def __init__(self, name, description):
@@ -47,6 +48,11 @@ class Method:
 		self.description = description
 	def toString(self):
 		return str(self.method) + " | " + str(self.description)
+
+class Instructions:
+	def __init__(self, name, steps):
+		self.name = name
+		self.steps = steps
 
 def getTestCat(tag):
 

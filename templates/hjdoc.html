@@ -70,10 +70,11 @@
           id = categoryToTab[constructToCategory[newname]] + "-" + stripChars(constructToCategory[newname]) + "-" + stripChars(newname)
         elif name in categoryToTab:
           id = categoryToTab[name] + "-" + stripChars(name)
+        print name + ": " + id
         return id
 
       def stripChars(text):
-        chars = [' ', '/', '(s)', '-', '(', ')', '<', '>']
+        chars = [' ', '/', '(s)', '-', '(', ')', '<', '>', '.']
         for c in chars:
           text = text.replace(c, '')
         
@@ -87,13 +88,15 @@
     ?>
     <py:def function="getConstructHTML(construct)">
       <p>${construct.description}</p>
-      <p>Javadoc Link(s):          
-        <ul class="list-inline">
-          <py:for each="javadoc in construct.javadocs">
-            <li><a href="${javadoc.link}">${javadoc.name}</a></li>
-          </py:for>
-        </ul>
-      </p>
+      <py:if test="construct.javadocs">
+        <p>Javadoc Link(s):          
+          <ul class="list-inline">
+            <py:for each="javadoc in construct.javadocs">
+              <li><a href="${javadoc.link}">${javadoc.name}</a></li>
+            </py:for>
+          </ul>
+        </p>
+      </py:if>
       <py:if test="construct.methods">
         <table class="table table-condensed">
           <tr>
@@ -148,9 +151,37 @@
         </table>
       </py:if>
     </py:def>
+    <py:def function="getInstructionsHTML(instructions)">
+      <!--<p>${instructions.description}</p>-->
+      <ol>
+        <py:for each="step in instructions.steps">
+          <li>${Markup(step)}</li>
+        </py:for>
+      </ol>
+    </py:def>
     <py:for each="tab in tabs">
     <div class="${isActive(tab.name)}" id="${tab.name}">
       <py:choose test="">
+      <py:when test="tab.instructionList != []">
+        <div class="panel-group" id="accordion-${stripChars(tab.name)}">
+          <py:for each="instr in tab.instructionList">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-${stripChars(tab.name)}" href="#${stripChars(tab.name)}-${stripChars(instr.name)}">
+                    ${instr.name}
+                  </a>
+                </h4>
+              </div>
+              <div id="${stripChars(tab.name)}-${stripChars(instr.name)}" class="panel-collapse collapse">
+                <div class="panel-body">
+                  ${getInstructionsHTML(instr)}
+                </div>
+              </div>
+            </div>
+          </py:for>
+        </div>
+      </py:when>
       <py:when test="tab.listDictionary != []">
         <py:for each="listpair in tab.listDictionary">
           <h3>${listpair[0]}</h3>
@@ -178,14 +209,14 @@
               </h4>
             </div>
             <div id="${getID(category.name)}" class="panel-collapse collapse">
-              <div class="panel-body">             
+              <div class="panel-body">
                 <p>${category.description}</p>
-                <div class="panel-group" id="accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}">
+                <div class="panel-group" id="accordion-${stripChars(category.name)}">
                   <py:for each="construct in category.constructs">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion-${category.name.lower().replace(' ','').replace('/','').replace('(s)','s')}" href="#${getID(construct.name)}">
+                        <a data-toggle="collapse" data-parent="#accordion-${stripChars(category.name)}" href="#${getID(construct.name)}">
                             ${construct.name} <span style="float: right">${construct.javaname}</span>
                         </a>
                       </h4>
@@ -204,16 +235,10 @@
         </py:for>
       </div>
       </py:when>
+      <py:otherwise><p>This page is under construction.</p></py:otherwise>
       </py:choose>
     </div>
     </py:for>
-    
-    <!--<div class="tab-pane" id="MPI"><p>This page is underconstruction</p></div>-->
-    <div class="tab-pane" id="EnvironmentConfiguration"><p>This page is underconstruction</p></div>
-    <div class="tab-pane" id="JavaProfiling"><p>This page is underconstruction</p></div>
-    <div class="tab-pane" id="CorrectnessPerformance"><p>This page is underconstruction</p></div>
-    <div class="tab-pane" id="InstallationGuide"><p>This page is underconstruction</p></div>
-    <div class="tab-pane" id="FAQs"><p>This page is underconstruction</p></div>
     </div>
 
 

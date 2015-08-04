@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tab name="Installation Guide" dropdown="Setup">
+	<instruction name="Java 8 Setup">
+		<step>
+			<description>You may already have Java 8 installed on your computer. To check whether you have Java 8 installed on your machine, go to the command line and type the following java -version. You may see something as follows:</description>
+			<code>
+$ java -version
+java version "1.8.0_25"
+Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.25-b02, mixed mode)
+			</code>
+		</step>
+		<step>
+			<description>If the Java version shows 1.8.*, you already have Java 8 installed on your machine. If you do have Java 8 already installed on your machine, please skip to Maven setup. If you do not already have it installed, you will need a Java 8 installation on your machine and have your JAVA HOME and PATH point to the new installation. Java 8 can be downloaded and installed from the Oracle website.
+			<link url="https://www.google.com/url?q=https%3A%2F%2Fjdk8.java.net%2Fdownload.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNFlsqVvnoz-qITcoDkNupatvNqr6Q">Oracle website</link></description>
+			<quote>
+				<description>For Macs: To set up environment variables on your machine, a .bash_profile needs to be created and edited; please refer to this website for instructions. Here is an example of what should be on your machine's .bash_profile:
+				<link url="http://www.google.com/url?q=http%3A%2F%2Fhathaway.cc%2Fpost%2F69201163472%2Fhow-to-edit-your-path-environment-variables-on-mac&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNHbLR1sjYCFd-d7leAp4Sq526997A">this website</link></description>
+				<code>
+JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
+export JAVA_HOME=${JAVA8_HOME}
+export PATH=$JAVA_HOME/bin:$PATH
+				</code>
+			</quote>
+			<quote>
+				<description>For Windows: To set up environment variables on your machine, please refer to this website.
+				<link url="http://www.google.com/url?q=http%3A%2F%2Fwww.computerhope.com%2Fissues%2Fch000549.htm&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNEgjd6yBvzOSImlIE9icZz6SwVLRQ">this website</link></description>
+			</quote>
+		</step>
+	</instruction>
+	<instruction name="Maven Setup">
+		<step>
+			<description>Maven is a build automation tool used primarily for Java projects. Projects using Maven or other build systems are easiest to use as they simplify compiling, building, and testing the project. In addition, major IDEs like IntelliJ and Eclipse have excellent support via maven plugins which simplifies the development process. Dependency management is one of the areas where Maven excels; for our purposes, this means that we will save a lot of effort in configuring the projects to set up dependencies on HJ-lib, JUnit, and other jars. Hence, for the labs and assignments in COMP 322, we will distribute maven project templates to be used by students to complete their work.</description>
+		</step>
+		<step>
+			<description>Maven is a Java tool, so you must have Java installed in order to proceed. Next, follow the instructions on the maven site to install maven. Please remember to install a version that is 3.1.1 or later. During installation have your M2 HOME, MAVEN HOME and PATH point to the new installation. Here is an example of what should be in a Mac machine's .bash_profile:</description>
+			<code>
+export M2_HOME=/Users/shamsimam/dev/apache-maven-3.1.1
+export MAVEN_HOME=/Users/shamsimam/dev/apache-maven-3.1.1
+export PATH=$PATH:$MAVEN_HOME/bin
+			</code>
+		</step>
+		<step>
+			<description>Once installed, open a new command prompt and run mvn --version to verify that it is correctly installed. Maven has been successfully installed on your machine, if you see the following:</description>
+			<code>
+$ mvn --version
+Apache Maven 3.1.1 (0728685237757ffbf44136acec0402957f723d9a; 2013-09-17 10:22:22-0500)
+Maven home: /Users/shamsimam/dev/apache-maven-3.1.1
+Java version: 1.8.0_25, vendor: Oracle Corporation
+...
+			</code>
+		</step>
+	</instruction>
+	<!-- Not sure how to store the instructions from the wiki...
+		 There are pictures. -->
+	<category name="HJ-Lib Setup">
+		<instruction name="Cooperative Runtime">
+			<step>
+				<description>Download the JDK8 compatible HJ-Lib JAR file and save it to a local directory.
+					<link url="http://www.cs.rice.edu/~vs3/hjlib/code/maven-repo/edu/rice/hjlib-cooperative/0.1.5-SNAPSHOT/hjlib-cooperative-0.1.5-SNAPSHOT.jar">JDK8 compatible HJ-Lib JAR file</link>
+				</description>
+			</step>
+			<step>
+				<description>We show how to set up a simple Maven project with a HJlib HelloWorld program in IntelliJ. Similar steps can be followed for other IDEs like Eclipse.</description>
+			</step>
+			<step>
+				<description>First, download the helloworld.zip file and unzip it into a directory of your choice.
+					<link url="https://wiki.rice.edu/confluence/download/attachments/14433124/helloworld.zip?version=1&amp;modificationDate=1421309268556&amp;api=v2">helloworld.zip</link>
+				</description>
+			</step>
+			<step>
+				<description>Next, import this project into IntelliJ using the File -> Import Project menu option.</description>
+			</step>
+			<step>
+				<description>This should show the following series of popups:</description>
+				<img>pics/cooperative-runtime/1.png</img>
+				<img>pics/cooperative-runtime/2.png</img>
+				<img>pics/cooperative-runtime/3.png</img>
+				<img>pics/cooperative-runtime/4.png</img>
+				<img>pics/cooperative-runtime/5.png</img>
+				<img>pics/cooperative-runtime/6.png</img>
+				<img>pics/cooperative-runtime/7.png</img>
+			</step>
+			<step>
+				<description>Enable the project view, then right-click on the root folder to change the module settings.</description>
+				<img>pics/cooperative-runtime/8.png</img>
+				<img>pics/cooperative-runtime/9.png</img>
+			</step>
+			<step><description>We will be using Java 8 lambdas while developing with HJlib, so we need to ensure this is enabled in the language level settings.</description>
+				<img>pics/cooperative-runtime/10.png</img>
+			</step>
+			<step>
+				<description>Notice, the library dependencies have already been resolved thanks to maven:</description>
+				<img>pics/cooperative-runtime/11.png</img>
+				<description>You will need to note the path of the HJlib jar file as we will need it to be able to run the HelloWorld.java program from IntelliJ.</description>
+			</step>
+			<step>
+				<description>Open the HelloWorld.java file in the editor and attempt to run it by right clicking on it and choosing the Run option.</description>
+			</step>
+			<step>
+				<description>Since we are running HelloWorld.java without configuring the javaagent option, it is likely to intermittently fail with an error as follows:</description>
+				<img>pics/cooperative-runtime/12.png</img>
+				<description>Or the following error:</description>
+				<code>
+Error occurred during initialization of VM
+agent library failed to init: instrument
+				</code>
+				<description>To fix this error, we need to correct the setup of the javagent JVM option before attempting to run HelloWorld.java.
+Java agents provide services that allow Java programming language agents to instrument programs running on the JVM. To run HJlib programs under the cooperative runtime we need to configure the JVM to use agents available in the HJlib jar. An agent is started by adding this option to the command-line:
+				</description>
+				<code>-javaagent:jarpath[=options]</code>
+				<description>We need to configure this in IntelliJ to be able to successfully run HJlib programs. Below is an image of what the configuration looks like after editing the run configuration:</description>
+				<img>pics/cooperative-runtime/13.png</img>
+				<img>pics/cooperative-runtime/14.png</img>
+			</step>
+			<step><description>Now we can run the program by clicking on the green play button.</description></step>
+		</instruction>
+		<instruction name="Blocking Runtime">
+			<step>
+				<description>Download the JDK8 compatible HJ-Lib JAR file and save it to a local directory.
+					<link url="http://www.cs.rice.edu/~vs3/hjlib/code/habanero-java-lib-0.1.2.jar">JDK8 compatible HJ-Lib JAR file</link>
+				</description>
+			</step>
+			<step>
+				<description>We show how to set up a simple project with a HJlib HelloWorld program in IntelliJ. Similar steps can be followed for other IDEs like Eclipse.</description>
+				<description>First, create a new project using the File -> New Project Menu. This should show a popup window as follows:</description>
+				<img>pics/blocking-runtime/1.png</img>
+			</step>
+			<step>
+				<description>Now, choose a name for your project and a directory location for the project. Remember to select the Java 8 SDK and click Next.</description>
+				<img>pics/blocking-runtime/2.png</img>
+			</step>
+			<step><description>On the next window click Finish, we do not need dependencies on any other technologies.</description></step>
+			<step>
+				<description>We now need to add the previously downloaded HJlib jar from Step 2 as a dependency to this project. We need to do this from the module settings.</description>
+				<description>First enable the project view, before trying to change the module settings.</description>
+				<img>pics/blocking-runtime/3.png</img>
+				<img>pics/blocking-runtime/4.png</img>
+			</step>
+			<step>
+				<description>We will be using Java 8 lambdas while developing with HJlib, so we need to ensure the language level settings in the project:</description>
+				<img>pics/blocking-runtime/5.png</img>
+			</step>
+			<step>
+				<description>Next, we need to add the library dependency.</description>
+				<img>pics/blocking-runtime/6.png</img>
+				<description>Clicking on the plus icon and selecting a Java library allows us to choose the location for the jar file.</description>
+				<img>pics/blocking-runtime/7.png</img>
+				<description>Once added, we can click 'Apply' to save our changes.</description>
+			</step>
+			<step>
+				<description>Ensure that habanero-java-lib has been added as a dependency to the module.</description>
+				<img>pics/blocking-runtime/8.png</img>
+			</step>
+			<step><description>After confirming, click "OK" to save your changes. We are now ready to write our first HJ application using HJlib.</description></step>
+			<step>
+				<description>To create a java file, right click on the 'src' folder and select New -> Java Class. Use 'HelloWorld' as the name of the class and type in the sample program:</description>
+				<code>
+import static edu.rice.hj.Module1.async;
+import static edu.rice.hj.Module1.finish;
+
+public class HelloWorld {
+    public static void main(final String[] args) {
+        finish(() -> {
+            async(() -> 
+                    System.out.println("Hello World - 1")
+            );
+            async(() -> 
+                    System.out.println("Hello World - 2")
+            );
+            async(() -> 
+                    System.out.println("Hello World - 3")
+            );
+        });
+    }
+}
+				</code>
+				<description>Now we can run this program by right clicking on the HelloWorld item on the project explorer and clicking run.</description>
+			</step>
+		</instruction>
+	</category>
+</tab>
