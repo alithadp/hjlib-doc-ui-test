@@ -214,8 +214,8 @@ def makeHTML():
 	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", relatedConstructsList))
 	tabs.append(getMPI('content/MPITab.xml'))
 	tabs.append(getInstructionList('content/InstallationTab.xml', "InstallationGuide"))
-	tabs.append(getCategoryList('content/EnvironmentConfigurationTab.xml', "EnvironmentConfiguration", []))
-	tabs.append(getCategoryList('content/CorrectnessPerformanceTab.xml', "CorrectnessPerformance", []))
+	tabs.append(data.Tab("EnvironmentConfiguration", [], [], []))
+	tabs.append(data.Tab("CorrectnessPerformance", [], [], []))
 	tabs.append(getInstructionList('content/JavaProfilingTab.xml', "JavaProfiling"))
 	tabs.append(data.Tab("FAQs", [], [], []))
 
