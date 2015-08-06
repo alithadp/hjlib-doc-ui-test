@@ -243,41 +243,21 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
-          </dt>
-          <dd>In asyncAwait, the task is delayed to start after specified events (data-driven futures) have occurred. In async, the task could begin immediately.</dd>
-          <dt>
               <a href="#hjlib-for-paralleliterationwithnoimplicitfinish" class="anchorlink">forasync</a>
           </dt>
           <dd>forasync is the same as a standard for loop that spawns new asynchronous tasks every iteration.</dd>
-          <dt>
-              <a href="#hjlib-for-paralleliterationwithimplicitfinish" class="anchorlink">forall</a>
-          </dt>
-          <dd>forall has an implicit finish, while forasync does not.</dd>
-          <dt>
-              <a href="#java8-javathreads-thread" class="anchorlink">Thread</a>
-          </dt>
-          <dd>Invoking start() on a thread is similar to spawning an async. However, creating a new thread incurs more overhead than creating a new asynchronous task.</dd>
-          <dt>
-              <a href="#hjlib-asyncfinish-asyncwithphaser" class="anchorlink">asyncPhased</a>
-          </dt>
-          <dd>asyncPhased is used with phasers for barrier synchronization, while asyncAwait is used with data driven futures for data-driven tasks.</dd>
-          <dt>
-              <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
-          </dt>
-          <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
           <dt>
               <a href="#hjlib-asyncfinish-asyncwithphaser" class="anchorlink">asyncPhased</a>
           </dt>
           <dd>In asyncPhased, the asynchronous task may be registered to a specific subset of its parent's phasers with specified modes. In async, no phasers are used.</dd>
           <dt>
-              <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="anchorlink">forallPhased</a>
+              <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
           </dt>
-          <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
+          <dd>In asyncAwait, the task is delayed to start after specified events (data-driven futures) have occurred. In async, the task could begin immediately.</dd>
           <dt>
-              <a href="#hjlib-for-paralleliterationwithnoimplicitfinish" class="anchorlink">forasync</a>
+              <a href="#java8-javathreads-thread" class="anchorlink">Thread</a>
           </dt>
-          <dd>forasyncChunked is semantically the same as forasync. However, forasyncChunked increases actual speedup by grouping/chunking.</dd>
+          <dd>Invoking start() on a thread is similar to spawning an async. However, creating a new thread incurs more overhead than creating a new asynchronous task.</dd>
       </dl>
           </div>
         </div>
@@ -317,10 +297,6 @@
               <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
           </dt>
           <dd>asyncPhased is used with phasers for barrier synchronization, while asyncAwait is used with data driven futures for data-driven tasks.</dd>
-          <dt>
-              <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="anchorlink">forallPhased</a>
-          </dt>
-          <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
           <dt>
               <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
           </dt>
@@ -407,17 +383,13 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#java8-forkjoin-forkjointask" class="anchorlink">ForkJoinTask</a>
-          </dt>
-          <dd>ForkJoinTask is similar to a finish block enclosing a collection of asyncs.</dd>
-          <dt>
-              <a href="#java8-atomicvariables-atomicinteger" class="anchorlink">AtomicInteger</a>
-          </dt>
-          <dd>An AtomicInteger can only add to the previously set value or replace it. An accumulator offers more flexibility in the operations it can perform as it updates its value.</dd>
-          <dt>
               <a href="#hjlib-futures-future" class="anchorlink">future</a>
           </dt>
           <dd>Unlike finish, which waits for all async tasks in the finish scope, a future.get() only waits for the specified async expression.</dd>
+          <dt>
+              <a href="#java8-forkjoin-forkjointask" class="anchorlink">ForkJoinTask</a>
+          </dt>
+          <dd>ForkJoinTask is similar to a finish block enclosing a collection of asyncs.</dd>
           <dt>
               <a href="#hjlib-finishaccumulators-finishaccumulator" class="anchorlink">finish(accum)</a>
           </dt>
@@ -426,14 +398,6 @@
               <a href="#hjlib-eurekas-finisheureka" class="anchorlink">finish(eureka)</a>
           </dt>
           <dd>A finish (eureka) has a eureka objet registered to its scope, while a finish does not. If a finish contains a eureka within its scope, it should be registered.</dd>
-          <dt>
-              <a href="#hjlib-eurekas-eurekaobject" class="anchorlink">HjEureka</a>
-          </dt>
-          <dd>A eureka should be used if further execution of tasks becomes unnecessary after a certain point (in a search, for example). An accumulator should be used if all spawned tasks must execute for the correct answer (in getting a sum, for example).</dd>
-          <dt>
-              <a href="#hjlib-isolatedstatements-isolated" class="anchorlink">isolated</a>
-          </dt>
-          <dd>Isolated is used to synchronize blocks of code (that could include updating a shared variable), while a finish accumulator is only allows for synchronized updating of the finish accumulator object.</dd>
       </dl>
           </div>
         </div>
@@ -721,17 +685,9 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#java8-synchronizer-countdownlatch" class="anchorlink">CountDownLatch</a>
-          </dt>
-          <dd>forallPhsed allows for barrier synchronization across all worker threads, while CountDownLatch allows for barrier synchronization across a given number of threads.</dd>
-          <dt>
               <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
           </dt>
           <dd>forallChunked is semantically the same as forall. However, forallChunked increases actual speedup by grouping/chunking. (NOTE: For fast performance, it is best to start with forallChunked. From there, chunk size can be manually tweaked to be more fine-grained).</dd>
-          <dt>
-              <a href="#hjlib-for-parallelchunkediterationwithnoimplicitfinish" class="anchorlink">forasyncChunked</a>
-          </dt>
-          <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
           <dt>
               <a href="#hjlib-for-paralleliterationwithnoimplicitfinish" class="anchorlink">forasync</a>
           </dt>
@@ -740,10 +696,6 @@
               <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="anchorlink">forallPhased</a>
           </dt>
           <dd>forallPhased allows for barriers and further synchronization by using next and signal, while forall does not.</dd>
-          <dt>
-              <a href="#hjlib-for-phaserregisterediterationwithnoimplicitfinish" class="anchorlink">forasyncPhased</a>
-          </dt>
-          <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
       </dl>
           </div>
         </div>
@@ -786,10 +738,6 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="anchorlink">forallPhased</a>
-          </dt>
-          <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
-          <dt>
               <a href="#hjlib-for-parallelchunkediterationwithnoimplicitfinish" class="anchorlink">forasyncChunked</a>
           </dt>
           <dd>forasyncChunked is semantically the same as forasync. However, forasyncChunked increases actual speedup by grouping/chunking.</dd>
@@ -797,10 +745,6 @@
               <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
           </dt>
           <dd>forasync is the same as a standard for loop that spawns new asynchronous tasks every iteration.</dd>
-          <dt>
-              <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
-          </dt>
-          <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
           <dt>
               <a href="#hjlib-for-paralleliterationwithimplicitfinish" class="anchorlink">forall</a>
           </dt>
@@ -2236,10 +2180,6 @@
           <dt>
               <a href="#java8-forkjoin-forkjoinpool" class="anchorlink">ForkJoinPool</a>
           </dt>
-          <dd>ForkJoinPool is similar to a ThreadPoolExecutor, but is meant to be used with a ForkJoinTask.</dd>
-          <dt>
-              <a href="#java8-forkjoin-forkjoinpool" class="anchorlink">ForkJoinPool</a>
-          </dt>
           <dd>ForkJoinPool contains a pool of Threads.</dd>
       </dl>
           </div>
@@ -2496,10 +2436,6 @@
               <a href="#java8-locks-reentrantreadwritelock" class="anchorlink">ReentrantReadWriteLock</a>
           </dt>
           <dd>ReentrantReadWriteLock is an implementation of ReadWriteLock that supports reentrancy.</dd>
-          <dt>
-              <a href="#java8-locks-reentrantlock" class="anchorlink">ReentrantLock</a>
-          </dt>
-          <dd>ReentrantLock only provides one lock for both reads and write, while ReentrantReadWriteLock provides one read lock and one write lock, allowing opportunities for more parallelism.</dd>
       </dl>
           </div>
         </div>

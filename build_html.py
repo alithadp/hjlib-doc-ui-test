@@ -231,10 +231,10 @@ def getConstruct(node):
 	related = {}
 	for key in relatedConstructs:
 		mykey = None
-		if (isinstance(key[0], str) and (name in key[0] or (javaname != "" and javaname in key[0]))) or (isinstance(key[0], str) == False and (name in key[0].name or (javaname != "" and javaname in key[0].name))):
+		if (isinstance(key[0], str) and (name == key[0] or (javaname != "" and javaname == key[0]))) or (isinstance(key[0], str) == False and (name == key[0].name or (javaname != "" and javaname == key[0].name))):
 			if (isinstance(key[1], str) and name != key[1] and javaname != key[1]) or (isinstance(key[1], str) == False and name != key[1].name and javaname != key[1].name):
 				mykey = key[1]
-		if (isinstance(key[1], str) and (name in key[1] or (javaname != "" and javaname in key[1]))) or (isinstance(key[1], str) == False and (name in key[1].name or (javaname != "" and javaname in key[1].name))):
+		if (isinstance(key[1], str) and (name == key[1] or (javaname != "" and javaname == key[1]))) or (isinstance(key[1], str) == False and (name == key[1].name or (javaname != "" and javaname == key[1].name))):
 			if (isinstance(key[0], str) and name != key[0] and javaname != key[0]) or (isinstance(key[0], str) == False and name != key[0].name and javaname != key[0].name):
 				mykey = key[0]
 		if mykey is not None:

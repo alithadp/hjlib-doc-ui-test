@@ -17,9 +17,10 @@ function goToLink(link) {
 	// Show accordion if link refers to an accordion
 	if (hashtag.length >= 2) {
 		$('.panel-collapse').filter(".in").not('#' + hashtag[0] + "-" + hashtag[1]).collapse('hide');
-		$('#' + hashtag[0] + "-" + hashtag[1]).collapse('show');
+		$('#' + hashtag[0] + "-" + hashtag[1]).not(".in").collapse('show');
 		if (hashtag.length == 3) {
-			$('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).collapse('show');
+			//$('.panel-collapse').filter(".in").not('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).collapse('hide');
+			$('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).not(".in").collapse('show');
 		}
 	}
 	/*
