@@ -1,2 +1,2 @@
 # hjlib-doc-ui-test
-Mockup of HJ-Lib documentation UI for Rice University.
+Beta version of HJ-Lib documentation for Rice University. Previously a UI prototype of the same project.
