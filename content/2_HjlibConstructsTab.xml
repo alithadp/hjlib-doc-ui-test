@@ -27,7 +27,7 @@
 		<construct name="Async With Phaser(s)" java="asyncPhased">
 			<description>Starts a new asynchronous task phased on a subset of its parent&apos;s phasers with specified modes. Used for point to point synchronization.</description>
 			<javadoc name="asyncPhased">http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/Module0.html#asyncPhased-edu.rice.hj.api.HjPhaserPair-edu.rice.hj.api.HjSuspendable-</javadoc>
-			<usedwith>Phaser</usedwith>
+			<usedwith>Phasers</usedwith>
 			<usedwith>finish</usedwith>
 			<usedwith>next</usedwith>
 		</construct>

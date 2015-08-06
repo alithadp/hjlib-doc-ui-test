@@ -19,7 +19,7 @@ function goToLink(link) {
 		$('.panel-collapse').filter(".in").not('#' + hashtag[0] + "-" + hashtag[1]).collapse('hide');
 		$('#' + hashtag[0] + "-" + hashtag[1]).not(".in").collapse('show');
 		if (hashtag.length == 3) {
-			//$('.panel-collapse').filter(".in").not('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).collapse('hide');
+			$('.panel-collapse').filter(".in").not('#' + hashtag[0] + "-" + hashtag[1]).not('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).collapse('hide');
 			$('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).not(".in").collapse('show');
 		}
 	}
