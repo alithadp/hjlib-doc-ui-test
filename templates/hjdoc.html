@@ -18,32 +18,161 @@
   </head>
 
   <body>
-    <!-- tabs -->
+    <!-- Python code -->
+    <?python
+      import dataclasses as data
+      import build_html as functions
+
+      def getDataParent(name):
+        return "accordion-" + functions.stripChars(name)
+
+      def isActive(tabname):
+        if tabname == "Overview":
+          return "tab-pane active"
+        else:
+          return "tab-pane"
+    ?>
+
+    <!-- Defined templates -->
+    <py:def function="getCategoryHTML(category)">
+      <py:if test="category.description">${getDescriptionHTML(category.description)}</py:if>
+      <div class="panel-group" id="${getDataParent(category.name)}">
+        <py:for each="elem in category.components">
+          <py:choose test="">
+            <py:when test="isinstance(elem, data.Construct)">${getAccordionHTML(elem.name, getConstructHTML(elem), getDataParent(category.name), elem.javaname)}</py:when>
+            <py:when test="isinstance(elem, data.Instruction)">${getAccordionHTML(elem.name, getInstructionsHTML(elem), getDataParent(category.name), "")}</py:when>
+            <py:when test="isinstance(elem, data.ListGroup)">${getAccordionHTML(elem.name, getListGroupHTML(elem), getDataParent(category.name), "")}</py:when>
+          </py:choose>
+        </py:for>
+      </div>
+    </py:def>
+    <py:def function="getConstructHTML(construct)">
+      <py:if test="construct.description">${getDescriptionHTML(construct.description)}</py:if>
+      <py:for each="elem in construct.components">
+        <py:choose test="">
+          <py:when test="isinstance(elem, data.InlineList)">${getInlineListHTML(elem)}</py:when>
+          <py:when test="isinstance(elem, data.Table)">${getTableHTML(elem)}</py:when>
+          <py:when test="isinstance(elem, dict)">${getDictionaryHTML("Related Constructs", elem)}</py:when>
+        </py:choose>
+      </py:for>
+    </py:def>
+    <py:def function="getInstructionsHTML(instructions)">
+      <py:if test="instructions.description">${getDescriptionHTML(instructions.description)}</py:if>
+      <ol>
+        <py:for each="step in instructions.steps">
+          <li>${getStepHTML(step)}</li>
+        </py:for>
+      </ol>
+    </py:def>
+    <py:def function="getStepHTML(step)">
+      <py:for each="elem in step">
+        <py:choose test="">
+          <py:when test="elem[0] == 'description'">${getDescriptionHTML(elem[1])}</py:when>
+          <py:when test="elem[0] == 'img'"><img src="${elem[1]}" /></py:when>
+          <py:when test="elem[0] == 'code'"><pre>${elem[1]}</pre></py:when>
+          <py:when test="elem[0] == 'quote'"><blockquote>${getStepHTML(elem[1])}</blockquote></py:when>
+        </py:choose>
+      </py:for>
+    </py:def>
+    <py:def function="getListGroupHTML(listgroup)">
+      <py:for each="pair in listgroup.lists">
+        <h4>${pair[0]}</h4>
+        <div class="list-group">
+          <py:for each="item in pair[1]">
+            <a href="#${functions.getInternalLink(item.name)}" class="list-group-item anchorlink">${item.name}</a>
+          </py:for>
+        </div>
+      </py:for>
+    </py:def>
+    <py:def function="getAccordionHTML(title, content, parent, righttitle)">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#${parent}" href="#${functions.getInternalLink(title)}">
+              ${title}<span style="float: right">${righttitle}</span>
+            </a>
+          </h4>
+        </div>
+        <div id="${functions.getInternalLink(title)}" class="panel-collapse collapse">
+          <div class="panel-body">
+            ${content}
+          </div>
+        </div>
+      </div>
+    </py:def>
+    <py:def function="getInlineListHTML(inlinelist)">
+      <h5>${inlinelist.name}</h5>
+        <ul class="list-inline">
+          <py:for each="item in inlinelist.items">
+            <li>
+              <py:choose test="">
+                <py:when test="isinstance(item, data.ExternalLink)"><a href="${item.link}" target="_blank">${item.name}</a></py:when>
+                <py:when test="isinstance(item, data.InternalLink)"><a href="#${functions.getInternalLink(item.name)}" class="anchorlink">${item.name}</a></py:when>
+                <py:otherwise>${item.name}</py:otherwise>
+              </py:choose>
+            </li>
+          </py:for>
+        </ul>
+    </py:def>
+    <py:def function="getTableHTML(table)">
+      <table class="table table-condensed">
+        <tr>
+            <th py:for="title in table.titles" class="col-md-2">${title}</th>
+        </tr>
+        <tr py:for="row in table.rows">
+          <td py:for="item in row" class="col-md-2">${item}</td>
+        </tr>
+      </table>
+    </py:def>
+    <py:def function="getDictionaryHTML(title, dictionary)">
+      <h5>${title}</h5>
+      <dl class="dl-horizontal">
+        <py:for each="key in dictionary">
+          <dt>
+            <py:choose test="">
+              <py:when test="isinstance(key, data.ExternalLink)"><a href="${key.link}" target="_blank">${key.name}</a></py:when>
+              <py:when test="isinstance(key, data.InternalLink)"><a href="#${functions.getInternalLink(key.name)}" class="anchorlink">${key.name}</a></py:when>
+              <py:otherwise>${item.name}</py:otherwise>
+            </py:choose>
+          </dt>
+          <dd>${dictionary[key]}</dd>
+        </py:for>
+      </dl>
+    </py:def>
+    <py:def function="getDescriptionHTML(description)">
+      <py:choose test="">
+        <py:when test="description.links">
+          <p>${Markup(functions.descriptionToHTML(description))}</p>
+        </py:when>
+        <py:otherwise><p>${description.description}</p></py:otherwise>
+      </py:choose>
+    </py:def>
+
+    <!-- Navigation bar -->
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#Overview">
+          <a class="navbar-brand anchorlink" href="#overview">
             <img alt="Brand" src="https://wiki.rice.edu/confluence/download/attachments/4425835/habanero.png?version=1&amp;modificationDate=1312519609464&amp;api=v2" height="25" style="padding-left: 10px; padding-right: 10px;"></img>
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#Overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
-            <li><a href="#HJLib" data-toggle="tab">HJ-Lib</a></li>
-            <li><a href="#Java8" data-toggle="tab">Java 8</a></li>
-            <li><a href="#MPI" data-toggle="tab">MPI</a></li>
+            <li class="active"><a href="#overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
+            <li><a href="#hjlib" data-toggle="tab">HJ-Lib</a></li>
+            <li><a href="#java8" data-toggle="tab">Java 8</a></li>
+            <li><a href="#mpi" data-toggle="tab">MPI</a></li>
             <li class="dropdown">
               <a href="#Setup" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#InstallationGuide" data-toggle="tab">Installation Guide</a></li>
-                <li><a href="#EnvironmentConfiguration" data-toggle="tab">Environment &amp; Configuration</a></li>
+                <li><a href="#installationguide" data-toggle="tab">Installation Guide</a></li>
+                <li><a href="#environmentconfiguration" data-toggle="tab">Environment &amp; Configuration</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="#Tools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#CorrectnessPerformance" data-toggle="tab">Correctness &amp; Performance Tools</a></li>
-                <li><a href="#JavaProfiling" data-toggle="tab">Java Profiling</a></li>
+                <li><a href="#performancecorrectnesstools" data-toggle="tab">Correctness &amp; Performance Tools</a></li>
               </ul>
             </li>
             <li><a href="#FAQs" data-toggle="tab">FAQs</a></li>
@@ -58,190 +187,37 @@
       </div>
     </nav>
 
-    
+    <!-- Tab pages -->
     <div class="tab-content">
-    <?python
-      def getID(name):
-        id = ""
-        if name in constructToCategory:
-          id = categoryToTab[constructToCategory[name]] + "-" + stripChars(constructToCategory[name]) + "-" + stripChars(name)
-        elif name in javaToConstruct:
-          newname = javaToConstruct[name]
-          id = categoryToTab[constructToCategory[newname]] + "-" + stripChars(constructToCategory[newname]) + "-" + stripChars(newname)
-        elif name in categoryToTab:
-          id = categoryToTab[name] + "-" + stripChars(name)
-        return id
-
-      def stripChars(text):
-        chars = [' ', '/', '(s)', '-', '(', ')', '<', '>', '.']
-        for c in chars:
-          text = text.replace(c, '')
-        
-        return text.lower().split('<',1)[0]
-
-      def isActive(tabname):
-        if tabname == "Overview":
-          return "tab-pane active"
-        else:
-          return "tab-pane"
-    ?>
-    <py:def function="getConstructHTML(construct)">
-      <p>${construct.description}</p>
-      <py:if test="construct.javadocs">
-        <p>Javadoc Link(s):          
-          <ul class="list-inline">
-            <py:for each="javadoc in construct.javadocs">
-              <li><a href="${javadoc.link}">${javadoc.name}</a></li>
-            </py:for>
-          </ul>
-        </p>
-      </py:if>
-      <py:if test="construct.methods">
-        <table class="table table-condensed">
-          <tr>
-            <th class="col-md-2">Method</th>
-            <th class="col-md-2">Description</th>
-          </tr>
-          <py:for each="method in construct.methods">
-            <tr>
-              <td class="col-md-2">${method.method}</td>
-              <td class="col-md-2">${method.description}</td>
-            </tr>
-          </py:for>
-        </table>
-      </py:if>
-      <py:if test="construct.usedwith">
-        <h5>Used With:</h5>
-        <ul class="list-inline">
-          <py:for each="usedwith in construct.usedwith">
-            <li><a href="#${getID(usedwith)}" class="anchorlink">${usedwith}</a></li>
-          </py:for>
-        </ul>
-      </py:if>
-      <py:if test="construct.related">
-        <h5>Related Constructs:</h5>
-        <dl class="dl-horizontal">
-          <py:for each="key in construct.related">
-            <dt><a href="#${getID(key)}" class="anchorlink">${key}</a></dt>
-            <dd>${construct.related[key]}</dd>
-          </py:for>
-        </dl>
-      </py:if>
-      <py:if test="construct.MPIdatatypes">
-        <h5>Data Types</h5>
-        <ul class="list-inline">
-          <py:for each="type in construct.MPIdatatypes">
-            <li>${type}</li>
-          </py:for>
-        </ul>
-      </py:if>
-      <py:if test="construct.MPIops">
-        <table class="table table-condensed">
-          <tr>
-            <th class="col-md-2">Reduction Operation</th>
-            <th class="col-md-2">Description</th>
-          </tr>
-          <py:for each="op in construct.MPIops">
-            <tr>
-              <td class="col-md-2">${op.method}</td>
-              <td class="col-md-2">${op.description}</td>
-            </tr>
-          </py:for>
-        </table>
-      </py:if>
-    </py:def>
-    <py:def function="getInstructionsHTML(instructions)">
-      <!--<p>${instructions.description}</p>-->
-      <ol>
-        <py:for each="step in instructions.steps">
-          <li>${Markup(step)}</li>
-        </py:for>
-      </ol>
-    </py:def>
-    <py:for each="tab in tabs">
-    <div class="${isActive(tab.name)}" id="${tab.name}">
-      <py:choose test="">
-      <py:when test="tab.instructionList != []">
-        <div class="panel-group" id="accordion-${stripChars(tab.name)}">
-          <py:for each="instr in tab.instructionList">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion-${stripChars(tab.name)}" href="#${stripChars(tab.name)}-${stripChars(instr.name)}">
-                    ${instr.name}
-                  </a>
-                </h4>
+      <py:for each="tab in tabs">
+        <div class="${isActive(tab.name)}" id="${functions.getInternalLink(tab.name)}">
+          <py:choose test="">
+            <py:when test="len(tab.components) == 0"><p>This page is under construction.</p></py:when>
+            <py:when test="len(tab.components) == 1">
+              <py:choose test="">
+                <py:when test="isinstance(tab.components[0], data.Construct)"><h4>${tab.components[0].name}</h4>${getConstructHTML(tab.components[0])}</py:when>
+                <py:when test="isinstance(tab.components[0], data.Instruction)"><h4>${tab.components[0].name}</h4>${getInstructionsHTML(tab.components[0])}</py:when>
+                <py:when test="isinstance(tab.components[0], data.ListGroup)">${getListGroupHTML(tab.components[0])}</py:when>
+              </py:choose>
+            </py:when>
+            <py:otherwise>
+              <div class="panel-group" id="${getDataParent(tab.name)}">
+                <py:for each="elem in tab.components">
+                  <py:choose test="">
+                    <py:when test="isinstance(elem, data.Category)">${getAccordionHTML(elem.name, getCategoryHTML(elem), getDataParent(tab.name), "")}</py:when>
+                    <py:when test="isinstance(elem, data.Construct)">${getAccordionHTML(elem.name, getConstructHTML(elem), getDataParent(tab.name), elem.javaname)}</py:when>
+                    <py:when test="isinstance(elem, data.Instruction)">${getAccordionHTML(elem.name, getInstructionsHTML(elem), getDataParent(tab.name), "")}</py:when>
+                    <py:when test="isinstance(elem, data.ListGroup)">${getAccordionHTML(elem.name, getListGroupHTML(elem), getDataParent(tab.name), "")}</py:when>
+                  </py:choose>
+                </py:for>
               </div>
-              <div id="${stripChars(tab.name)}-${stripChars(instr.name)}" class="panel-collapse collapse">
-                <div class="panel-body">
-                  ${getInstructionsHTML(instr)}
-                </div>
-              </div>
-            </div>
-          </py:for>
+            </py:otherwise>
+          </py:choose>
         </div>
-      </py:when>
-      <py:when test="tab.listDictionary != []">
-        <py:for each="listpair in tab.listDictionary">
-          <h3>${listpair[0]}</h3>
-          <div class="list-group">
-            <py:for each="item in listpair[1]">
-              <a href="#${getID(item)}" class="list-group-item anchorlink">${item}</a>
-            </py:for>
-          </div>
-        </py:for>
-      </py:when>
-      <py:when test="tab.name == 'MPI'">
-        <h4>${tab.categoryList[0].name}</h4>
-        ${getConstructHTML(tab.categoryList[0])}
-      </py:when>
-      <py:when test="tab.name != 'MPI' and tab.categoryList != []">
-      <div class="panel-group" id="accordion-${tab.name}">
-        <py:for each="category in tab.categoryList">
-          <!-- change to iterate over categories -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion-${tab.name}" href="#${getID(category.name)}">
-                  ${category.name}
-                </a>
-              </h4>
-            </div>
-            <div id="${getID(category.name)}" class="panel-collapse collapse">
-              <div class="panel-body">
-                <p>${category.description}</p>
-                <div class="panel-group" id="accordion-${stripChars(category.name)}">
-                  <py:for each="construct in category.constructs">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion-${stripChars(category.name)}" href="#${getID(construct.name)}">
-                            ${construct.name} <span style="float: right">${construct.javaname}</span>
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="${getID(construct.name)}" class="panel-collapse collapse">
-                      <div class="panel-body">
-                        ${getConstructHTML(construct)}
-                      </div>
-                    </div>
-                  </div>
-                  </py:for>
-                </div>
-              </div>
-            </div>
-          </div>
-        </py:for>
-      </div>
-      </py:when>
-      <py:otherwise><p>This page is under construction.</p></py:otherwise>
-      </py:choose>
-    </div>
-    </py:for>
+      </py:for>
     </div>
 
-
-    <!-- footer -->
+    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <p class="text-muted">Documentation built by Alitha Partono and Marie Hoeger using <a href="http://getbootstrap.com">Twitter Bootstrap</a> and <a href="http://genshi.edgewall.org">Genshi</a>.</p>

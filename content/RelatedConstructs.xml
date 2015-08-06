@@ -127,17 +127,17 @@
 	</pair>
 	<pair>
 		<thing>AtomicInteger</thing>
-		<thing>volatile</thing>
+		<thing>Volatile Variables</thing>
 		<note>Atomic variables guarantee atomic compare-and-set, while volatile variables do not.</note>
 	</pair>
 	<pair>
 		<thing>AtomicLong</thing>
-		<thing>volatile</thing>
+		<thing>Volatile Variables</thing>
 		<note>Atomic variables guarantee atomic compare-and-set, while volatile variables do not.</note>
 	</pair>
 	<pair>
 		<thing>AtomicReference&lt;V&gt;</thing>
-		<thing>volatile</thing>
+		<thing>Volatile Variables</thing>
 		<note>Atomic variables guarantee atomic compare-and-set, while volatile variables do not.</note>
 	</pair>
 	<pair>

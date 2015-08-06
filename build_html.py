@@ -3,10 +3,33 @@ import os
 import dataclasses as data
 import xml.etree.ElementTree as ET
 
-categoryToTab = {}
-constructToCategory = {}
-javaToConstruct = {}
+"""
+Returns: A version of the given text with all of the specified chars deleted.
+"""
+def stripChars(text):
+    chars = [' ', '/', '(s)', '-', '(', ')', '<', '>', '.', '&']
+    for c in chars:
+    	text = text.replace(c, '')
+    return text.lower().split('<',1)[0]
 
+"""
+Returns: A String containing the internal link/ID for the given name.
+"""
+def getInternalLink(name):
+	link = ""
+	if name in javaToConstruct:
+		name = javaToConstruct[name]
+	if name in toCategory:
+		link = stripChars(toTab[toCategory[name]]) + "-" + stripChars(toCategory[name]) + "-" + stripChars(name)
+	elif name in toTab:
+		link = stripChars(toTab[name]) + "-" + stripChars(name)
+	else:
+		link = stripChars(name)
+	return link
+
+"""
+Returns: List of all of the given root's elements that match the given tag.
+"""
 def findNodesViaTag(root, tag):
 	# return self if tag matches
 	if root.tag == tag:
@@ -21,6 +44,9 @@ def findNodesViaTag(root, tag):
 			matches += findNodesViaTag(child, tag)
 	return matches
 
+"""
+Returns: The given attribute (key) of the node as a String.
+"""
 def getAttribute(node, key):
 	if key in node.attrib:
 		attrib = node.attrib[key]
@@ -28,112 +54,83 @@ def getAttribute(node, key):
 		attrib = ""
 	return str(attrib)
 
-def getLinks(node):
+"""
+Returns: An InlineList of ExternalLinks containing the given node's javadocs.
+"""
+def getJavadoc(node):
 	linkNodes = findNodesViaTag(node, "javadoc")
 	if linkNodes == []:
-		return []
-	links = []
-	for node in linkNodes:
-		links.append(data.Link(getAttribute(node, "name"), node.text))
+		return None
+	links = data.InlineList("Javadoc Link(s)", [])
+	for n in linkNodes:
+		links.items.append(data.ExternalLink(getAttribute(n, "name"), n.text))
 	return links
 
+"""
+Returns: An InlineList of InternalLinks containing the given node's used with constructs.
+"""
 def getUsedWith(node):
 	usedWithNodes = findNodesViaTag(node, "usedwith")
 	if usedWithNodes == []:
-		return []
-	items = []
-	for node in usedWithNodes:
-		items.append(node.text)
-	return items
+		return None
+	usedwith = data.InlineList("Used With", [])
+	for n in usedWithNodes:
+		usedwith.items.append(data.InternalLink(n.text, getInternalLink(n.text)))
+	return usedwith
 
+"""
+Returns: A Table that contains a Method column and a Description column.
+"""
 def getMethods(node):
-	methodList = []
+	methodTable = data.Table(["Method", "Description"], [])
 	methodNodes = findNodesViaTag(node, "method")
 	if methodNodes == []:
-		return []
-	for mynode in methodNodes:
-		methodList.append(data.Method(getAttribute(mynode, "name"), mynode.text))
-	return methodList
+		return None
+	for mnode in methodNodes:
+		methodTable.rows.append([getAttribute(mnode, "name"), mnode.text])
+	return methodTable
 
-def getDescription(node):
-	description = findNodesViaTag(node, "description")
-	return description[0].text
-
+"""
+Returns: A Table that contains a Reduction Operation column and a Description column.
+"""
 def getOps(node):
-	opsList = []
+	opsTable = data.Table(["Reduction Operation", "Description"], [])
 	opNodes = findNodesViaTag(node, "op")
-	for node in opNodes:
-		opsList.append(data.Method(getAttribute(node, "name"), node.text))
-	return opsList
+	for onode in opNodes:
+		opsTable.rows.append([getAttribute(onode, "name"), onode.text])
+	return opsTable
 
-def getStep(node):
-	if list(node) == []:
-		return "<p>" + node.text + "</p>"
-	html_string = ""
-	components = []
-	for elem in list(node):
-		desc_text = elem.text.strip()
-		if elem.tag =='description':
-			linkNodes = findNodesViaTag(elem, "link")
-			"""
-			links = {}
-			for node in linkNodes:
-				links[node.text] = getAttribute(node, "url")
-			components.append((elem.tag, elem.text, links))
-			"""
-			for link in linkNodes:
-				old_text = link.text
-				new_text = "<a href='" + getAttribute(link, "url") + "'>" + link.text + "</a>"
-				desc_text = desc_text.replace(old_text, new_text)
-			html_string = html_string + "<p>" + desc_text + "</p>"
-		elif elem.tag == 'img':
-			html_string = html_string + "<img src='" + desc_text + "'>"
-		elif elem.tag == 'code':
-			html_string = html_string + "<pre>" + desc_text + "</pre>"
-		elif elem.tag == 'quote':
-			# components.append((elem.tag, getStep(elem)))
-			html_string = html_string + "<blockquote>" + getStep(elem) + "</blockquote>"
-		"""
-		else:
-			components.append((elem.tag, elem.text))
-		"""
+"""
+"""
+def getFlags(node):
+	flagTable = data.Table(["Flag", "Default Value", "Description"], [])
+	flagNodes = findNodesViaTag(node, "flag")
+	for fnode in flagNodes:
+		flagTable.rows.append([getAttribute(fnode, "name"), getAttribute(fnode, "default"), fnode.text])
+	return flagTable
 
-	return html_string
+"""
+Returns: A Description object containing information from the given node.
+"""
+def getDescription(node):
+	description = data.Description(node.text, [])
+	linkNodes = findNodesViaTag(node, "link")
+	for link in linkNodes:
+		description.links.append(data.ExternalLink(link.text, getAttribute(link, "url")))
+	return description
 
-def getInstruction(node):
-	name = getAttribute(node, "name")
-	stepList = []
-	stepNodes = findNodesViaTag(node, "step")
-	for step in stepNodes:
-		stepList.append(getStep(step))
-	return data.Instructions(name, stepList)
+"""
+Returns: A String containing the description with links embedded using HTML markup.
+"""
+def descriptionToHTML(desc):
+	text = desc.description
+	for link in desc.links:
+		text = text.replace(link.name, "<a href='" + link.link + "'>" + link.name + "</a>")
+	return text
 
-def getInstructionList(filename, tabname):
-	tree = ET.parse(filename)
-	root = tree.getroot()
-	instructionNodes = findNodesViaTag(root, "instruction")
-	instructionList = []
-	for node in instructionNodes:
-		instructionList.append(getInstruction(node))
-	return data.Tab(tabname, [], [], instructionList)
-
-def getList(node):
-	name = getAttribute(node, 'name')
-	items = []
-	itemNodes = findNodesViaTag(node, "item")
-	for node in itemNodes:
-		items.append(node.text)
-	return (name, items)
-
-def getListGroup(filename, tabname):
-	tree = ET.parse(filename)
-	root = tree.getroot()
-	listNodes = findNodesViaTag(root, "list")
-	myLists = []
-	for node in listNodes:
-		myLists.append(getList(node))
-	return data.Tab(tabname, myLists, [], [])
-
+"""
+Returns: A dictionary with key=(construct 1, construct 2) and value=note.
+"""
 def getRelatedConstructs():
 	tree = ET.parse('content/RelatedConstructs.xml')
 	root = tree.getroot()
@@ -145,88 +142,142 @@ def getRelatedConstructs():
 		relatedConstructsList[(constructs[0].text, constructs[1].text)] = note[0].text
 	return relatedConstructsList
 
-def getCategoryList(filename, tabname, relatedconstructs):
+"""
+Returns: A (title, list) tuple.
+"""
+def getList(node):
+	name = getAttribute(node, 'name')
+	items = []
+	itemNodes = findNodesViaTag(node, "item")
+	for n in itemNodes:
+		items.append(data.InternalLink(n.text, getInternalLink(n.text)))
+	return (name, items)
+
+"""
+Returns: A ListGroup containing lists in the node.
+"""
+def getListGroup(node):
+	listNodes = findNodesViaTag(node, "list")
+	myLists = data.ListGroup(getAttribute(node, "name"), [])
+	for node in listNodes:
+		myLists.lists.append(getList(node))
+	return myLists
+
+"""
+Returns: A String containing the given node's contents with HTML markup.
+"""
+def getStep(node):
+	if list(node) == []:
+		return [('description', data.Description(node.text, []))]
+	html_string = ""
+	components = []
+	for elem in list(node):
+		desc_text = elem.text.strip()
+		if elem.tag =='description':
+			components.append((elem.tag, getDescription(elem)))
+		elif elem.tag == 'quote':
+			components.append((elem.tag, getStep(elem)))
+		else:
+			components.append((elem.tag, elem.text.strip()))
+
+	return components
+
+"""
+Returns: An Instruction containing information from the given "instruction" node.
+"""
+def getInstruction(node):
+	name = getAttribute(node, "name")
+	description = ""
+	stepList = []
+	for n in list(node):
+		if n.tag == "description":
+			description = getDescription(n)
+		elif n.tag == "step":
+			stepList.append(getStep(n))
+	return data.Instruction(name, description, stepList)
+
+"""
+Returns: A Construct containing information from the given "construct" node.
+"""
+def getConstruct(node):
+	name = getAttribute(node, "name")
+	javaname = getAttribute(node, "java")
+	#print name, "~~~~~", javaname
+	construct = data.Construct(name, javaname, getDescription(findNodesViaTag(node, "description")[0]))
+	processedTags = ["description"]
+	for elem in list(node):
+		if elem.tag not in processedTags and elem.tag in tagToFunction:
+			construct.components.append(tagToFunction[elem.tag](node))
+			processedTags.append(elem.tag)
+	related = {}
+	for key in relatedConstructs:
+		mykey = ""
+		if name in key[0] or (javaname != "" and javaname in key[0]):
+			mykey = key[1]
+		elif name in key[1] or (javaname != "" and javaname in key[1]):
+			mykey = key[0]
+		if mykey != "":
+			related[data.InternalLink(mykey, getInternalLink(mykey))] = relatedConstructs[key]
+	if related != {}:
+		construct.components.append(related)
+	return construct
+
+"""
+Returns: A Category containing information from the given "category" node.
+"""
+def getCategory(node):
+	category = data.Category(getAttribute(node, "name"))
+	for elem in list(node):
+		if elem.tag == "description":
+			category.description = getDescription(elem)
+		elif elem.tag in tagToFunction:
+			nodename = getAttribute(elem, "name")
+			toCategory[nodename] = category.name
+			if elem.tag == "construct":
+				javaToConstruct[getAttribute(elem, "java")] = nodename
+			category.components.append(tagToFunction[elem.tag](elem))
+	return category
+
+"""
+Returns: A Tab object that is parsed from the given XML file.
+"""
+def readTab(filename):
 	tree = ET.parse(filename)
 	root = tree.getroot()
-	categoryNodelist = findNodesViaTag(root, "category")
-	categoryList = []
+	newTab = data.Tab(getAttribute(root, "name"), [])
+	for node in list(root):
+		toTab[getAttribute(node, "name")] = newTab.name
+		newTab.components.append(tagToFunction[node.tag](node))
+	return newTab
 
-	# add categories
-	for node in categoryNodelist:
-		description = findNodesViaTag(node, "description")
-		newCat = data.Category(getAttribute(node, "name"), description[0].text)
-
-		# add constructs to category
-		constructs = findNodesViaTag(node, "construct")
-		for constructNode in constructs:
-			if type(constructNode) is not list:
-				javaname = getAttribute(constructNode, "java")
-				name = getAttribute(constructNode, "name")
-				print name, "~~~~~", javaname
-				construct = data.Construct(name, getDescription(constructNode))
-				construct.javaname = javaname
-				construct.methods += getMethods(constructNode)
-				construct.usedwith += getUsedWith(constructNode)
-				construct.javadocs += getLinks(constructNode)
-				for key in relatedconstructs:
-					if name in key[0] or (javaname != "" and javaname in key[0]):
-						construct.related[key[1]] = relatedconstructs[key]
-					elif name in key[1] or (javaname != "" and javaname in key[1]):
-						construct.related[key[0]] = relatedconstructs[key]
-				newCat.addConstruct(construct)
-				if javaname != "":
-					javaToConstruct[construct.javaname] = construct.name
-				constructToCategory[construct.name] = newCat.name
-		categoryToTab[newCat.name] = tabname
-		categoryList.append(newCat)
-	return data.Tab(tabname, [], categoryList, [])
-
-def getMPI(filename):
-	tree = ET.parse(filename)
-	root = tree.getroot()
-
-	description = findNodesViaTag(root, "description")[0].text
-	newMPI = data.Construct(getAttribute(root, "name"), description)
-	newMPI.javadocs += getLinks(root)
-	newMPI.methods += getMethods(root)
-	newMPI.MPIdatatypes += getList(root)[1]
-	newMPI.MPIops += getOps(root)
-
-	return data.Tab("MPI", [], [newMPI], [])
-
-def testing(filename):
-	tree = ET.parse(filename)
-	root = tree.getroot()
-
-	for e in root.iter():
-		print e.text
-
+"""
+Reads all Tab files in the 'content' directory and processes the information into an HTML file.
+"""
 def makeHTML():
 	loader = TemplateLoader(
 	    os.path.join(os.path.dirname(__file__), 'templates'),
 	    auto_reload=True
 	)
-	relatedConstructsList = getRelatedConstructs()
 
 	tabs = []
-	tabs.append(getListGroup('content/OverviewTab.xml', "Overview"))
-	tabs.append(getCategoryList('content/HjlibConstructsTab.xml', "HJLib", relatedConstructsList))
-	tabs.append(getCategoryList('content/Java8ConstructsTab.xml', "Java8", relatedConstructsList))
-	tabs.append(getMPI('content/MPITab.xml'))
-	tabs.append(getInstructionList('content/InstallationTab.xml', "InstallationGuide"))
-	tabs.append(data.Tab("EnvironmentConfiguration", [], [], []))
-	tabs.append(data.Tab("CorrectnessPerformance", [], [], []))
-	tabs.append(getInstructionList('content/JavaProfilingTab.xml', "JavaProfiling"))
-	tabs.append(data.Tab("FAQs", [], [], []))
+	for f in os.listdir('content'):
+		if "Tab" in f:
+			tabs.append(readTab('content/' + f))
 
 	tmpl = loader.load('hjdoc.html')
-	testCat = tabs
-	#testCat = data.getTestCategories()
-	stream = tmpl.generate(tabs=testCat, constructToCategory=constructToCategory, javaToConstruct=javaToConstruct, categoryToTab=categoryToTab)
+	stream = tmpl.generate(tabs=tabs)
 	f = open("test.html", "w")
 	out = stream.render('html', doctype='html')
 	f.write(out)
 
+"""
+Global variables
+"""
+javaToConstruct = {}
+toCategory = {}
+toTab = {}
+tagToFunction = {"javadoc": getJavadoc, "usedwith": getUsedWith, "description": getDescription, "instruction": getInstruction, "list": getList,
+"listgroup": getListGroup, "construct": getConstruct, "category": getCategory, "method": getMethods, "op": getOps, "flag": getFlags}
+relatedConstructs = getRelatedConstructs()
+
 makeHTML()
-
-

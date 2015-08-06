@@ -29,11 +29,11 @@ export PATH=$JAVA_HOME/bin:$PATH
 		</step>
 	</instruction>
 	<instruction name="Maven Setup">
+		<description>Maven is a build automation tool used primarily for Java projects. Projects using Maven or other build systems are easiest to use as they simplify compiling, building, and testing the project. In addition, major IDEs like IntelliJ and Eclipse have excellent support via maven plugins which simplifies the development process. Dependency management is one of the areas where Maven excels; for our purposes, this means that we will save a lot of effort in configuring the projects to set up dependencies on HJ-lib, JUnit, and other jars. Hence, for the labs and assignments in COMP 322, we will distribute maven project templates to be used by students to complete their work.</description>
 		<step>
-			<description>Maven is a build automation tool used primarily for Java projects. Projects using Maven or other build systems are easiest to use as they simplify compiling, building, and testing the project. In addition, major IDEs like IntelliJ and Eclipse have excellent support via maven plugins which simplifies the development process. Dependency management is one of the areas where Maven excels; for our purposes, this means that we will save a lot of effort in configuring the projects to set up dependencies on HJ-lib, JUnit, and other jars. Hence, for the labs and assignments in COMP 322, we will distribute maven project templates to be used by students to complete their work.</description>
-		</step>
-		<step>
-			<description>Maven is a Java tool, so you must have Java installed in order to proceed. Next, follow the instructions on the maven site to install maven. Please remember to install a version that is 3.1.1 or later. During installation have your M2 HOME, MAVEN HOME and PATH point to the new installation. Here is an example of what should be in a Mac machine's .bash_profile:</description>
+			<description>Follow the instructions on the Maven website to install Maven. Please remember to install a version that is 3.1.1 or later. During installation have your M2 HOME, MAVEN HOME and PATH point to the new installation. Here is an example of what should be in a Mac machine's .bash_profile:
+			<link url="https://maven.apache.org/">Maven website</link>
+			</description>
 			<code>
 export M2_HOME=/Users/shamsimam/dev/apache-maven-3.1.1
 export MAVEN_HOME=/Users/shamsimam/dev/apache-maven-3.1.1

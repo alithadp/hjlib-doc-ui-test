@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tab name="Java 8">
 	<category name="Atomic Variables">
-		<description>Description</description>
 		<construct name="AtomicInteger">
 			<description>An int value that can be safely updated in a parallel program. While there are atomic classes representing integer and long data types, there are no atomic classes representing float and double data types. If needed, Float.floatToIntBits(float) and Float.intBitsToFloat(int) conversions, as well as Double.doubleToLongBits(double) and Double.longBitsToDouble(long) conversions, can be used to store float and double values atomically in an AtomicInteger or AtomicLong.</description>
 			<javadoc name="AtomicInteger">https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicInteger.html</javadoc>
@@ -183,9 +182,9 @@
 			<method name="getCount()">Returns the current count.</method>
 		</construct>
 	</category>
-	<category name="Volatile Variables">
+	<construct name="Volatile Variables">
 		<description>Guarantees visibility, but is not thread-safe. Therefore, it provides a &quot;light&quot; form of synchronization.</description>
 		<javadoc name="volatile">https://docs.oracle.com/javase/tutorial/essential/concurrency/atomic.html</javadoc>
-		<usedwith>synchronized</usedwith>
-	</category>
+		<usedwith>Synchronized</usedwith>
+	</construct>
 </tab>
