@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang = "en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:py="http://genshi.edgewall.org/">
+<html lang = "en" xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://genshi.edgewall.org/">
   <head>
     <meta charset="utf-8"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
@@ -25,15 +23,51 @@
 
       def getDataParent(name):
         return "accordion-" + functions.stripChars(name)
-
-      def isActive(tabname):
-        if tabname == "Overview":
-          return "tab-pane active"
-        else:
-          return "tab-pane"
     ?>
 
     <!-- Defined templates -->
+    <py:def function="getTabHTML(tab)">
+        <py:choose test="">
+          <py:when test="len(tab.components) == 0"><p>This page is under construction.</p></py:when>
+          <py:when test="len(tab.components) == 1">
+            <py:choose test="">
+              <py:when test="isinstance(tab.components[0], data.Construct)">
+                <h4>${tab.components[0].name}</h4>${getConstructHTML(tab.components[0])}
+              </py:when>
+              <py:when test="isinstance(tab.components[0], data.Instruction)">
+                <h4>${tab.components[0].name}</h4>${getInstructionsHTML(tab.components[0])}
+              </py:when>
+              <py:when test="isinstance(tab.components[0], data.ListGroup)">${getListGroupHTML(tab.components[0])}</py:when>
+              <py:when test="isinstance(tab.components[0], data.Question)">
+                <h4>${tab.components[0].name}</h4>${getTextComponentHTML(tab.components[0].answer)}
+              </py:when>
+            </py:choose>
+          </py:when>
+          <py:otherwise>
+            <div class="panel-group" id="${getDataParent(tab.name)}">
+              <py:for each="elem in tab.components">
+                <py:choose test="">
+                  <py:when test="isinstance(elem, data.Category)">
+                    ${getAccordionHTML(elem.name, getCategoryHTML(elem), getDataParent(tab.name), "")}
+                  </py:when>
+                  <py:when test="isinstance(elem, data.Construct)">
+                    ${getAccordionHTML(elem.name, getConstructHTML(elem), getDataParent(tab.name), elem.javaname)}
+                  </py:when>
+                  <py:when test="isinstance(elem, data.Instruction)">
+                    ${getAccordionHTML(elem.name, getInstructionsHTML(elem), getDataParent(tab.name), "")}
+                  </py:when>
+                  <py:when test="isinstance(elem, data.ListGroup)">
+                    ${getAccordionHTML(elem.name, getListGroupHTML(elem), getDataParent(tab.name), "")}
+                  </py:when>
+                  <py:when test="isinstance(elem, data.Question)">
+                    ${getAccordionHTML(elem.name, getTextComponentHTML(elem.answer), getDataParent(tab.name), "")}
+                  </py:when>
+                </py:choose>
+              </py:for>
+            </div>
+          </py:otherwise>
+        </py:choose>
+    </py:def>
     <py:def function="getCategoryHTML(category)">
       <py:if test="category.description">${getDescriptionHTML(category.description)}</py:if>
       <div class="panel-group" id="${getDataParent(category.name)}">
@@ -42,6 +76,7 @@
             <py:when test="isinstance(elem, data.Construct)">${getAccordionHTML(elem.name, getConstructHTML(elem), getDataParent(category.name), elem.javaname)}</py:when>
             <py:when test="isinstance(elem, data.Instruction)">${getAccordionHTML(elem.name, getInstructionsHTML(elem), getDataParent(category.name), "")}</py:when>
             <py:when test="isinstance(elem, data.ListGroup)">${getAccordionHTML(elem.name, getListGroupHTML(elem), getDataParent(category.name), "")}</py:when>
+            <py:when test="isinstance(elem, data.Question)">${getAccordionHTML(elem.name, getTextComponentHTML(elem.answer), getDataParent(category.name), "")}</py:when>
           </py:choose>
         </py:for>
       </div>
@@ -60,19 +95,9 @@
       <py:if test="instructions.description">${getDescriptionHTML(instructions.description)}</py:if>
       <ol>
         <py:for each="step in instructions.steps">
-          <li>${getStepHTML(step)}</li>
+          <li>${getTextComponentHTML(step)}</li>
         </py:for>
       </ol>
-    </py:def>
-    <py:def function="getStepHTML(step)">
-      <py:for each="elem in step">
-        <py:choose test="">
-          <py:when test="elem[0] == 'description'">${getDescriptionHTML(elem[1])}</py:when>
-          <py:when test="elem[0] == 'img'"><img src="${elem[1]}" /></py:when>
-          <py:when test="elem[0] == 'code'"><pre>${elem[1]}</pre></py:when>
-          <py:when test="elem[0] == 'quote'"><blockquote>${getStepHTML(elem[1])}</blockquote></py:when>
-        </py:choose>
-      </py:for>
     </py:def>
     <py:def function="getListGroupHTML(listgroup)">
       <py:for each="pair in listgroup.lists">
@@ -139,6 +164,16 @@
         </py:for>
       </dl>
     </py:def>
+    <py:def function="getTextComponentHTML(components)">
+      <py:for each="elem in components">
+        <py:choose test="">
+          <py:when test="elem[0] == 'description'">${getDescriptionHTML(elem[1])}</py:when>
+          <py:when test="elem[0] == 'img'"><p><img src="${elem[1]}" class="img-responsive img-thumbnail" /></p></py:when>
+          <py:when test="elem[0] == 'code'"><pre>${elem[1]}</pre></py:when>
+          <py:when test="elem[0] == 'quote'"><blockquote>${getTextComponentHTML(elem[1])}</blockquote></py:when>
+        </py:choose>
+      </py:for>
+    </py:def>
     <py:def function="getDescriptionHTML(description)">
       <py:choose test="">
         <py:when test="description.links">
@@ -152,30 +187,30 @@
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand anchorlink" href="#overview">
+          <a class="navbar-brand anchorlink" href="#${functions.getInternalLink(tabs[0].name)}">
             <img alt="Brand" src="https://wiki.rice.edu/confluence/download/attachments/4425835/habanero.png?version=1&amp;modificationDate=1312519609464&amp;api=v2" height="25" style="padding-left: 10px; padding-right: 10px;"></img>
           </a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
-            <li><a href="#hjlib" data-toggle="tab">HJ-Lib</a></li>
-            <li><a href="#java8" data-toggle="tab">Java 8</a></li>
-            <li><a href="#mpi" data-toggle="tab">MPI</a></li>
-            <li class="dropdown">
-              <a href="#Setup" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#installationguide" data-toggle="tab">Installation Guide</a></li>
-                <li><a href="#environmentconfiguration" data-toggle="tab">Environment &amp; Configuration</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#Tools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#performancecorrectnesstools" data-toggle="tab">Correctness &amp; Performance Tools</a></li>
-              </ul>
-            </li>
-            <li><a href="#FAQs" data-toggle="tab">FAQs</a></li>
+            <li class="active"><a href="#${functions.getInternalLink(tabs[0].name)}" data-toggle="tab">${tabs[0].name}<span class="sr-only">(current)</span></a></li>
+            <py:for each="tab in tabs[1:]">
+              <py:choose test="">
+                <py:when test="isinstance(tab, tuple)">
+                  <li class="dropdown">
+                    <a href="#${tab[0]}" class="dropdown-toggle" data-toggle="dropdown">${tab[0]}<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <py:for each="t in tab[1]">
+                        <li><a href="#${functions.getInternalLink(t.name)}" data-toggle="tab">${t.name}</a></li>
+                      </py:for>
+                    </ul>
+                  </li>
+                </py:when>
+                <py:otherwise>
+                  <li><a href="#${functions.getInternalLink(tab.name)}" data-toggle="tab">${tab.name}</a></li>
+                </py:otherwise>
+              </py:choose>
+            </py:for>
           </ul>
           <form class="navbar-form navbar-right" role="search">
             <div class="form-group">
@@ -189,31 +224,16 @@
 
     <!-- Tab pages -->
     <div class="tab-content">
-      <py:for each="tab in tabs">
-        <div class="${isActive(tab.name)}" id="${functions.getInternalLink(tab.name)}">
-          <py:choose test="">
-            <py:when test="len(tab.components) == 0"><p>This page is under construction.</p></py:when>
-            <py:when test="len(tab.components) == 1">
-              <py:choose test="">
-                <py:when test="isinstance(tab.components[0], data.Construct)"><h4>${tab.components[0].name}</h4>${getConstructHTML(tab.components[0])}</py:when>
-                <py:when test="isinstance(tab.components[0], data.Instruction)"><h4>${tab.components[0].name}</h4>${getInstructionsHTML(tab.components[0])}</py:when>
-                <py:when test="isinstance(tab.components[0], data.ListGroup)">${getListGroupHTML(tab.components[0])}</py:when>
-              </py:choose>
-            </py:when>
-            <py:otherwise>
-              <div class="panel-group" id="${getDataParent(tab.name)}">
-                <py:for each="elem in tab.components">
-                  <py:choose test="">
-                    <py:when test="isinstance(elem, data.Category)">${getAccordionHTML(elem.name, getCategoryHTML(elem), getDataParent(tab.name), "")}</py:when>
-                    <py:when test="isinstance(elem, data.Construct)">${getAccordionHTML(elem.name, getConstructHTML(elem), getDataParent(tab.name), elem.javaname)}</py:when>
-                    <py:when test="isinstance(elem, data.Instruction)">${getAccordionHTML(elem.name, getInstructionsHTML(elem), getDataParent(tab.name), "")}</py:when>
-                    <py:when test="isinstance(elem, data.ListGroup)">${getAccordionHTML(elem.name, getListGroupHTML(elem), getDataParent(tab.name), "")}</py:when>
-                  </py:choose>
-                </py:for>
-              </div>
-            </py:otherwise>
-          </py:choose>
-        </div>
+      <div class="tab-pane active" id="${functions.getInternalLink(tabs[0].name)}">${getTabHTML(tabs[0])}</div>
+      <py:for each="tab in tabs[1:]">
+        <py:choose test="">
+          <py:when test="isinstance(tab, tuple)">
+            <py:for each="t in tab[1]">
+              <div class="tab-pane" id="${functions.getInternalLink(t.name)}">${getTabHTML(t)}</div>
+            </py:for>
+          </py:when>
+          <py:otherwise><div class="tab-pane" id="${functions.getInternalLink(tab.name)}">${getTabHTML(tab)}</div></py:otherwise>
+        </py:choose>
       </py:for>
     </div>
 

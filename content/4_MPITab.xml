@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tab name="MPI">
+<tab name="MPI" order="4">
 	<construct name="Message-Passing Interface">
         <description>MPI is a platform for Single Program Multiple Data (SPMD) parallel computing on distributed memory architectures, with an API for sending and receiving messages. In a parallel program that uses the SPMD model, a single program is executed on multiple processing elements. Each processing element has its own address space. A "rank", or ID, is used to determine what computation is done on what data by a given processing element. Java support for MPI is available from mpiJava.</description>
         <javadoc name="MPI-Java">http://www.hpjava.org/mpiJava/doc/api/</javadoc>

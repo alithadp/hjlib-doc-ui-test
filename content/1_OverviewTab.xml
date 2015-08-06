@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tab name="Overview">
+<tab name="Overview" order="1">
 	<listgroup>
 		<list name="Unit 1: Task-level Parallelism">
 			<item>Async</item>

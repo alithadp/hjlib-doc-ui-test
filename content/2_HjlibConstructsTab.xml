@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tab name="Hj-Lib">
+<tab name="HJ-Lib" order="2">
 	<category name="Actors">
 		<construct name="Actor" java="Actor&lt;Message_Type&gt;">
 			<description>A concurrent, message-processing component of a parallel message-passing system. An actor can process messages, send messages, change local state, and create new actors.</description>

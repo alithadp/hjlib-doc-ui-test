@@ -7,10 +7,10 @@ import xml.etree.ElementTree as ET
 Returns: A version of the given text with all of the specified chars deleted.
 """
 def stripChars(text):
-    chars = [' ', '/', '(s)', '-', '(', ')', '<', '>', '.', '&']
+    chars = [' ', '/', '(s)', '-', '(', ')', '<', '>', '.', '&', '?']
     for c in chars:
     	text = text.replace(c, '')
-    return text.lower().split('<',1)[0]
+    return text.lower().strip().split('<',1)[0]
 
 """
 Returns: A String containing the internal link/ID for the given name.
@@ -125,7 +125,7 @@ Returns: A String containing the description with links embedded using HTML mark
 def descriptionToHTML(desc):
 	text = desc.description
 	for link in desc.links:
-		text = text.replace(link.name, "<a href='" + link.link + "'>" + link.name + "</a>")
+		text = text.replace(link.name, "<a href='" + link.link + "' target='_blank'>" + link.name + "</a>")
 	return text
 
 """
@@ -164,19 +164,17 @@ def getListGroup(node):
 	return myLists
 
 """
-Returns: A String containing the given node's contents with HTML markup.
+Returns: A list containing the text components (description, quote, code, or image) of the given node.
 """
-def getStep(node):
+def getTextComponents(node):
 	if list(node) == []:
 		return [('description', data.Description(node.text, []))]
-	html_string = ""
 	components = []
 	for elem in list(node):
-		desc_text = elem.text.strip()
 		if elem.tag =='description':
 			components.append((elem.tag, getDescription(elem)))
 		elif elem.tag == 'quote':
-			components.append((elem.tag, getStep(elem)))
+			components.append((elem.tag, getTextComponents(elem)))
 		else:
 			components.append((elem.tag, elem.text.strip()))
 
@@ -193,8 +191,16 @@ def getInstruction(node):
 		if n.tag == "description":
 			description = getDescription(n)
 		elif n.tag == "step":
-			stepList.append(getStep(n))
+			stepList.append(getTextComponents(n))
 	return data.Instruction(name, description, stepList)
+
+"""
+Returns: A Question object containing the question and corresponding answer contained in the give node.
+"""
+def getQuestion(node):
+	q = node.text
+	a = getTextComponents(findNodesViaTag(node, "answer")[0])
+	return data.Question(q, a)
 
 """
 Returns: A Construct containing information from the given "construct" node.
@@ -231,7 +237,10 @@ def getCategory(node):
 		if elem.tag == "description":
 			category.description = getDescription(elem)
 		elif elem.tag in tagToFunction:
-			nodename = getAttribute(elem, "name")
+			if elem.tag == "question":
+				nodename = elem.text
+			else:
+				nodename = getAttribute(elem, "name")
 			toCategory[nodename] = category.name
 			if elem.tag == "construct":
 				javaToConstruct[getAttribute(elem, "java")] = nodename
@@ -244,9 +253,13 @@ Returns: A Tab object that is parsed from the given XML file.
 def readTab(filename):
 	tree = ET.parse(filename)
 	root = tree.getroot()
-	newTab = data.Tab(getAttribute(root, "name"), [])
+	newTab = data.Tab(getAttribute(root, "name"), int(getAttribute(root, "order")), getAttribute(root, "dropdown"), [])
+	print "TAB: " + newTab.name
 	for node in list(root):
-		toTab[getAttribute(node, "name")] = newTab.name
+		if node.tag == "question":
+			toTab[node.text] = newTab.name
+		else:
+			toTab[getAttribute(node, "name")] = newTab.name
 		newTab.components.append(tagToFunction[node.tag](node))
 	return newTab
 
@@ -259,10 +272,20 @@ def makeHTML():
 	    auto_reload=True
 	)
 
+	"""
+	IMPORTANT: XML files must be read in order of appearance in the navigation bar.
+	"""
 	tabs = []
 	for f in os.listdir('content'):
-		if "Tab" in f:
-			tabs.append(readTab('content/' + f))
+		if "Tab.xml" in f:
+			newTab = readTab('content/' + f)
+			if newTab.dropdown != "":
+				if len(tabs) > 0 and isinstance(tabs[-1], tuple) and tabs[-1][0] == newTab.dropdown:
+					tabs[-1][1].append(newTab)
+				else:
+					tabs.append((newTab.dropdown, [newTab]))
+			else:
+				tabs.append(newTab)
 
 	tmpl = loader.load('hjdoc.html')
 	stream = tmpl.generate(tabs=tabs)
@@ -277,7 +300,8 @@ javaToConstruct = {}
 toCategory = {}
 toTab = {}
 tagToFunction = {"javadoc": getJavadoc, "usedwith": getUsedWith, "description": getDescription, "instruction": getInstruction, "list": getList,
-"listgroup": getListGroup, "construct": getConstruct, "category": getCategory, "method": getMethods, "op": getOps, "flag": getFlags}
+"listgroup": getListGroup, "construct": getConstruct, "category": getCategory, "method": getMethods, "op": getOps, "flag": getFlags, 
+"question": getQuestion}
 relatedConstructs = getRelatedConstructs()
 
 makeHTML()

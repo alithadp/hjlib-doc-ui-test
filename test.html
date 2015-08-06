@@ -25,23 +25,18 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#overview" data-toggle="tab">Overview<span class="sr-only">(current)</span></a></li>
-            <li><a href="#hjlib" data-toggle="tab">HJ-Lib</a></li>
-            <li><a href="#java8" data-toggle="tab">Java 8</a></li>
-            <li><a href="#mpi" data-toggle="tab">MPI</a></li>
-            <li class="dropdown">
-              <a href="#Setup" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setup<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#installationguide" data-toggle="tab">Installation Guide</a></li>
-                <li><a href="#environmentconfiguration" data-toggle="tab">Environment &amp; Configuration</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#Tools" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#performancecorrectnesstools" data-toggle="tab">Correctness &amp; Performance Tools</a></li>
-              </ul>
-            </li>
-            <li><a href="#FAQs" data-toggle="tab">FAQs</a></li>
+                  <li><a href="#hjlib" data-toggle="tab">HJ-Lib</a></li>
+                  <li><a href="#java8" data-toggle="tab">Java 8</a></li>
+                  <li><a href="#mpi" data-toggle="tab">MPI</a></li>
+                  <li><a href="#performancecorrectnesstools" data-toggle="tab">Performance &amp; Correctness Tools</a></li>
+                  <li class="dropdown">
+                    <a href="#Setup" class="dropdown-toggle" data-toggle="dropdown">Setup<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#installationguide" data-toggle="tab">Installation Guide</a></li>
+                        <li><a href="#environmentconfiguration" data-toggle="tab">Environment &amp; Configuration</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#faqs" data-toggle="tab">FAQs</a></li>
           </ul>
           <form class="navbar-form navbar-right" role="search">
             <div class="form-group">
@@ -54,398 +49,64 @@
     </nav>
     <!-- Tab pages -->
     <div class="tab-content">
-        <div class="tab-pane" id="performancecorrectnesstools">
-              <div class="panel-group" id="accordion-performancecorrectnesstools">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-performancecorrectnesstools" href="#performancecorrectnesstools-performancetools">
-              Performance Tools<span style="float: right"></span>
-            </a>
-          </h4>
+      <div class="tab-pane active" id="overview">
+        <h4>Unit 1: Task-level Parallelism</h4>
+        <div class="list-group">
+            <a href="#hjlib-asyncfinish-async" class="list-group-item anchorlink">Async</a>
+            <a href="#hjlib-asyncfinish-finish" class="list-group-item anchorlink">Finish</a>
         </div>
-        <div id="performancecorrectnesstools-performancetools" class="panel-collapse collapse">
-          <div class="panel-body">
-      <div class="panel-group" id="accordion-performancetools">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-abstractmetrics">
-              Abstract Metrics<span style="float: right">abstractMetrics()</span>
-            </a>
-          </h4>
+        <h4>Unit 2: Functional Parallelism</h4>
+        <div class="list-group">
+            <a href="#hjlib-futures-future" class="list-group-item anchorlink">Future</a>
+            <a href="#hjlib-finishaccumulators" class="list-group-item anchorlink">Finish Accumulators</a>
         </div>
-        <div id="performancecorrectnesstools-performancetools-abstractmetrics" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>Returns abstract metrics report for the currently executing task.</p>
-      <h5>Javadoc Link(s)</h5>
-        <ul class="list-inline">
-            <li>
-                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/Module0.html#abstractMetrics--" target="_blank">abstractMetrics</a>
-            </li>
-        </ul>
-          </div>
+        <h4>Unit 3: Loop-level Parallelism</h4>
+        <div class="list-group">
+            <a href="#hjlib-for-paralleliterationwithimplicitfinish" class="list-group-item anchorlink">Parallel Iteration With Implicit Finish</a>
+            <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="list-group-item anchorlink">Parallel Chunked Iteration With Implicit Finish</a>
+            <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="list-group-item anchorlink">Phaser-Registered Iteration With Implicit Finish</a>
+            <a href="#hjlib-for-barrier" class="list-group-item anchorlink">Barrier</a>
+            <a href="#hjlib-placesregions-iterationregions" class="list-group-item anchorlink">Iteration Regions</a>
         </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-currenttimeinmilliseconds">
-              Current Time in Milliseconds<span style="float: right">System.currenttimemillis()</span>
-            </a>
-          </h4>
+        <h4>Unit 4: Dataflow Synchronization &amp; Pipelining</h4>
+        <div class="list-group">
+            <a href="#hjlib-futures-datadrivenfuture" class="list-group-item anchorlink">Data-Driven Future</a>
+            <a href="#hjlib-asyncfinish-datadrivenasync" class="list-group-item anchorlink">Data-Driven Async</a>
+            <a href="#hjlib-phasers" class="list-group-item anchorlink">Phasers</a>
+            <a href="#hjlib-asyncfinish-asyncwithphaser" class="list-group-item anchorlink">Async With Phaser(s)</a>
         </div>
-        <div id="performancecorrectnesstools-performancetools-currenttimeinmilliseconds" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>Returns the current time in milliseconds. Can be used to record the time at the start of a program execution and at the end of a program execution, aiding in measurement of real time performance of a program.</p>
-      <h5>Javadoc Link(s)</h5>
-        <ul class="list-inline">
-            <li>
-                <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#currentTimeMillis--" target="_blank">System.curenttimemillis()</a>
-            </li>
-        </ul>
-          </div>
+        <h4>Unit 5: Sharing State Between Threads</h4>
+        <div class="list-group">
+            <a href="#hjlib-isolatedstatements-isolated" class="list-group-item anchorlink">Isolated</a>
+            <a href="#hjlib-isolatedstatements-isolatedwithreturnvalue" class="list-group-item anchorlink">Isolated With Return Value</a>
+            <a href="#java8-concurrentcollections" class="list-group-item anchorlink">Concurrent Collections</a>
+            <a href="#hjlib-eurekas" class="list-group-item anchorlink">Eurekas</a>
+            <a href="#java8-atomicvariables" class="list-group-item anchorlink">Atomic Variables</a>
         </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-dowork">
-              Do Work<span style="float: right">doWork(long n)</span>
-            </a>
-          </h4>
+        <h4>Unit 6: Actors</h4>
+        <div class="list-group">
+            <a href="#hjlib-actors-actor" class="list-group-item anchorlink">Actor</a>
+            <a href="#hjlib-actors-selector" class="list-group-item anchorlink">Selector</a>
         </div>
-        <div id="performancecorrectnesstools-performancetools-dowork" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>Used to report abstract work done by the currently executing task.</p>
-      <h5>Javadoc Link(s)</h5>
-        <ul class="list-inline">
-            <li>
-                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/Module0.html#doWork-long-" target="_blank">doWork</a>
-            </li>
-        </ul>
-          </div>
+        <h4>Unit 7: Threads &amp; Locks</h4>
+        <div class="list-group">
+            <a href="#java8-javathreads" class="list-group-item anchorlink">Java Threads</a>
+            <a href="#java8-forkjoin" class="list-group-item anchorlink">Fork-Join</a>
+            <a href="#java8-synchronized" class="list-group-item anchorlink">Synchronized</a>
+            <a href="#java8-locks-reentrantlock" class="list-group-item anchorlink">ReentrantLock</a>
+            <a href="#java8-locks-readwritelock" class="list-group-item anchorlink">ReadWriteLock</a>
+            <a href="#java8-synchronizer-semaphore" class="list-group-item anchorlink">Semaphore</a>
+            <a href="#countdownlatch" class="list-group-item anchorlink">CountdownLatch</a>
         </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-hjmetrics">
-              HjMetrics<span style="float: right"></span>
-            </a>
-          </h4>
+        <h4>Special Topics</h4>
+        <div class="list-group">
+            <a href="#hjlib-placesregions" class="list-group-item anchorlink">Places/Regions</a>
+            <a href="#mpi" class="list-group-item anchorlink">MPI</a>
+            <a href="#java8-volatilevariables" class="list-group-item anchorlink">Volatile Variables</a>
         </div>
-        <div id="performancecorrectnesstools-performancetools-hjmetrics" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>Used to report metrics results.</p>
-      <h5>Javadoc Link(s)</h5>
-        <ul class="list-inline">
-            <li>
-                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/api/HjMetrics.html" target="_blank">HjMetrics</a>
-            </li>
-        </ul>
-      <table class="table table-condensed">
-        <tr>
-            <th class="col-md-2">Method</th><th class="col-md-2">Description</th>
-        </tr>
-        <tr>
-          <td class="col-md-2">criticalPathLength()</td><td class="col-md-2">Returns the critical path length, which is the length of the longest path in a parallel program's computation graph.</td>
-        </tr><tr>
-          <td class="col-md-2">totalWork()</td><td class="col-md-2">Returns the total work performed in a parallel program.</td>
-        </tr><tr>
-          <td class="col-md-2">idealParallelism()</td><td class="col-md-2">Returns the ideal parallelism, which is total work divided by critical path length.</td>
-        </tr>
-      </table>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-hjviz">
-              HJ-Viz<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="performancecorrectnesstools-performancetools-hjviz" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>HJ-Viz generates interactive Computation Graphs (CGs) of parallel programs by analyzing event logs. It also incorporates Abstract Execution Metrics (AEM) into the visualization. HJ-Viz highlights the program's critical paths and displays the amount of work performed in each step of computation based on the collected AEM.</p>
-      <ol>
-          <li>
-        <p>Download Graphviz at http://www.graphviz.org/Download.php.</p>
-    </li>
-          <li>
-        <p>Generate the program's event log file</p>
-    </li>
-          <li>
-        <p>Example code for generating an event log file is in the lab_4_hjviz folder.</p>
-    </li>
-          <li>
-        <p>Your program should use doWork(long n) to keep track of how much work it is doing.</p>
-    </li>
-          <li>
-        <p>Run the program to generate the event log file.</p>
-    </li>
-          <li>
-          <pre>&lt;profile&gt;
-			            &lt;id&gt;server&lt;/id&gt;
-			            &lt;build&gt;
-			                &lt;plugins&gt;
-			                    &lt;plugin&gt;
-			                        &lt;!-- executes the main program --&gt;
-			                        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-			                        &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
-			                        &lt;executions&gt;
-			                            &lt;execution&gt;
-			                                &lt;goals&gt;
-			                                    &lt;goal&gt;exec&lt;/goal&gt;
-			                                &lt;/goals&gt;
-			                            &lt;/execution&gt;
-			                        &lt;/executions&gt;
-			                        &lt;configuration&gt;
-			                            &lt;executable&gt;java&lt;/executable&gt;
-			                            &lt;arguments&gt;
-			                                &lt;argument&gt;-jar&lt;/argument&gt;
-			                                &lt;argument&gt;${habanero-java-lib:hjviz:jar}&lt;/argument&gt;
-			                            &lt;/arguments&gt;
-			                        &lt;/configuration&gt;
-			                    &lt;/plugin&gt;
-			                &lt;/plugins&gt;
-			            &lt;/build&gt;
-			        &lt;/profile&gt;</pre>
-    </li>
-          <li>
-          <pre>&lt;dependency&gt;
-			            &lt;groupId&gt;habanero-java-lib&lt;/groupId&gt;
-			            &lt;artifactId&gt;habanero-java-lib-hjviz&lt;/artifactId&gt;
-			            &lt;version&gt;${hjlib.version}&lt;/version&gt;
-			        &lt;/dependency&gt;</pre>
-    </li>
-          <li>
-        <p>Run the HJ-Viz server locally by running the following command: mvn clean compile exec:exec -Pserver.</p>
-    </li>
-          <li>
-          <pre>* Running on http://127.0.0.1:8000/ (Press CTRL+C to quit)</pre>
-    </li>
-          <li>
-        <p>Go to the URL http://127.0.0.1:8000/ on a browser.</p>
-    </li>
-          <li>
-        <p>Upload the event log file and click "Submit".</p>
-    </li>
-          <li>
-        <p>The computation graph for that program should be displayed in the browser.</p>
-    </li>
-      </ol>
-          </div>
-        </div>
-      </div>
-      </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-performancecorrectnesstools" href="#performancecorrectnesstools-correctnesstools">
-              Correctness Tools<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="performancecorrectnesstools-correctnesstools" class="panel-collapse collapse">
-          <div class="panel-body">
-      <div class="panel-group" id="accordion-correctnesstools">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-correctnesstools" href="#performancecorrectnesstools-correctnesstools-dataracedetectionusingfasttrack">
-              Data Race Detection Using FastTrack<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="performancecorrectnesstools-correctnesstools-dataracedetectionusingfasttrack" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>FastTrack is a tool for detecting data races. It runs an instrumented version of your HJlib program and reasons about all potential interfering accesses that are candidates for data races according to the parallelism in the input program. If a race is found, a pair of interfering accesses is printed with source code locations for the accesses.  It is important to note that if FastTrack does not detect any data races, this does NOT guarantee that your program is free of data races.
-				Note that FastTrack only works with the blocking runtime version of HJ-Lib.
-			</p>
-      <ol>
-          <li>
-        <p>Run the Maven profile with FastTrack enabled.</p>
-    </li>
-          <li>
-          <pre>## FastTrack Error
-					## 
-					##          Thread: 6    
-					##           Blame: rd_array@edu/rice/comp322/UsefulParScoring.java:86:85
-					##           Count: 1    (max: 20)
-					##     Guard State: [W=(8:35) R=(--:--) CV=[(0:0) (1:0) (2:0) (3:0) (4:0) (5:0) (6:AB) (7:0) (8:35)]]
-					##  Current Thread: [tid=6    cv=[(0:473) (1:6042) (2:C8) (3:A1) (4:90) (5:79) (6:AB) (7:67) (8:34)]   epoch=(6:AB)]
-					##           Array: @03[77]
-					## Previous Access: wr_array@edu/rice/comp322/UsefulParScoring.java:87:119 by Thread 8 (name = Thread[pool-0-thread-008,5,main])
-					##  Current Access: rd_array@edu/rice/comp322/UsefulParScoring.java:86:85 by Thread 6 (name = pool-0-thread-006)</pre>
-    </li>
-      </ol>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-correctnesstools" href="#performancecorrectnesstools-correctnesstools-deadlockdetection">
-              Deadlock Detection<span style="float: right">HjSystemProperty.enableDebuggingFlags()</span>
-            </a>
-          </h4>
-        </div>
-        <div id="performancecorrectnesstools-correctnesstools-deadlockdetection" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>An HJ-Lib tool for detecting deadlocks.</p>
-      <h5>Javadoc Link(s)</h5>
-        <ul class="list-inline">
-            <li>
-                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/runtime/config/HjSystemProperty.html#enableDebuggingFlags--" target="_blank">enableDebuggingFlags</a>
-            </li>
-        </ul>
-          </div>
-        </div>
-      </div>
-      </div>
-          </div>
-        </div>
-      </div>
-              </div>
-        </div>
-        <div class="tab-pane" id="environmentconfiguration">
-              <div class="panel-group" id="accordion-environmentconfiguration">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-environmentconfiguration" href="#environmentconfiguration-cooperativevsblockingruntimes">
-              Cooperative vs. Blocking Runtimes<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="environmentconfiguration-cooperativevsblockingruntimes" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>HJlib is a pure Java 8 library implementation of various parallel constructs. It relies on the use of Java 8 lambdas to simplify writing parallel programs. This library is responsible for scheduling and synchronizing an unbounded number of async tasks on a fixed number of processors ("worker threads"). Two scheduling runtime systems in HJlib are:</p>
-      <ol>
-          <li>
-        <p>Cooperative Runtime</p>
-          <blockquote>
-        <p>When a blocking construct is encountered, the blocked code is made into a separate task that creates continuations for blocking constructs in HJlib (such as the end of a finish scope), and uses a fixed number of worker threads to switch between async tasks and continuations that are ready to execute. The advantage of the cooperative runtime is that it can support large numbers of async tasks.</p>
-    </blockquote>
-    </li>
-          <li>
-        <p>Blocking Runtime</p>
-          <blockquote>
-        <p>Creates a new worker thread each time a blocking operation is performed. This incurs less overhead on programs with few blocking operations. However, it can easily run out of memory when large numbers of blocking operations are performed, due to the creation of a large number of worker threads.</p>
-    </blockquote>
-    </li>
-      </ol>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-environmentconfiguration" href="#environmentconfiguration-launchhabaneroapp">
-              launchHabaneroApp<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="environmentconfiguration-launchhabaneroapp" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>Launches the fragment of code to be run by the habanero runtime.</p>
-      <h5>Javadoc Link(s)</h5>
-        <ul class="list-inline">
-            <li>
-                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/Module0.html#launchHabaneroApp-edu.rice.hj.api.HjSuspendable-" target="_blank">launchHabaneroApp</a>
-            </li>
-        </ul>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-environmentconfiguration" href="#environmentconfiguration-hjsystemproperty">
-              HjSystemProperty<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="environmentconfiguration-hjsystemproperty" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>A set of HJ-Lib configuration options.</p>
-      <h5>Javadoc Link(s)</h5>
-        <ul class="list-inline">
-            <li>
-                <a href="http://www.google.com/url?q=http%3A%2F%2Fwww.cs.rice.edu%2F~vs3%2Fhjlib%2Fdoc%2Fedu%2Frice%2Fhj%2Fruntime%2Fconfig%2FHjSystemProperty.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNHu1WcN_z4T91rrGO_sMQufpASI3A" target="_blank">HjSystemProperty</a>
-            </li>
-        </ul>
-      <table class="table table-condensed">
-        <tr>
-            <th class="col-md-2">Method</th><th class="col-md-2">Description</th>
-        </tr>
-        <tr>
-          <td class="col-md-2">setProperty(Object value)</td><td class="col-md-2">Set the property used by the Habanero runtime for this flag.</td>
-        </tr><tr>
-          <td class="col-md-2">enableAbstractMetricsFlags()</td><td class="col-md-2">Sets the following flags to true: abstractMetrics, executionGraph, speedUpGraph, showBuildVersion.</td>
-        </tr><tr>
-          <td class="col-md-2">enableDebuggingFlags()</td><td class="col-md-2">Sets the following flags to true: diagnoseDeadlocks, trackDeadlocks, showWarning, locationInName, showBuildVersion.</td>
-        </tr><tr>
-          <td class="col-md-2">enablePerformanceAnalysisFlags()</td><td class="col-md-2">Sets the following flags to true: showRuntimeStats, showBuildVersion.</td>
-        </tr>
-      </table>
-      <table class="table table-condensed">
-        <tr>
-            <th class="col-md-2">Flag</th><th class="col-md-2">Default Value</th><th class="col-md-2">Description</th>
-        </tr>
-        <tr>
-          <td class="col-md-2">abstractMetrics</td><td class="col-md-2">false</td><td class="col-md-2">Whether to enable abstract execution metrics.</td>
-        </tr><tr>
-          <td class="col-md-2">diagnoseDeadlocks</td><td class="col-md-2">false</td><td class="col-md-2">Whether to track deadlock situations when all workers become idle.</td>
-        </tr><tr>
-          <td class="col-md-2">eventLogging</td><td class="col-md-2">false</td><td class="col-md-2">Whether to enable event logging.</td>
-        </tr><tr>
-          <td class="col-md-2">executionGraph</td><td class="col-md-2">false</td><td class="col-md-2">Whether to display the execution graph.</td>
-        </tr><tr>
-          <td class="col-md-2">fjAsyncMode</td><td class="col-md-2">true</td><td class="col-md-2">Whether to use asyncMode in the fork-join pool.</td>
-        </tr><tr>
-          <td class="col-md-2">isolatedLocks</td><td class="col-md-2"># of available processors</td><td class="col-md-2">Number of locks to use for object-based isolation.</td>
-        </tr><tr>
-          <td class="col-md-2">isolatedLockType</td><td class="col-md-2">ordered</td><td class="col-md-2">Whether the lock is ordered or unordered.</td>
-        </tr><tr>
-          <td class="col-md-2">locationInName</td><td class="col-md-2">false</td><td class="col-md-2">Uses call stack to determine HJ construct names.</td>
-        </tr><tr>
-          <td class="col-md-2">maxThreads</td><td class="col-md-2">min(128, 10 * # of available processors)</td><td class="col-md-2">Maximum number of worker threads to use.</td>
-        </tr><tr>
-          <td class="col-md-2">nbAsyncOpt</td><td class="col-md-2">false</td><td class="col-md-2">Whether to enable non-blocking task execution before blocking workers.</td>
-        </tr><tr>
-          <td class="col-md-2">numPlaces</td><td class="col-md-2">1</td><td class="col-md-2">Number of places to use.</td>
-        </tr><tr>
-          <td class="col-md-2">numWorkers</td><td class="col-md-2"># of available processors</td><td class="col-md-2">Number of workers to use.</td>
-        </tr><tr>
-          <td class="col-md-2">phaserBusyWait</td><td class="col-md-2">1</td><td class="col-md-2">Number of iterations in busy wait before resorting to thread-blocking operations in phaser wait instructions.</td>
-        </tr><tr>
-          <td class="col-md-2">runtime</td><td class="col-md-2">fj</td><td class="col-md-2">The HJ runtime to use.</td>
-        </tr><tr>
-          <td class="col-md-2">showBuildVersion</td><td class="col-md-2">false</td><td class="col-md-2">Whether to show build version.</td>
-        </tr><tr>
-          <td class="col-md-2">showRuntimeStats</td><td class="col-md-2">false</td><td class="col-md-2">Whether to show executor service stats.</td>
-        </tr><tr>
-          <td class="col-md-2">showWarning</td><td class="col-md-2">false</td><td class="col-md-2">Whether to show warning/debug messages.</td>
-        </tr><tr>
-          <td class="col-md-2">speedUpGraph</td><td class="col-md-2">false</td><td class="col-md-2">Whether to display the speedup graph.</td>
-        </tr><tr>
-          <td class="col-md-2">trackDeadlocks</td><td class="col-md-2">false</td><td class="col-md-2">Whether to track deadlock situations when all workers become idle.</td>
-        </tr>
-      </table>
-          </div>
-        </div>
-      </div>
-              </div>
-        </div>
-        <div class="tab-pane" id="hjlib">
-              <div class="panel-group" id="accordion-hjlib">
+    </div>
+          <div class="tab-pane" id="hjlib">
+            <div class="panel-group" id="accordion-hjlib">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -582,10 +243,6 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-for-parallelchunkediterationwithnoimplicitfinish" class="anchorlink">forasyncChunked</a>
-          </dt>
-          <dd>forasyncChunked is semantically the same as forasync. However, forasyncChunked increases actual speedup by grouping/chunking.</dd>
-          <dt>
               <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
           </dt>
           <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
@@ -598,25 +255,29 @@
           </dt>
           <dd>forasync is the same as a standard for loop that spawns new asynchronous tasks every iteration.</dd>
           <dt>
-              <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
+              <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
           </dt>
-          <dd>asyncPhased is used with phasers for barrier synchronization, while asyncAwait is used with data driven futures for data-driven tasks.</dd>
+          <dd>In asyncPhased, the asynchronous task may be registered to a specific subset of its parent's phasers with specified modes. In async, no phasers are used.</dd>
           <dt>
               <a href="#hjlib-for-paralleliterationwithimplicitfinish" class="anchorlink">forall</a>
           </dt>
           <dd>forall has an implicit finish, while forasync does not.</dd>
           <dt>
-              <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
-          </dt>
-          <dd>In asyncPhased, the asynchronous task may be registered to a specific subset of its parent's phasers with specified modes. In async, no phasers are used.</dd>
-          <dt>
               <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
           </dt>
           <dd>In asyncAwait, the task is delayed to start after specified events (data-driven futures) have occurred. In async, the task could begin immediately.</dd>
           <dt>
+              <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
+          </dt>
+          <dd>asyncPhased is used with phasers for barrier synchronization, while asyncAwait is used with data driven futures for data-driven tasks.</dd>
+          <dt>
               <a href="#java8-javathreads-thread" class="anchorlink">Thread</a>
           </dt>
           <dd>Invoking start() on a thread is similar to spawning an async. However, creating a new thread incurs more overhead than creating a new asynchronous task.</dd>
+          <dt>
+              <a href="#hjlib-for-parallelchunkediterationwithnoimplicitfinish" class="anchorlink">forasyncChunked</a>
+          </dt>
+          <dd>forasyncChunked is semantically the same as forasync. However, forasyncChunked increases actual speedup by grouping/chunking.</dd>
       </dl>
           </div>
         </div>
@@ -653,6 +314,10 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
+              <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
+          </dt>
+          <dd>asyncPhased is used with phasers for barrier synchronization, while asyncAwait is used with data driven futures for data-driven tasks.</dd>
+          <dt>
               <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
           </dt>
           <dd>In asyncPhased, the asynchronous task may be registered to a specific subset of its parent's phasers with specified modes. In async, no phasers are used.</dd>
@@ -660,10 +325,6 @@
               <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="anchorlink">forallPhased</a>
           </dt>
           <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
-          <dt>
-              <a href="#hjlib-asyncfinish-datadrivenasync" class="anchorlink">asyncAwait</a>
-          </dt>
-          <dd>asyncPhased is used with phasers for barrier synchronization, while asyncAwait is used with data driven futures for data-driven tasks.</dd>
       </dl>
           </div>
         </div>
@@ -746,10 +407,6 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-eurekas-eurekaobject" class="anchorlink">HjEureka</a>
-          </dt>
-          <dd>A eureka should be used if further execution of tasks becomes unnecessary after a certain point (in a search, for example). An accumulator should be used if all spawned tasks must execute for the correct answer (in getting a sum, for example).</dd>
-          <dt>
               <a href="#java8-atomicvariables-atomicinteger" class="anchorlink">AtomicInteger</a>
           </dt>
           <dd>An AtomicInteger can only add to the previously set value or replace it. An accumulator offers more flexibility in the operations it can perform as it updates its value.</dd>
@@ -773,6 +430,10 @@
               <a href="#hjlib-isolatedstatements-isolated" class="anchorlink">isolated</a>
           </dt>
           <dd>Isolated is used to synchronize blocks of code (that could include updating a shared variable), while a finish accumulator is only allows for synchronized updating of the finish accumulator object.</dd>
+          <dt>
+              <a href="#hjlib-eurekas-eurekaobject" class="anchorlink">HjEureka</a>
+          </dt>
+          <dd>A eureka should be used if further execution of tasks becomes unnecessary after a certain point (in a search, for example). An accumulator should be used if all spawned tasks must execute for the correct answer (in getting a sum, for example).</dd>
       </dl>
           </div>
         </div>
@@ -1060,10 +721,6 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-for-parallelchunkediterationwithnoimplicitfinish" class="anchorlink">forasyncChunked</a>
-          </dt>
-          <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
-          <dt>
               <a href="#hjlib-for-phaserregisterediterationwithnoimplicitfinish" class="anchorlink">forasyncPhased</a>
           </dt>
           <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
@@ -1083,6 +740,10 @@
               <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
           </dt>
           <dd>forallChunked is semantically the same as forall. However, forallChunked increases actual speedup by grouping/chunking. (NOTE: For fast performance, it is best to start with forallChunked. From there, chunk size can be manually tweaked to be more fine-grained).</dd>
+          <dt>
+              <a href="#hjlib-for-parallelchunkediterationwithnoimplicitfinish" class="anchorlink">forasyncChunked</a>
+          </dt>
+          <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
       </dl>
           </div>
         </div>
@@ -1125,14 +786,6 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
-          </dt>
-          <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
-          <dt>
-              <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
-          </dt>
-          <dd>forasync is the same as a standard for loop that spawns new asynchronous tasks every iteration.</dd>
-          <dt>
               <a href="#hjlib-for-paralleliterationwithimplicitfinish" class="anchorlink">forall</a>
           </dt>
           <dd>forall has an implicit finish, while forasync does not.</dd>
@@ -1144,6 +797,14 @@
               <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="anchorlink">forallPhased</a>
           </dt>
           <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
+          <dt>
+              <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
+          </dt>
+          <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
+          <dt>
+              <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
+          </dt>
+          <dd>forasync is the same as a standard for loop that spawns new asynchronous tasks every iteration.</dd>
       </dl>
           </div>
         </div>
@@ -1229,13 +890,13 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-for-paralleliterationwithnoimplicitfinish" class="anchorlink">forasync</a>
-          </dt>
-          <dd>forasyncChunked is semantically the same as forasync. However, forasyncChunked increases actual speedup by grouping/chunking.</dd>
-          <dt>
               <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="anchorlink">forallChunked</a>
           </dt>
           <dd>forallChunked has an implicit finish, while forasyncChunked does not.</dd>
+          <dt>
+              <a href="#hjlib-for-paralleliterationwithnoimplicitfinish" class="anchorlink">forasync</a>
+          </dt>
+          <dd>forasyncChunked is semantically the same as forasync. However, forasyncChunked increases actual speedup by grouping/chunking.</dd>
       </dl>
           </div>
         </div>
@@ -1272,10 +933,6 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-for-phaserregisterediterationwithnoimplicitfinish" class="anchorlink">forasyncPhased</a>
-          </dt>
-          <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
-          <dt>
               <a href="#java8-synchronizer-countdownlatch" class="anchorlink">CountDownLatch</a>
           </dt>
           <dd>forallPhsed allows for barrier synchronization across all worker threads, while CountDownLatch allows for barrier synchronization across a given number of threads.</dd>
@@ -1283,6 +940,10 @@
               <a href="#hjlib-for-paralleliterationwithimplicitfinish" class="anchorlink">forall</a>
           </dt>
           <dd>forallPhased allows for barriers and further synchronization by using next and signal, while forall does not.</dd>
+          <dt>
+              <a href="#hjlib-for-phaserregisterediterationwithnoimplicitfinish" class="anchorlink">forasyncPhased</a>
+          </dt>
+          <dd>forallPhased has an implicit finish while forasyncPhased does not. forasyncPhased can also declare phasers explicitly.</dd>
       </dl>
           </div>
         </div>
@@ -1512,10 +1173,6 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-eurekas-eurekaobject" class="anchorlink">HjEureka</a>
-          </dt>
-          <dd>A eureka should be used if further execution of tasks becomes unnecessary after a certain point (in a search, for example). An accumulator should be used if all spawned tasks must execute for the correct answer (in getting a sum, for example).</dd>
-          <dt>
               <a href="#hjlib-isolatedstatements-isolated" class="anchorlink">isolated</a>
           </dt>
           <dd>Isolated is used to synchronize blocks of code (that could include updating a shared variable), while a finish accumulator is only allows for synchronized updating of the finish accumulator object.</dd>
@@ -1523,6 +1180,10 @@
               <a href="#java8-atomicvariables-atomicinteger" class="anchorlink">AtomicInteger</a>
           </dt>
           <dd>An AtomicInteger can only add to the previously set value or replace it. An accumulator offers more flexibility in the operations it can perform as it updates its value.</dd>
+          <dt>
+              <a href="#hjlib-eurekas-eurekaobject" class="anchorlink">HjEureka</a>
+          </dt>
+          <dd>A eureka should be used if further execution of tasks becomes unnecessary after a certain point (in a search, for example). An accumulator should be used if all spawned tasks must execute for the correct answer (in getting a sum, for example).</dd>
       </dl>
           </div>
         </div>
@@ -1550,8 +1211,7 @@
                 <a href="#hjlib-finishaccumulators-finishaccumulatorobject" class="anchorlink">HjFinishAccumulator</a>
             </li>
             <li>
-                <a href="#hjoperator
-				" class="anchorlink">HjOperator
+                <a href="#hjoperator" class="anchorlink">HjOperator
 				</a>
             </li>
         </ul>
@@ -1648,13 +1308,13 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#hjlib-futures-datadrivenfuture" class="anchorlink">HjDataDrivenFuture</a>
-          </dt>
-          <dd>Futures and data driven futures both store a value and block on their get() methods until that value becomes available. They differ in where this value comes from. A future contains an asynchronous task that returns this value. Therefore, when a future is created, it can immediately begin executing code to generate the return value. A data driven future is given a value to store and return by the put() method.This allows for more flexibility in synchronization, but also has the potential to deadlock.</dd>
-          <dt>
               <a href="#hjlib-asyncfinish-finish" class="anchorlink">finish</a>
           </dt>
           <dd>Unlike finish, which waits for all async tasks in the finish scope, a future.get() only waits for the specified async expression.</dd>
+          <dt>
+              <a href="#hjlib-futures-datadrivenfuture" class="anchorlink">HjDataDrivenFuture</a>
+          </dt>
+          <dd>Futures and data driven futures both store a value and block on their get() methods until that value becomes available. They differ in where this value comes from. A future contains an asynchronous task that returns this value. Therefore, when a future is created, it can immediately begin executing code to generate the return value. A data driven future is given a value to store and return by the put() method.This allows for more flexibility in synchronization, but also has the potential to deadlock.</dd>
       </dl>
           </div>
         </div>
@@ -1774,8 +1434,7 @@
       <h5>Used With</h5>
         <ul class="list-inline">
             <li>
-                <a href="#asyncnbat
-				" class="anchorlink">asyncNbAt
+                <a href="#asyncnbat" class="anchorlink">asyncNbAt
 				</a>
             </li>
         </ul>
@@ -1867,6 +1526,10 @@
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
+              <a href="#hjlib-isolatedstatements-isolatedwithreturnvalue" class="anchorlink">isolatedWithReturn</a>
+          </dt>
+          <dd>isolatedWIthReturn has a return value while isolated does not. They are the same otherwise.</dd>
+          <dt>
               <a href="#hjlib-finishaccumulators-finishaccumulatorobject" class="anchorlink">HjFinishAccumulator</a>
           </dt>
           <dd>Isolated is used to synchronize blocks of code (that could include updating a shared variable), while a finish accumulator is only allows for synchronized updating of the finish accumulator object.</dd>
@@ -1874,10 +1537,6 @@
               <a href="#synchronized" class="anchorlink">synchronized</a>
           </dt>
           <dd>Object-based isolation guarantees deadlock freedom, while synchronized statements do not.</dd>
-          <dt>
-              <a href="#hjlib-isolatedstatements-isolatedwithreturnvalue" class="anchorlink">isolatedWithReturn</a>
-          </dt>
-          <dd>isolatedWIthReturn has a return value while isolated does not. They are the same otherwise.</dd>
       </dl>
           </div>
         </div>
@@ -2018,247 +1677,10 @@
           </div>
         </div>
       </div>
-              </div>
-        </div>
-        <div class="tab-pane" id="installationguide">
-              <div class="panel-group" id="accordion-installationguide">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-installationguide" href="#installationguide-java8setup">
-              Java 8 Setup<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="installationguide-java8setup" class="panel-collapse collapse">
-          <div class="panel-body">
-      <ol>
-          <li>
-        <p>You may already have Java 8 installed on your computer. To check whether you have Java 8 installed on your machine, go to the command line and type the following java -version. You may see something as follows:</p>
-          <pre>$ java -version
-java version "1.8.0_25"
-Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
-Java HotSpot(TM) 64-Bit Server VM (build 25.25-b02, mixed mode)</pre>
-    </li>
-          <li>
-          <p>If the Java version shows 1.8.*, you already have Java 8 installed on your machine. If you do have Java 8 already installed on your machine, please skip to Maven setup. If you do not already have it installed, you will need a Java 8 installation on your machine and have your JAVA HOME and PATH point to the new installation. Java 8 can be downloaded and installed from the <a href='https://www.google.com/url?q=https%3A%2F%2Fjdk8.java.net%2Fdownload.html&sa=D&sntz=1&usg=AFQjCNFlsqVvnoz-qITcoDkNupatvNqr6Q'>Oracle website</a>.
-			</p>
-          <blockquote>
-          <p>For Macs: To set up environment variables on your machine, a .bash_profile needs to be created and edited; please refer to <a href='http://www.google.com/url?q=http%3A%2F%2Fhathaway.cc%2Fpost%2F69201163472%2Fhow-to-edit-your-path-environment-variables-on-mac&sa=D&sntz=1&usg=AFQjCNHbLR1sjYCFd-d7leAp4Sq526997A'>this website</a> for instructions. Here is an example of what should be on your machine's .bash_profile:
-				</p>
-          <pre>JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
-export JAVA_HOME=${JAVA8_HOME}
-export PATH=$JAVA_HOME/bin:$PATH</pre>
-    </blockquote>
-          <blockquote>
-          <p>For Windows: To set up environment variables on your machine, please refer to <a href='http://www.google.com/url?q=http%3A%2F%2Fwww.computerhope.com%2Fissues%2Fch000549.htm&sa=D&sntz=1&usg=AFQjCNEgjd6yBvzOSImlIE9icZz6SwVLRQ'>this website</a>.
-				</p>
-    </blockquote>
-    </li>
-      </ol>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-installationguide" href="#installationguide-mavensetup">
-              Maven Setup<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="installationguide-mavensetup" class="panel-collapse collapse">
-          <div class="panel-body">
-        <p>Maven is a build automation tool used primarily for Java projects. Projects using Maven or other build systems are easiest to use as they simplify compiling, building, and testing the project. In addition, major IDEs like IntelliJ and Eclipse have excellent support via maven plugins which simplifies the development process. Dependency management is one of the areas where Maven excels; for our purposes, this means that we will save a lot of effort in configuring the projects to set up dependencies on HJ-lib, JUnit, and other jars. Hence, for the labs and assignments in COMP 322, we will distribute maven project templates to be used by students to complete their work.</p>
-      <ol>
-          <li>
-          <p>Follow the instructions on the <a href='https://maven.apache.org/'>Maven website</a> to install Maven. Please remember to install a version that is 3.1.1 or later. During installation have your M2 HOME, MAVEN HOME and PATH point to the new installation. Here is an example of what should be in a Mac machine's .bash_profile:
-			</p>
-          <pre>export M2_HOME=/Users/shamsimam/dev/apache-maven-3.1.1
-export MAVEN_HOME=/Users/shamsimam/dev/apache-maven-3.1.1
-export PATH=$PATH:$MAVEN_HOME/bin</pre>
-    </li>
-          <li>
-        <p>Once installed, open a new command prompt and run mvn --version to verify that it is correctly installed. Maven has been successfully installed on your machine, if you see the following:</p>
-          <pre>$ mvn --version
-Apache Maven 3.1.1 (0728685237757ffbf44136acec0402957f723d9a; 2013-09-17 10:22:22-0500)
-Maven home: /Users/shamsimam/dev/apache-maven-3.1.1
-Java version: 1.8.0_25, vendor: Oracle Corporation
-...</pre>
-    </li>
-      </ol>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-installationguide" href="#installationguide-hjlibsetup">
-              HJ-Lib Setup<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="installationguide-hjlibsetup" class="panel-collapse collapse">
-          <div class="panel-body">
-      <div class="panel-group" id="accordion-hjlibsetup">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-hjlibsetup" href="#installationguide-hjlibsetup-cooperativeruntime">
-              Cooperative Runtime<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="installationguide-hjlibsetup-cooperativeruntime" class="panel-collapse collapse">
-          <div class="panel-body">
-      <ol>
-          <li>
-          <p>Download the <a href='http://www.cs.rice.edu/~vs3/hjlib/code/maven-repo/edu/rice/hjlib-cooperative/0.1.5-SNAPSHOT/hjlib-cooperative-0.1.5-SNAPSHOT.jar'>JDK8 compatible HJ-Lib JAR file</a> and save it to a local directory.
-					</p>
-    </li>
-          <li>
-        <p>We show how to set up a simple Maven project with a HJlib HelloWorld program in IntelliJ. Similar steps can be followed for other IDEs like Eclipse.</p>
-    </li>
-          <li>
-          <p>First, download the <a href='https://wiki.rice.edu/confluence/download/attachments/14433124/helloworld.zip?version=1&modificationDate=1421309268556&api=v2'>helloworld.zip</a> file and unzip it into a directory of your choice.
-					</p>
-    </li>
-          <li>
-        <p>Next, import this project into IntelliJ using the File -&gt; Import Project menu option.</p>
-    </li>
-          <li>
-        <p>This should show the following series of popups:</p>
-          <img src="pics/cooperative-runtime/1.png">
-          <img src="pics/cooperative-runtime/2.png">
-          <img src="pics/cooperative-runtime/3.png">
-          <img src="pics/cooperative-runtime/4.png">
-          <img src="pics/cooperative-runtime/5.png">
-          <img src="pics/cooperative-runtime/6.png">
-          <img src="pics/cooperative-runtime/7.png">
-    </li>
-          <li>
-        <p>Enable the project view, then right-click on the root folder to change the module settings.</p>
-          <img src="pics/cooperative-runtime/8.png">
-          <img src="pics/cooperative-runtime/9.png">
-    </li>
-          <li>
-        <p>We will be using Java 8 lambdas while developing with HJlib, so we need to ensure this is enabled in the language level settings.</p>
-          <img src="pics/cooperative-runtime/10.png">
-    </li>
-          <li>
-        <p>Notice, the library dependencies have already been resolved thanks to maven:</p>
-          <img src="pics/cooperative-runtime/11.png">
-        <p>You will need to note the path of the HJlib jar file as we will need it to be able to run the HelloWorld.java program from IntelliJ.</p>
-    </li>
-          <li>
-        <p>Open the HelloWorld.java file in the editor and attempt to run it by right clicking on it and choosing the Run option.</p>
-    </li>
-          <li>
-        <p>Since we are running HelloWorld.java without configuring the javaagent option, it is likely to intermittently fail with an error as follows:</p>
-          <img src="pics/cooperative-runtime/12.png">
-        <p>Or the following error:</p>
-          <pre>Error occurred during initialization of VM
-agent library failed to init: instrument</pre>
-        <p>To fix this error, we need to correct the setup of the javagent JVM option before attempting to run HelloWorld.java.
-Java agents provide services that allow Java programming language agents to instrument programs running on the JVM. To run HJlib programs under the cooperative runtime we need to configure the JVM to use agents available in the HJlib jar. An agent is started by adding this option to the command-line:
-				</p>
-          <pre>-javaagent:jarpath[=options]</pre>
-        <p>We need to configure this in IntelliJ to be able to successfully run HJlib programs. Below is an image of what the configuration looks like after editing the run configuration:</p>
-          <img src="pics/cooperative-runtime/13.png">
-          <img src="pics/cooperative-runtime/14.png">
-    </li>
-          <li>
-        <p>Now we can run the program by clicking on the green play button.</p>
-    </li>
-      </ol>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion-hjlibsetup" href="#installationguide-hjlibsetup-blockingruntime">
-              Blocking Runtime<span style="float: right"></span>
-            </a>
-          </h4>
-        </div>
-        <div id="installationguide-hjlibsetup-blockingruntime" class="panel-collapse collapse">
-          <div class="panel-body">
-      <ol>
-          <li>
-          <p>Download the <a href='http://www.cs.rice.edu/~vs3/hjlib/code/habanero-java-lib-0.1.2.jar'>JDK8 compatible HJ-Lib JAR file</a> and save it to a local directory.
-					</p>
-    </li>
-          <li>
-        <p>We show how to set up a simple project with a HJlib HelloWorld program in IntelliJ. Similar steps can be followed for other IDEs like Eclipse.</p>
-        <p>First, create a new project using the File -&gt; New Project Menu. This should show a popup window as follows:</p>
-          <img src="pics/blocking-runtime/1.png">
-    </li>
-          <li>
-        <p>Now, choose a name for your project and a directory location for the project. Remember to select the Java 8 SDK and click Next.</p>
-          <img src="pics/blocking-runtime/2.png">
-    </li>
-          <li>
-        <p>On the next window click Finish, we do not need dependencies on any other technologies.</p>
-    </li>
-          <li>
-        <p>We now need to add the previously downloaded HJlib jar from Step 2 as a dependency to this project. We need to do this from the module settings.</p>
-        <p>First enable the project view, before trying to change the module settings.</p>
-          <img src="pics/blocking-runtime/3.png">
-          <img src="pics/blocking-runtime/4.png">
-    </li>
-          <li>
-        <p>We will be using Java 8 lambdas while developing with HJlib, so we need to ensure the language level settings in the project:</p>
-          <img src="pics/blocking-runtime/5.png">
-    </li>
-          <li>
-        <p>Next, we need to add the library dependency.</p>
-          <img src="pics/blocking-runtime/6.png">
-        <p>Clicking on the plus icon and selecting a Java library allows us to choose the location for the jar file.</p>
-          <img src="pics/blocking-runtime/7.png">
-        <p>Once added, we can click 'Apply' to save our changes.</p>
-    </li>
-          <li>
-        <p>Ensure that habanero-java-lib has been added as a dependency to the module.</p>
-          <img src="pics/blocking-runtime/8.png">
-    </li>
-          <li>
-        <p>After confirming, click "OK" to save your changes. We are now ready to write our first HJ application using HJlib.</p>
-    </li>
-          <li>
-        <p>To create a java file, right click on the 'src' folder and select New -&gt; Java Class. Use 'HelloWorld' as the name of the class and type in the sample program:</p>
-          <pre>import static edu.rice.hj.Module1.async;
-import static edu.rice.hj.Module1.finish;
-
-public class HelloWorld {
-    public static void main(final String[] args) {
-        finish(() -&gt; {
-            async(() -&gt; 
-                    System.out.println("Hello World - 1")
-            );
-            async(() -&gt; 
-                    System.out.println("Hello World - 2")
-            );
-            async(() -&gt; 
-                    System.out.println("Hello World - 3")
-            );
-        });
-    }
-}</pre>
-        <p>Now we can run this program by right clicking on the HelloWorld item on the project explorer and clicking run.</p>
-    </li>
-      </ol>
-          </div>
-        </div>
-      </div>
-      </div>
-          </div>
-        </div>
-      </div>
-              </div>
-        </div>
-        <div class="tab-pane" id="java8">
-              <div class="panel-group" id="accordion-java8">
+            </div>
+    </div>
+          <div class="tab-pane" id="java8">
+            <div class="panel-group" id="accordion-java8">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -2316,10 +1738,6 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#java8-volatilevariables" class="anchorlink">Volatile Variables</a>
-          </dt>
-          <dd>Atomic variables guarantee atomic compare-and-set, while volatile variables do not.</dd>
-          <dt>
               <a href="#java8-atomicvariables-atomicreference" class="anchorlink">AtomicReference&lt;V&gt;</a>
           </dt>
           <dd>These are atomic classes for different data types.</dd>
@@ -2331,6 +1749,10 @@ public class HelloWorld {
               <a href="#hjlib-finishaccumulators-finishaccumulatorobject" class="anchorlink">HjFinishAccumulator</a>
           </dt>
           <dd>An AtomicInteger can only add to the previously set value or replace it. An accumulator offers more flexibility in the operations it can perform as it updates its value.</dd>
+          <dt>
+              <a href="#java8-volatilevariables" class="anchorlink">Volatile Variables</a>
+          </dt>
+          <dd>Atomic variables guarantee atomic compare-and-set, while volatile variables do not.</dd>
       </dl>
           </div>
         </div>
@@ -2430,15 +1852,15 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#java8-atomicvariables-atomiclong" class="anchorlink">AtomicLong</a>
-          </dt>
-          <dd>These are atomic classes for different data types.</dd>
-          <dt>
               <a href="#java8-volatilevariables" class="anchorlink">Volatile Variables</a>
           </dt>
           <dd>Atomic variables guarantee atomic compare-and-set, while volatile variables do not.</dd>
           <dt>
               <a href="#java8-atomicvariables-atomicinteger" class="anchorlink">AtomicInteger</a>
+          </dt>
+          <dd>These are atomic classes for different data types.</dd>
+          <dt>
+              <a href="#java8-atomicvariables-atomiclong" class="anchorlink">AtomicLong</a>
           </dt>
           <dd>These are atomic classes for different data types.</dd>
       </dl>
@@ -2642,6 +2064,10 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
+              <a href="#java8-forkjoin-recursiveaction" class="anchorlink">RecursiveAction</a>
+          </dt>
+          <dd>RecursiveAction extends ForkJoinTask.</dd>
+          <dt>
               <a href="#hjlib-asyncfinish-finish" class="anchorlink">finish</a>
           </dt>
           <dd>ForkJoinTask is similar to a finish block enclosing a collection of asyncs.</dd>
@@ -2649,10 +2075,6 @@ public class HelloWorld {
               <a href="#java8-forkjoin-recursivetask" class="anchorlink">RecursiveTask</a>
           </dt>
           <dd>RecursiveTask extends ForkJoinTask.</dd>
-          <dt>
-              <a href="#java8-forkjoin-recursiveaction" class="anchorlink">RecursiveAction</a>
-          </dt>
-          <dd>RecursiveAction extends ForkJoinTask.</dd>
       </dl>
           </div>
         </div>
@@ -2699,13 +2121,13 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#java8-forkjoin-forkjointask" class="anchorlink">ForkJoinTask</a>
-          </dt>
-          <dd>RecursiveAction extends ForkJoinTask.</dd>
-          <dt>
               <a href="#java8-forkjoin-recursivetask" class="anchorlink">RecursiveTask</a>
           </dt>
           <dd>RecursiveTask returns a value, while RecursiveAction does not.</dd>
+          <dt>
+              <a href="#java8-forkjoin-forkjointask" class="anchorlink">ForkJoinTask</a>
+          </dt>
+          <dd>RecursiveAction extends ForkJoinTask.</dd>
       </dl>
           </div>
         </div>
@@ -2808,6 +2230,10 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
+              <a href="#java8-forkjoin-forkjoinpool" class="anchorlink">ForkJoinPool</a>
+          </dt>
+          <dd>ForkJoinPool contains a pool of Threads.</dd>
+          <dt>
               <a href="#hjlib-asyncfinish-async" class="anchorlink">async</a>
           </dt>
           <dd>Invoking start() on a thread is similar to spawning an async. However, creating a new thread incurs more overhead than creating a new asynchronous task.</dd>
@@ -2815,10 +2241,6 @@ public class HelloWorld {
               <a href="#java8-forkjoin-forkjoinpool" class="anchorlink">ForkJoinPool</a>
           </dt>
           <dd>ForkJoinPool is similar to a ThreadPoolExecutor, but is meant to be used with a ForkJoinTask.</dd>
-          <dt>
-              <a href="#java8-forkjoin-forkjoinpool" class="anchorlink">ForkJoinPool</a>
-          </dt>
-          <dd>ForkJoinPool contains a pool of Threads.</dd>
       </dl>
           </div>
         </div>
@@ -2890,13 +2312,13 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#java8-javathreads-notifyall" class="anchorlink">notifyAll()</a>
-          </dt>
-          <dd>notifyAll can select a thread from the wait set and move it to the entry set, while wait does the opposite.</dd>
-          <dt>
               <a href="#java8-javathreads-notify" class="anchorlink">notify()</a>
           </dt>
           <dd>notify can select a thread from the wait set and move it to the entry set, while wait does the opposite.</dd>
+          <dt>
+              <a href="#java8-javathreads-notifyall" class="anchorlink">notifyAll()</a>
+          </dt>
+          <dd>notifyAll can select a thread from the wait set and move it to the entry set, while wait does the opposite.</dd>
       </dl>
           </div>
         </div>
@@ -2927,13 +2349,13 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
-              <a href="#java8-javathreads-wait" class="anchorlink">wait()</a>
-          </dt>
-          <dd>notify can select a thread from the wait set and move it to the entry set, while wait does the opposite.</dd>
-          <dt>
               <a href="#java8-javathreads-notifyall" class="anchorlink">notifyAll()</a>
           </dt>
           <dd>notifyAll() functions similar to notify(), but to all threads in the wait set.</dd>
+          <dt>
+              <a href="#java8-javathreads-wait" class="anchorlink">wait()</a>
+          </dt>
+          <dd>notify can select a thread from the wait set and move it to the entry set, while wait does the opposite.</dd>
       </dl>
           </div>
         </div>
@@ -3022,6 +2444,10 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
+              <a href="#java8-locks-readwritelock" class="anchorlink">ReadWriteLock</a>
+          </dt>
+          <dd>ReentrantLock only provides one lock for both reads and write, while ReadWriteLock provides one read lock and one write lock, allowing opportunities for more parallelism.</dd>
+          <dt>
               <a href="#synchronized" class="anchorlink">synchronized</a>
           </dt>
           <dd>ReentrantLock and synchronized methods and statements have the same basic behavior and semantics. However, ReentrantLock allows threads to acquire a variable number of locks at once.</dd>
@@ -3029,10 +2455,6 @@ public class HelloWorld {
               <a href="#java8-locks-reentrantreadwritelock" class="anchorlink">ReentrantReadWriteLock</a>
           </dt>
           <dd>ReentrantLock only provides one lock for both reads and write, while ReentrantReadWriteLock provides one read lock and one write lock, allowing opportunities for more parallelism.</dd>
-          <dt>
-              <a href="#java8-locks-readwritelock" class="anchorlink">ReadWriteLock</a>
-          </dt>
-          <dd>ReentrantLock only provides one lock for both reads and write, while ReadWriteLock provides one read lock and one write lock, allowing opportunities for more parallelism.</dd>
       </dl>
           </div>
         </div>
@@ -3067,6 +2489,10 @@ public class HelloWorld {
       <h5>Related Constructs</h5>
       <dl class="dl-horizontal">
           <dt>
+              <a href="#java8-locks-readwritelock" class="anchorlink">ReadWriteLock</a>
+          </dt>
+          <dd>ReentrantReadWriteLock is an implementation of ReadWriteLock that supports reentrancy.</dd>
+          <dt>
               <a href="#java8-locks-reentrantlock" class="anchorlink">ReentrantLock</a>
           </dt>
           <dd>ReentrantLock only provides one lock for both reads and write, while ReadWriteLock provides one read lock and one write lock, allowing opportunities for more parallelism.</dd>
@@ -3074,10 +2500,6 @@ public class HelloWorld {
               <a href="#java8-locks-reentrantlock" class="anchorlink">ReentrantLock</a>
           </dt>
           <dd>ReentrantLock only provides one lock for both reads and write, while ReentrantReadWriteLock provides one read lock and one write lock, allowing opportunities for more parallelism.</dd>
-          <dt>
-              <a href="#java8-locks-readwritelock" class="anchorlink">ReadWriteLock</a>
-          </dt>
-          <dd>ReentrantReadWriteLock is an implementation of ReadWriteLock that supports reentrancy.</dd>
       </dl>
           </div>
         </div>
@@ -3346,9 +2768,9 @@ public class HelloWorld {
           </div>
         </div>
       </div>
-              </div>
-        </div>
-        <div class="tab-pane" id="mpi">
+            </div>
+    </div>
+          <div class="tab-pane" id="mpi">
                 <h4>Message-Passing Interface</h4>
         <p>MPI is a platform for Single Program Multiple Data (SPMD) parallel computing on distributed memory architectures, with an API for sending and receiving messages. In a parallel program that uses the SPMD model, a single program is executed on multiple processing elements. Each processing element has its own address space. A "rank", or ID, is used to determine what computation is done on what data by a given processing element. Java support for MPI is available from mpiJava.</p>
       <h5>Javadoc Link(s)</h5>
@@ -3435,63 +2857,735 @@ public class HelloWorld {
           <td class="col-md-2">MPI_MINLOC</td><td class="col-md-2">Minimum value, minimum location for (value, location) data pairs.</td>
         </tr>
       </table>
+    </div>
+          <div class="tab-pane" id="performancecorrectnesstools">
+            <div class="panel-group" id="accordion-performancecorrectnesstools">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-performancecorrectnesstools" href="#performancecorrectnesstools-performancetools">
+              Performance Tools<span style="float: right"></span>
+            </a>
+          </h4>
         </div>
-        <div class="tab-pane active" id="overview">
-        <h4>Unit 1: Task-level Parallelism</h4>
-        <div class="list-group">
-            <a href="#hjlib-asyncfinish-async" class="list-group-item anchorlink">Async</a>
-            <a href="#hjlib-asyncfinish-finish" class="list-group-item anchorlink">Finish</a>
+        <div id="performancecorrectnesstools-performancetools" class="panel-collapse collapse">
+          <div class="panel-body">
+      <div class="panel-group" id="accordion-performancetools">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-abstractmetrics">
+              Abstract Metrics<span style="float: right">abstractMetrics()</span>
+            </a>
+          </h4>
         </div>
-        <h4>Unit 2: Functional Parallelism</h4>
-        <div class="list-group">
-            <a href="#hjlib-futures-future" class="list-group-item anchorlink">Future</a>
-            <a href="#hjlib-finishaccumulators" class="list-group-item anchorlink">Finish Accumulators</a>
+        <div id="performancecorrectnesstools-performancetools-abstractmetrics" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>Returns abstract metrics report for the currently executing task.</p>
+      <h5>Javadoc Link(s)</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/Module0.html#abstractMetrics--" target="_blank">abstractMetrics</a>
+            </li>
+        </ul>
+          </div>
         </div>
-        <h4>Unit 3: Loop-level Parallelism</h4>
-        <div class="list-group">
-            <a href="#hjlib-for-paralleliterationwithimplicitfinish" class="list-group-item anchorlink">Parallel Iteration With Implicit Finish</a>
-            <a href="#hjlib-for-parallelchunkediterationwithimplicitfinish" class="list-group-item anchorlink">Parallel Chunked Iteration With Implicit Finish</a>
-            <a href="#hjlib-for-phaserregisterediterationwithimplicitfinish" class="list-group-item anchorlink">Phaser-Registered Iteration With Implicit Finish</a>
-            <a href="#hjlib-for-barrier" class="list-group-item anchorlink">Barrier</a>
-            <a href="#hjlib-placesregions-iterationregions" class="list-group-item anchorlink">Iteration Regions</a>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-currenttimeinmilliseconds">
+              Current Time in Milliseconds<span style="float: right">System.currenttimemillis()</span>
+            </a>
+          </h4>
         </div>
-        <h4>Unit 4: Dataflow Synchronization &amp; Pipelining</h4>
-        <div class="list-group">
-            <a href="#hjlib-futures-datadrivenfuture" class="list-group-item anchorlink">Data-Driven Future</a>
-            <a href="#hjlib-asyncfinish-datadrivenasync" class="list-group-item anchorlink">Data-Driven Async</a>
-            <a href="#hjlib-phasers" class="list-group-item anchorlink">Phasers</a>
-            <a href="#hjlib-asyncfinish-asyncwithphaser" class="list-group-item anchorlink">Async With Phaser(s)</a>
+        <div id="performancecorrectnesstools-performancetools-currenttimeinmilliseconds" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>Returns the current time in milliseconds. Can be used to record the time at the start of a program execution and at the end of a program execution, aiding in measurement of real time performance of a program.</p>
+      <h5>Javadoc Link(s)</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#currentTimeMillis--" target="_blank">System.curenttimemillis()</a>
+            </li>
+        </ul>
+          </div>
         </div>
-        <h4>Unit 5: Sharing State Between Threads</h4>
-        <div class="list-group">
-            <a href="#hjlib-isolatedstatements-isolated" class="list-group-item anchorlink">Isolated</a>
-            <a href="#hjlib-isolatedstatements-isolatedwithreturnvalue" class="list-group-item anchorlink">Isolated With Return Value</a>
-            <a href="#java8-concurrentcollections" class="list-group-item anchorlink">Concurrent Collections</a>
-            <a href="#hjlib-eurekas" class="list-group-item anchorlink">Eurekas</a>
-            <a href="#java8-atomicvariables" class="list-group-item anchorlink">Atomic Variables</a>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-dowork">
+              Do Work<span style="float: right">doWork(long n)</span>
+            </a>
+          </h4>
         </div>
-        <h4>Unit 6: Actors</h4>
-        <div class="list-group">
-            <a href="#hjlib-actors-actor" class="list-group-item anchorlink">Actor</a>
-            <a href="#hjlib-actors-selector" class="list-group-item anchorlink">Selector</a>
+        <div id="performancecorrectnesstools-performancetools-dowork" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>Used to report abstract work done by the currently executing task.</p>
+      <h5>Javadoc Link(s)</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/Module0.html#doWork-long-" target="_blank">doWork</a>
+            </li>
+        </ul>
+          </div>
         </div>
-        <h4>Unit 7: Threads &amp; Locks</h4>
-        <div class="list-group">
-            <a href="#java8-javathreads" class="list-group-item anchorlink">Java Threads</a>
-            <a href="#java8-forkjoin" class="list-group-item anchorlink">Fork-Join</a>
-            <a href="#java8-synchronized" class="list-group-item anchorlink">Synchronized</a>
-            <a href="#java8-locks-reentrantlock" class="list-group-item anchorlink">ReentrantLock</a>
-            <a href="#java8-locks-readwritelock" class="list-group-item anchorlink">ReadWriteLock</a>
-            <a href="#java8-synchronizer-semaphore" class="list-group-item anchorlink">Semaphore</a>
-            <a href="#countdownlatch" class="list-group-item anchorlink">CountdownLatch</a>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-hjmetrics">
+              HjMetrics<span style="float: right"></span>
+            </a>
+          </h4>
         </div>
-        <h4>Special Topics</h4>
-        <div class="list-group">
-            <a href="#hjlib-placesregions" class="list-group-item anchorlink">Places/Regions</a>
-            <a href="#mpi" class="list-group-item anchorlink">MPI</a>
-            <a href="#java8-volatilevariables" class="list-group-item anchorlink">Volatile Variables</a>
+        <div id="performancecorrectnesstools-performancetools-hjmetrics" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>Used to report metrics results.</p>
+      <h5>Javadoc Link(s)</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/api/HjMetrics.html" target="_blank">HjMetrics</a>
+            </li>
+        </ul>
+      <table class="table table-condensed">
+        <tr>
+            <th class="col-md-2">Method</th><th class="col-md-2">Description</th>
+        </tr>
+        <tr>
+          <td class="col-md-2">criticalPathLength()</td><td class="col-md-2">Returns the critical path length, which is the length of the longest path in a parallel program's computation graph.</td>
+        </tr><tr>
+          <td class="col-md-2">totalWork()</td><td class="col-md-2">Returns the total work performed in a parallel program.</td>
+        </tr><tr>
+          <td class="col-md-2">idealParallelism()</td><td class="col-md-2">Returns the ideal parallelism, which is total work divided by critical path length.</td>
+        </tr>
+      </table>
+          </div>
         </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-performancetools" href="#performancecorrectnesstools-performancetools-hjviz">
+              HJ-Viz<span style="float: right"></span>
+            </a>
+          </h4>
         </div>
+        <div id="performancecorrectnesstools-performancetools-hjviz" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>HJ-Viz generates interactive Computation Graphs (CGs) of parallel programs by analyzing event logs. It also incorporates Abstract Execution Metrics (AEM) into the visualization. HJ-Viz highlights the program's critical paths and displays the amount of work performed in each step of computation based on the collected AEM.</p>
+      <ol>
+          <li>
+        <p>Download Graphviz at http://www.graphviz.org/Download.php.</p>
+    </li>
+          <li>
+        <p>To use HJ-Viz, the program's event log file needs to be generated. Example code for generating an event log file is in the lab_4_hjviz folder. Your program should use doWork(long n) to keep track of how much work it is doing.</p>
+    </li>
+          <li>
+        <p>The pom file for your project should also include a profile with the ID "server", such as this:</p>
+          <pre>&lt;profile&gt;
+    &lt;id&gt;server&lt;/id&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;!-- executes the main program --&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;exec&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+                &lt;configuration&gt;
+                    &lt;executable&gt;java&lt;/executable&gt;
+                    &lt;arguments&gt;
+                        &lt;argument&gt;-jar&lt;/argument&gt;
+                        &lt;argument&gt;${habanero-java-lib:hjviz:jar}&lt;/argument&gt;
+                    &lt;/arguments&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/profile&gt;</pre>
+    </li>
+          <li>
+        <p>Additionally, make sure that HJ-Viz is included as one of the dependencies in the pom file:</p>
+          <pre>&lt;dependency&gt;
+    &lt;groupId&gt;habanero-java-lib&lt;/groupId&gt;
+    &lt;artifactId&gt;habanero-java-lib-hjviz&lt;/artifactId&gt;
+    &lt;version&gt;${hjlib.version}&lt;/version&gt;
+&lt;/dependency&gt;</pre>
+    </li>
+          <li>
+        <p>Run the program to generate the event log file.</p>
+    </li>
+          <li>
+        <p>Run the HJ-Viz server locally by running the following command:</p>
+          <pre>mvn clean compile exec:exec -Pserver.</pre>
+        <p>If you get the following message, HJ-Viz has successfully started on your machine:</p>
+          <pre>* Running on http://127.0.0.1:8000/ (Press CTRL+C to quit)</pre>
+    </li>
+          <li>
+        <p>Go to the URL http://127.0.0.1:8000/ on a browser.</p>
+    </li>
+          <li>
+        <p>Upload the event log file and click "Submit".</p>
+    </li>
+          <li>
+        <p>The computation graph for that program should now be displayed in the browser.</p>
+    </li>
+      </ol>
+          </div>
+        </div>
+      </div>
+      </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-performancecorrectnesstools" href="#performancecorrectnesstools-correctnesstools">
+              Correctness Tools<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="performancecorrectnesstools-correctnesstools" class="panel-collapse collapse">
+          <div class="panel-body">
+      <div class="panel-group" id="accordion-correctnesstools">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-correctnesstools" href="#performancecorrectnesstools-correctnesstools-dataracedetectionusingfasttrack">
+              Data Race Detection Using FastTrack<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="performancecorrectnesstools-correctnesstools-dataracedetectionusingfasttrack" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>FastTrack is a tool for detecting data races. It runs an instrumented version of your HJlib program and reasons about all potential interfering accesses that are candidates for data races according to the parallelism in the input program. If a race is found, a pair of interfering accesses is printed with source code locations for the accesses.  It is important to note that if FastTrack does not detect any data races, this does NOT guarantee that your program is free of data races.
+				Note that FastTrack only works with the blocking runtime version of HJ-Lib.
+			</p>
+      <ol>
+          <li>
+        <p>Run the Maven profile with FastTrack enabled.</p>
+    </li>
+          <li>
+        <p>Once it completes execution, there should be extra output with information on data races. The following is an example of a detected data race:</p>
+          <pre>## FastTrack Error
+## 
+##          Thread: 6    
+##           Blame: rd_array@edu/rice/comp322/UsefulParScoring.java:86:85
+##           Count: 1    (max: 20)
+##     Guard State: [W=(8:35) R=(--:--) CV=[(0:0) (1:0) (2:0) (3:0) (4:0) (5:0) (6:AB) (7:0) (8:35)]]
+##  Current Thread: [tid=6    cv=[(0:473) (1:6042) (2:C8) (3:A1) (4:90) (5:79) (6:AB) (7:67) (8:34)]   epoch=(6:AB)]
+##           Array: @03[77]
+## Previous Access: wr_array@edu/rice/comp322/UsefulParScoring.java:87:119 by Thread 8 (name = Thread[pool-0-thread-008,5,main])
+##  Current Access: rd_array@edu/rice/comp322/UsefulParScoring.java:86:85 by Thread 6 (name = pool-0-thread-006)</pre>
+    </li>
+      </ol>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-correctnesstools" href="#performancecorrectnesstools-correctnesstools-deadlockdetection">
+              Deadlock Detection<span style="float: right">HjSystemProperty.enableDebuggingFlags()</span>
+            </a>
+          </h4>
+        </div>
+        <div id="performancecorrectnesstools-correctnesstools-deadlockdetection" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>An HJ-Lib tool for detecting deadlocks.</p>
+      <h5>Javadoc Link(s)</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/runtime/config/HjSystemProperty.html#enableDebuggingFlags--" target="_blank">enableDebuggingFlags</a>
+            </li>
+        </ul>
+          </div>
+        </div>
+      </div>
+      </div>
+          </div>
+        </div>
+      </div>
+            </div>
+    </div>
+              <div class="tab-pane" id="installationguide">
+            <div class="panel-group" id="accordion-installationguide">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-installationguide" href="#installationguide-java8setup">
+              Java 8 Setup<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="installationguide-java8setup" class="panel-collapse collapse">
+          <div class="panel-body">
+      <ol>
+          <li>
+        <p>You may already have Java 8 installed on your computer. To check whether you have Java 8 installed on your machine, go to the command line and type the following java -version. You may see something as follows:</p>
+          <pre>$ java -version
+java version "1.8.0_25"
+Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
+Java HotSpot(TM) 64-Bit Server VM (build 25.25-b02, mixed mode)</pre>
+    </li>
+          <li>
+          <p>If the Java version shows 1.8.*, you already have Java 8 installed on your machine. If you do have Java 8 already installed on your machine, please skip to Maven setup. If you do not already have it installed, you will need a Java 8 installation on your machine and have your JAVA HOME and PATH point to the new installation. Java 8 can be downloaded and installed from the <a href='https://www.google.com/url?q=https%3A%2F%2Fjdk8.java.net%2Fdownload.html&sa=D&sntz=1&usg=AFQjCNFlsqVvnoz-qITcoDkNupatvNqr6Q' target='_blank'>Oracle website</a>.
+			</p>
+          <blockquote>
+          <p>For Macs: To set up environment variables on your machine, a .bash_profile needs to be created and edited; please refer to <a href='http://www.google.com/url?q=http%3A%2F%2Fhathaway.cc%2Fpost%2F69201163472%2Fhow-to-edit-your-path-environment-variables-on-mac&sa=D&sntz=1&usg=AFQjCNHbLR1sjYCFd-d7leAp4Sq526997A' target='_blank'>this website</a> for instructions. Here is an example of what should be on your machine's .bash_profile:
+				</p>
+          <pre>JAVA8_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home
+export JAVA_HOME=${JAVA8_HOME}
+export PATH=$JAVA_HOME/bin:$PATH</pre>
+    </blockquote>
+          <blockquote>
+          <p>For Windows: To set up environment variables on your machine, please refer to <a href='http://www.google.com/url?q=http%3A%2F%2Fwww.computerhope.com%2Fissues%2Fch000549.htm&sa=D&sntz=1&usg=AFQjCNEgjd6yBvzOSImlIE9icZz6SwVLRQ' target='_blank'>this website</a>.
+				</p>
+    </blockquote>
+    </li>
+      </ol>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-installationguide" href="#installationguide-mavensetup">
+              Maven Setup<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="installationguide-mavensetup" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>Maven is a build automation tool used primarily for Java projects. Projects using Maven or other build systems are easiest to use as they simplify compiling, building, and testing the project. In addition, major IDEs like IntelliJ and Eclipse have excellent support via maven plugins which simplifies the development process. Dependency management is one of the areas where Maven excels; for our purposes, this means that we will save a lot of effort in configuring the projects to set up dependencies on HJ-lib, JUnit, and other jars. Hence, for the labs and assignments in COMP 322, we will distribute maven project templates to be used by students to complete their work.</p>
+      <ol>
+          <li>
+          <p>Follow the instructions on the <a href='https://maven.apache.org/' target='_blank'>Maven website</a> to install Maven. Please remember to install a version that is 3.1.1 or later. During installation have your M2 HOME, MAVEN HOME and PATH point to the new installation. Here is an example of what should be in a Mac machine's .bash_profile:
+			</p>
+          <pre>export M2_HOME=/Users/shamsimam/dev/apache-maven-3.1.1
+export MAVEN_HOME=/Users/shamsimam/dev/apache-maven-3.1.1
+export PATH=$PATH:$MAVEN_HOME/bin</pre>
+    </li>
+          <li>
+        <p>Once installed, open a new command prompt and run mvn --version to verify that it is correctly installed. Maven has been successfully installed on your machine, if you see the following:</p>
+          <pre>$ mvn --version
+Apache Maven 3.1.1 (0728685237757ffbf44136acec0402957f723d9a; 2013-09-17 10:22:22-0500)
+Maven home: /Users/shamsimam/dev/apache-maven-3.1.1
+Java version: 1.8.0_25, vendor: Oracle Corporation
+...</pre>
+    </li>
+      </ol>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-installationguide" href="#installationguide-hjlibsetup">
+              HJ-Lib Setup<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="installationguide-hjlibsetup" class="panel-collapse collapse">
+          <div class="panel-body">
+      <div class="panel-group" id="accordion-hjlibsetup">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-hjlibsetup" href="#installationguide-hjlibsetup-cooperativeruntime">
+              Cooperative Runtime<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="installationguide-hjlibsetup-cooperativeruntime" class="panel-collapse collapse">
+          <div class="panel-body">
+      <ol>
+          <li>
+          <p>Download the <a href='http://www.cs.rice.edu/~vs3/hjlib/code/maven-repo/edu/rice/hjlib-cooperative/0.1.5-SNAPSHOT/hjlib-cooperative-0.1.5-SNAPSHOT.jar' target='_blank'>JDK8 compatible HJ-Lib JAR file</a> and save it to a local directory.
+					</p>
+    </li>
+          <li>
+        <p>We show how to set up a simple Maven project with a HJlib HelloWorld program in IntelliJ. Similar steps can be followed for other IDEs like Eclipse.</p>
+    </li>
+          <li>
+          <p>First, download the <a href='https://wiki.rice.edu/confluence/download/attachments/14433124/helloworld.zip?version=1&modificationDate=1421309268556&api=v2' target='_blank'>helloworld.zip</a> file and unzip it into a directory of your choice.
+					</p>
+    </li>
+          <li>
+        <p>Next, import this project into IntelliJ using the File -&gt; Import Project menu option.</p>
+    </li>
+          <li>
+        <p>This should show the following series of popups:</p>
+          <p><img src="pics/cooperative-runtime/1.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/2.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/3.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/4.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/5.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/6.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/7.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>Enable the project view, then right-click on the root folder to change the module settings.</p>
+          <p><img src="pics/cooperative-runtime/8.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/9.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>We will be using Java 8 lambdas while developing with HJlib, so we need to ensure this is enabled in the language level settings.</p>
+          <p><img src="pics/cooperative-runtime/10.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>Notice, the library dependencies have already been resolved thanks to maven:</p>
+          <p><img src="pics/cooperative-runtime/11.png" class="img-responsive img-thumbnail"></p>
+        <p>You will need to note the path of the HJlib jar file as we will need it to be able to run the HelloWorld.java program from IntelliJ.</p>
+    </li>
+          <li>
+        <p>Open the HelloWorld.java file in the editor and attempt to run it by right clicking on it and choosing the Run option.</p>
+    </li>
+          <li>
+        <p>Since we are running HelloWorld.java without configuring the javaagent option, it is likely to intermittently fail with an error as follows:</p>
+          <p><img src="pics/cooperative-runtime/12.png" class="img-responsive img-thumbnail"></p>
+        <p>Or the following error:</p>
+          <pre>Error occurred during initialization of VM
+agent library failed to init: instrument</pre>
+        <p>To fix this error, we need to correct the setup of the javagent JVM option before attempting to run HelloWorld.java.
+Java agents provide services that allow Java programming language agents to instrument programs running on the JVM. To run HJlib programs under the cooperative runtime we need to configure the JVM to use agents available in the HJlib jar. An agent is started by adding this option to the command-line:
+				</p>
+          <pre>-javaagent:jarpath[=options]</pre>
+        <p>We need to configure this in IntelliJ to be able to successfully run HJlib programs. Below is an image of what the configuration looks like after editing the run configuration:</p>
+          <p><img src="pics/cooperative-runtime/13.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/cooperative-runtime/14.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>Now we can run the program by clicking on the green play button.</p>
+    </li>
+      </ol>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-hjlibsetup" href="#installationguide-hjlibsetup-blockingruntime">
+              Blocking Runtime<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="installationguide-hjlibsetup-blockingruntime" class="panel-collapse collapse">
+          <div class="panel-body">
+      <ol>
+          <li>
+          <p>Download the <a href='http://www.cs.rice.edu/~vs3/hjlib/code/habanero-java-lib-0.1.2.jar' target='_blank'>JDK8 compatible HJ-Lib JAR file</a> and save it to a local directory.
+					</p>
+    </li>
+          <li>
+        <p>We show how to set up a simple project with a HJlib HelloWorld program in IntelliJ. Similar steps can be followed for other IDEs like Eclipse.</p>
+        <p>First, create a new project using the File -&gt; New Project Menu. This should show a popup window as follows:</p>
+          <p><img src="pics/blocking-runtime/1.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>Now, choose a name for your project and a directory location for the project. Remember to select the Java 8 SDK and click Next.</p>
+          <p><img src="pics/blocking-runtime/2.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>On the next window click Finish, we do not need dependencies on any other technologies.</p>
+    </li>
+          <li>
+        <p>We now need to add the previously downloaded HJlib jar from Step 2 as a dependency to this project. We need to do this from the module settings.</p>
+        <p>First enable the project view, before trying to change the module settings.</p>
+          <p><img src="pics/blocking-runtime/3.png" class="img-responsive img-thumbnail"></p>
+          <p><img src="pics/blocking-runtime/4.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>We will be using Java 8 lambdas while developing with HJlib, so we need to ensure the language level settings in the project:</p>
+          <p><img src="pics/blocking-runtime/5.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>Next, we need to add the library dependency.</p>
+          <p><img src="pics/blocking-runtime/6.png" class="img-responsive img-thumbnail"></p>
+        <p>Clicking on the plus icon and selecting a Java library allows us to choose the location for the jar file.</p>
+          <p><img src="pics/blocking-runtime/7.png" class="img-responsive img-thumbnail"></p>
+        <p>Once added, we can click 'Apply' to save our changes.</p>
+    </li>
+          <li>
+        <p>Ensure that habanero-java-lib has been added as a dependency to the module.</p>
+          <p><img src="pics/blocking-runtime/8.png" class="img-responsive img-thumbnail"></p>
+    </li>
+          <li>
+        <p>After confirming, click "OK" to save your changes. We are now ready to write our first HJ application using HJlib.</p>
+    </li>
+          <li>
+        <p>To create a java file, right click on the 'src' folder and select New -&gt; Java Class. Use 'HelloWorld' as the name of the class and type in the sample program:</p>
+          <pre>import static edu.rice.hj.Module1.async;
+import static edu.rice.hj.Module1.finish;
+
+public class HelloWorld {
+    public static void main(final String[] args) {
+        finish(() -&gt; {
+            async(() -&gt; 
+                    System.out.println("Hello World - 1")
+            );
+            async(() -&gt; 
+                    System.out.println("Hello World - 2")
+            );
+            async(() -&gt; 
+                    System.out.println("Hello World - 3")
+            );
+        });
+    }
+}</pre>
+        <p>Now we can run this program by right clicking on the HelloWorld item on the project explorer and clicking run.</p>
+    </li>
+      </ol>
+          </div>
+        </div>
+      </div>
+      </div>
+          </div>
+        </div>
+      </div>
+            </div>
+    </div>
+              <div class="tab-pane" id="environmentconfiguration">
+            <div class="panel-group" id="accordion-environmentconfiguration">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-environmentconfiguration" href="#environmentconfiguration-cooperativevsblockingruntimes">
+              Cooperative vs. Blocking Runtimes<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="environmentconfiguration-cooperativevsblockingruntimes" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>HJlib is a pure Java 8 library implementation of various parallel constructs. It relies on the use of Java 8 lambdas to simplify writing parallel programs. This library is responsible for scheduling and synchronizing an unbounded number of async tasks on a fixed number of processors ("worker threads"). Two scheduling runtime systems in HJlib are:</p>
+      <ol>
+          <li>
+        <p>Cooperative Runtime</p>
+          <blockquote>
+        <p>When a blocking construct is encountered, the blocked code is made into a separate task that creates continuations for blocking constructs in HJlib (such as the end of a finish scope), and uses a fixed number of worker threads to switch between async tasks and continuations that are ready to execute. The advantage of the cooperative runtime is that it can support large numbers of async tasks.</p>
+    </blockquote>
+    </li>
+          <li>
+        <p>Blocking Runtime</p>
+          <blockquote>
+        <p>Creates a new worker thread each time a blocking operation is performed. This incurs less overhead on programs with few blocking operations. However, it can easily run out of memory when large numbers of blocking operations are performed, due to the creation of a large number of worker threads.</p>
+    </blockquote>
+    </li>
+      </ol>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-environmentconfiguration" href="#environmentconfiguration-launchhabaneroapp">
+              launchHabaneroApp<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="environmentconfiguration-launchhabaneroapp" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>Launches the fragment of code to be run by the habanero runtime.</p>
+      <h5>Javadoc Link(s)</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="http://www.cs.rice.edu/~vs3/hjlib/doc/edu/rice/hj/Module0.html#launchHabaneroApp-edu.rice.hj.api.HjSuspendable-" target="_blank">launchHabaneroApp</a>
+            </li>
+        </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-environmentconfiguration" href="#environmentconfiguration-hjsystemproperty">
+              HjSystemProperty<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="environmentconfiguration-hjsystemproperty" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>A set of HJ-Lib configuration options.</p>
+      <h5>Javadoc Link(s)</h5>
+        <ul class="list-inline">
+            <li>
+                <a href="http://www.google.com/url?q=http%3A%2F%2Fwww.cs.rice.edu%2F~vs3%2Fhjlib%2Fdoc%2Fedu%2Frice%2Fhj%2Fruntime%2Fconfig%2FHjSystemProperty.html&amp;sa=D&amp;sntz=1&amp;usg=AFQjCNHu1WcN_z4T91rrGO_sMQufpASI3A" target="_blank">HjSystemProperty</a>
+            </li>
+        </ul>
+      <table class="table table-condensed">
+        <tr>
+            <th class="col-md-2">Method</th><th class="col-md-2">Description</th>
+        </tr>
+        <tr>
+          <td class="col-md-2">setProperty(Object value)</td><td class="col-md-2">Set the property used by the Habanero runtime for this flag.</td>
+        </tr><tr>
+          <td class="col-md-2">enableAbstractMetricsFlags()</td><td class="col-md-2">Sets the following flags to true: abstractMetrics, executionGraph, speedUpGraph, showBuildVersion.</td>
+        </tr><tr>
+          <td class="col-md-2">enableDebuggingFlags()</td><td class="col-md-2">Sets the following flags to true: diagnoseDeadlocks, trackDeadlocks, showWarning, locationInName, showBuildVersion.</td>
+        </tr><tr>
+          <td class="col-md-2">enablePerformanceAnalysisFlags()</td><td class="col-md-2">Sets the following flags to true: showRuntimeStats, showBuildVersion.</td>
+        </tr>
+      </table>
+      <table class="table table-condensed">
+        <tr>
+            <th class="col-md-2">Flag</th><th class="col-md-2">Default Value</th><th class="col-md-2">Description</th>
+        </tr>
+        <tr>
+          <td class="col-md-2">abstractMetrics</td><td class="col-md-2">false</td><td class="col-md-2">Whether to enable abstract execution metrics.</td>
+        </tr><tr>
+          <td class="col-md-2">diagnoseDeadlocks</td><td class="col-md-2">false</td><td class="col-md-2">Whether to track deadlock situations when all workers become idle.</td>
+        </tr><tr>
+          <td class="col-md-2">eventLogging</td><td class="col-md-2">false</td><td class="col-md-2">Whether to enable event logging.</td>
+        </tr><tr>
+          <td class="col-md-2">executionGraph</td><td class="col-md-2">false</td><td class="col-md-2">Whether to display the execution graph.</td>
+        </tr><tr>
+          <td class="col-md-2">fjAsyncMode</td><td class="col-md-2">true</td><td class="col-md-2">Whether to use asyncMode in the fork-join pool.</td>
+        </tr><tr>
+          <td class="col-md-2">isolatedLocks</td><td class="col-md-2"># of available processors</td><td class="col-md-2">Number of locks to use for object-based isolation.</td>
+        </tr><tr>
+          <td class="col-md-2">isolatedLockType</td><td class="col-md-2">ordered</td><td class="col-md-2">Whether the lock is ordered or unordered.</td>
+        </tr><tr>
+          <td class="col-md-2">locationInName</td><td class="col-md-2">false</td><td class="col-md-2">Uses call stack to determine HJ construct names.</td>
+        </tr><tr>
+          <td class="col-md-2">maxThreads</td><td class="col-md-2">min(128, 10 * # of available processors)</td><td class="col-md-2">Maximum number of worker threads to use.</td>
+        </tr><tr>
+          <td class="col-md-2">nbAsyncOpt</td><td class="col-md-2">false</td><td class="col-md-2">Whether to enable non-blocking task execution before blocking workers.</td>
+        </tr><tr>
+          <td class="col-md-2">numPlaces</td><td class="col-md-2">1</td><td class="col-md-2">Number of places to use.</td>
+        </tr><tr>
+          <td class="col-md-2">numWorkers</td><td class="col-md-2"># of available processors</td><td class="col-md-2">Number of workers to use.</td>
+        </tr><tr>
+          <td class="col-md-2">phaserBusyWait</td><td class="col-md-2">1</td><td class="col-md-2">Number of iterations in busy wait before resorting to thread-blocking operations in phaser wait instructions.</td>
+        </tr><tr>
+          <td class="col-md-2">runtime</td><td class="col-md-2">fj</td><td class="col-md-2">The HJ runtime to use.</td>
+        </tr><tr>
+          <td class="col-md-2">showBuildVersion</td><td class="col-md-2">false</td><td class="col-md-2">Whether to show build version.</td>
+        </tr><tr>
+          <td class="col-md-2">showRuntimeStats</td><td class="col-md-2">false</td><td class="col-md-2">Whether to show executor service stats.</td>
+        </tr><tr>
+          <td class="col-md-2">showWarning</td><td class="col-md-2">false</td><td class="col-md-2">Whether to show warning/debug messages.</td>
+        </tr><tr>
+          <td class="col-md-2">speedUpGraph</td><td class="col-md-2">false</td><td class="col-md-2">Whether to display the speedup graph.</td>
+        </tr><tr>
+          <td class="col-md-2">trackDeadlocks</td><td class="col-md-2">false</td><td class="col-md-2">Whether to track deadlock situations when all workers become idle.</td>
+        </tr>
+      </table>
+          </div>
+        </div>
+      </div>
+            </div>
+    </div>
+          <div class="tab-pane" id="faqs">
+            <div class="panel-group" id="accordion-faqs">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-faqs" href="#faqs-whatisthedifferencebetweendataracefreedomanddeterminism">
+		What is the difference between data race freedom and determinism?
+		<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="faqs-whatisthedifferencebetweendataracefreedomanddeterminism" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>While both of these properties are desirable in many circumstances (and often times go hand-in-hand), they are not synonymous. For example, a concurrent queue would ensure that concurrent operations execute safely and without interference, but do not place any constraints on the order of execution, therefore causing nondeterminism while also demonstrating data race freedom.</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-faqs" href="#faqs-whatisthedifferencebetweenisolatedandsynchronized">
+		What is the difference between isolated and synchronized?
+		<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="faqs-whatisthedifferencebetweenisolatedandsynchronized" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>In many ways, their use is very similar. One big difference is the deadlock freedom afforded by multi-object isolated statements. With synchronized, it is possible to enter a deadlock state, as shown in the following example:</p>
+          <pre>Thread 0: 
+	synchronized (obj1) {
+		synchronized (obj2) {
+		}
+	}
+Thread 1:
+	synchronized (obj2) {
+		synchronized (obj1) {
+		}
+	}</pre>
+        <p>For an explanation on why the above code can potentially lead to a deadlock, please refer to the FAQ: Why does locking locks in a different order cause a potential deadlock?</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-faqs" href="#faqs-whydoeslockinglocksinadifferentordercauseapotentialdeadlock">
+		Why does locking locks in a different order cause a potential deadlock?
+		<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="faqs-whydoeslockinglocksinadifferentordercauseapotentialdeadlock" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>Let's consider two threads: T0 and T1. Let's also say they both can lock or unlock two locks: La and Lb. Suppose that T0's run() method is simply:</p>
+          <pre>La.lock();
+Lb.lock();
+Lb.unlock();
+La.unlock();</pre>
+        <p>and T1's run() method is:</p>
+          <pre>Lb.lock();
+La.lock();
+La.unlock();
+Lb.unlock();</pre>
+        <p>It's possible that we get into a state where T0 has executed only its first operation and now holds the La lock, and that T1 has also only executed its first operation now holds the Lb lock. What happens next? Well, T0 will run its second operation (Lb.lock()) and T1 will run its second operation (La.lock()). Calling lock() on a lock that is already locked by another thread causes the caller to block until the thread currently holding that lock calls unlock(). That means that T0 is going to block until Lb is unlocked, and T1 is going to block until La is unlocked. The problem is T0 is the thread holding La and T1 is the thread holding Lb. This means that there's a circular dependency here, where each thread depends on (and is blocked until) the other thread making forward progress before it can. Hence we have a deadlock.
+			A similar situation can be observed with the use of object monitors in synchronized.</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-faqs" href="#faqs-whydoesmyprogramhangwhenofferingcheckingasolutiontoaeureka">
+		Why does my program hang when offering/checking a solution to a eureka?
+		<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="faqs-whydoesmyprogramhangwhenofferingcheckingasolutiontoaeureka" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>If your calls to the offer and/or check are made inside an async, this may be solved by registering the finish scope on the eureka.</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion-faqs" href="#faqs-howcaniincreasethenumberofworkerthreadsthathjlibuses">
+		How can I increase the number of worker threads that HJ-lib uses?
+		<span style="float: right"></span>
+            </a>
+          </h4>
+        </div>
+        <div id="faqs-howcaniincreasethenumberofworkerthreadsthathjlibuses" class="panel-collapse collapse">
+          <div class="panel-body">
+        <p>
+			The current implementation for HJ-lib uses thread blocking operations for blocking constructs such as end of finish, future get, and phaser wait operation. These can result in the worker threads getting blocked. The runtime compensates by allocating more worker thread, but eventually when a configured maximum number of blocked threads is reached the runtime gives up by throwing an exception. To avoid this scenario, users can either configure the maximum number of worker thread to a larger value or avoid using blocking operations in their solutions.
+			HJ-lib can be configured to use more worker threads by setting the following property before calling initializeHabanero(): System.setProperty(HjSystemProperty.maxThreads.propertyKey(), "100");
+		</p>
+          </div>
+        </div>
+      </div>
+            </div>
+    </div>
     </div>
     <!-- Footer -->
     <footer class="footer">
