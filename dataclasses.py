@@ -50,7 +50,7 @@ class ExternalLink:
 		self.link = link
 
 class InternalLink:
-	def __init__(self, name, link):
+	def __init__(self, name, link=""):
 		self.name = name
 		self.link = link
 

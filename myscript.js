@@ -3,7 +3,6 @@ $(document).ready(function () {
 		goToLink(location.hash);
 	}
 
-	
 	$('.anchorlink').click(function () {
 		goToLink(this.getAttribute("href"));
 	});
@@ -16,10 +15,19 @@ function goToLink(link) {
 	$('.navbar a[href="#' + hashtag[0] + '"]').tab('show');
 
 	// Show accordion if link refers to an accordion
-	if (hashtag.length > 1) {
+	if (hashtag.length >= 2) {
+		$('.panel-collapse').filter(".in").not('#' + hashtag[0] + "-" + hashtag[1]).collapse('hide');
 		$('#' + hashtag[0] + "-" + hashtag[1]).collapse('show');
-		if (hashtag.length > 2) {
+		if (hashtag.length == 3) {
 			$('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).collapse('show');
 		}
 	}
+	/*
+	if (hashtag.length == 3) {
+		$('.panel-collapse').filter(".in").not('#' + hashtag[0] + "-" + hashtag[1]).collapse('hide');
+		$('#' + hashtag[0] + "-" + hashtag[1]).collapse('show');
+		$('#' + hashtag[0] + "-" + hashtag[1] + "-" + hashtag[2]).collapse('show');
+		//$('#' + hashtag[0] + "-" + hashtag[1]).collapse('show');
+	}
+	*/
 }

@@ -157,7 +157,7 @@
             <py:choose test="">
               <py:when test="isinstance(key, data.ExternalLink)"><a href="${key.link}" target="_blank">${key.name}</a></py:when>
               <py:when test="isinstance(key, data.InternalLink)"><a href="#${functions.getInternalLink(key.name)}" class="anchorlink">${key.name}</a></py:when>
-              <py:otherwise>${item.name}</py:otherwise>
+              <py:otherwise>${key}</py:otherwise>
             </py:choose>
           </dt>
           <dd>${dictionary[key]}</dd>

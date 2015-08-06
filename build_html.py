@@ -55,6 +55,19 @@ def getAttribute(node, key):
 	return str(attrib)
 
 """
+Returns: Either an ExternalLink, InternalLink, or String, depending on the url attribute of node.
+"""
+def getLink(node):
+	url = getAttribute(node, "url")
+	if url == "":
+		link = data.InternalLink(node.text)
+	elif url == "none":
+		link = node.text
+	else:
+		link = data.ExternalLink(node.text, url)
+	return link
+
+"""
 Returns: An InlineList of ExternalLinks containing the given node's javadocs.
 """
 def getJavadoc(node):
@@ -137,9 +150,9 @@ def getRelatedConstructs():
 	pairNodeList = findNodesViaTag(root, "pair")
 	relatedConstructsList = {}
 	for node in pairNodeList:
-		constructs = findNodesViaTag(node, "thing")
+		constructsNode = findNodesViaTag(node, "thing")
 		note = findNodesViaTag(node, "note")
-		relatedConstructsList[(constructs[0].text, constructs[1].text)] = note[0].text
+		relatedConstructsList[(getLink(constructsNode[0]), getLink(constructsNode[1]))] = note[0].text
 	return relatedConstructsList
 
 """
@@ -150,7 +163,7 @@ def getList(node):
 	items = []
 	itemNodes = findNodesViaTag(node, "item")
 	for n in itemNodes:
-		items.append(data.InternalLink(n.text, getInternalLink(n.text)))
+		items.append(getLink(n))
 	return (name, items)
 
 """
@@ -217,13 +230,15 @@ def getConstruct(node):
 			processedTags.append(elem.tag)
 	related = {}
 	for key in relatedConstructs:
-		mykey = ""
-		if name in key[0] or (javaname != "" and javaname in key[0]):
-			mykey = key[1]
-		elif name in key[1] or (javaname != "" and javaname in key[1]):
-			mykey = key[0]
-		if mykey != "":
-			related[data.InternalLink(mykey, getInternalLink(mykey))] = relatedConstructs[key]
+		mykey = None
+		if (isinstance(key[0], str) and (name in key[0] or (javaname != "" and javaname in key[0]))) or (isinstance(key[0], str) == False and (name in key[0].name or (javaname != "" and javaname in key[0].name))):
+			if (isinstance(key[1], str) and name != key[1] and javaname != key[1]) or (isinstance(key[1], str) == False and name != key[1].name and javaname != key[1].name):
+				mykey = key[1]
+		if (isinstance(key[1], str) and (name in key[1] or (javaname != "" and javaname in key[1]))) or (isinstance(key[1], str) == False and (name in key[1].name or (javaname != "" and javaname in key[1].name))):
+			if (isinstance(key[0], str) and name != key[0] and javaname != key[0]) or (isinstance(key[0], str) == False and name != key[0].name and javaname != key[0].name):
+				mykey = key[0]
+		if mykey is not None:
+			related[mykey] = relatedConstructs[key]
 	if related != {}:
 		construct.components.append(related)
 	return construct

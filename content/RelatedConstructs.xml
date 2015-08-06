@@ -92,7 +92,7 @@
 	</pair>
 	<pair>
 		<thing>forseq</thing>
-		<thing>for</thing>
+		<thing url="none">for</thing>
 		<note>forseq and for function the same way, with only syntactic difference.</note>
 	</pair>
 	<pair>
