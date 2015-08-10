@@ -68,14 +68,14 @@ from whoosh.qparser import MultifieldParser
 class Search:
 	def __init__(self, path):
 		self.createIndex(path)
-		index = open_dir(path)
-		parser = MultifieldParser(["name", "javaname", "description"])
+		self.index = open_dir(path)
+		self.parser = MultifieldParser(["name", "javaname", "description"], self.index.schema)
 
 	"""
 	Creates a new index in the given pathname.
 	"""
-	def createIndex(path):
-		schema = Schema(name=TEXT(stored=True), javaname=TEXT(stored=True), link=ID(stored=True), description=TEXT)
+	def createIndex(self, path):
+		schema = Schema(name=TEXT(stored=True), javaname=TEXT, link=ID(stored=True), description=TEXT)
 		if not os.path.exists(path):
 			os.mkdir(path)
 		index = create_in(path, schema)
@@ -89,7 +89,13 @@ class Search:
 			javaname = document.javaname
 		else:
 			javaname = ""
-		writer.add_document(title=document.name, javaname=javaname, link=link, description=document.description)
+		if isinstance(document, Question):
+			description = document.answer
+		elif document.description == None:
+			description = ""
+		else:
+			description = document.description.description
+		writer.add_document(name=unicode(document.name), javaname=unicode(javaname), link=unicode(link), description=unicode(description))
 		writer.commit()
 
 	"""

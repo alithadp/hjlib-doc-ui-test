@@ -198,14 +198,16 @@ Returns: An Instruction containing information from the given "instruction" node
 """
 def getInstruction(node):
 	name = getAttribute(node, "name")
-	description = ""
+	description = None
 	stepList = []
 	for n in list(node):
 		if n.tag == "description":
 			description = getDescription(n)
 		elif n.tag == "step":
 			stepList.append(getTextComponents(n))
-	return data.Instruction(name, description, stepList)
+	newInstr = data.Instruction(name, description, stepList)
+	search.addToIndex(newInstr, getInternalLink(name))
+	return newInstr
 
 """
 Returns: A Question object containing the question and corresponding answer contained in the give node.
@@ -213,7 +215,9 @@ Returns: A Question object containing the question and corresponding answer cont
 def getQuestion(node):
 	q = node.text
 	a = getTextComponents(findNodesViaTag(node, "answer")[0])
-	return data.Question(q, a)
+	newQuestion = data.Question(q, a)
+	search.addToIndex(newQuestion, getInternalLink(q))
+	return newQuestion
 
 """
 Returns: A Construct containing information from the given "construct" node.
@@ -241,6 +245,7 @@ def getConstruct(node):
 			related[mykey] = relatedConstructs[key]
 	if related != {}:
 		construct.components.append(related)
+	search.addToIndex(construct, getInternalLink(name))
 	return construct
 
 """
@@ -260,6 +265,7 @@ def getCategory(node):
 			if elem.tag == "construct":
 				javaToConstruct[getAttribute(elem, "java")] = nodename
 			category.components.append(tagToFunction[elem.tag](elem))
+	search.addToIndex(category, getInternalLink(category.name))
 	return category
 
 """
@@ -303,7 +309,7 @@ def makeHTML():
 				tabs.append(newTab)
 
 	tmpl = loader.load('hjdoc.html')
-	stream = tmpl.generate(tabs=tabs)
+	stream = tmpl.generate(tabs=tabs, search=search)
 	f = open("test.html", "w")
 	out = stream.render('html', doctype='html')
 	f.write(out)
@@ -318,5 +324,6 @@ tagToFunction = {"javadoc": getJavadoc, "usedwith": getUsedWith, "description": 
 "listgroup": getListGroup, "construct": getConstruct, "category": getCategory, "method": getMethods, "op": getOps, "flag": getFlags, 
 "question": getQuestion}
 relatedConstructs = getRelatedConstructs()
+search = data.Search("hjlib-index")
 
 makeHTML()
