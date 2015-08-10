@@ -58,3 +58,45 @@ class Description:
 	def __init__(self, description, links):
 		self.description = description
 		self.links = links # list of ExternalLinks
+
+import os.path
+from whoosh.index import *
+from whoosh.query import *
+from whoosh.fields import *
+from whoosh.qparser import MultifieldParser
+
+class Search:
+	def __init__(self, path):
+		self.createIndex(path)
+		index = open_dir(path)
+		parser = MultifieldParser(["name", "javaname", "description"])
+
+	"""
+	Creates a new index in the given pathname.
+	"""
+	def createIndex(path):
+		schema = Schema(name=TEXT(stored=True), javaname=TEXT(stored=True), link=ID(stored=True), description=TEXT)
+		if not os.path.exists(path):
+			os.mkdir(path)
+		index = create_in(path, schema)
+
+	"""
+	Adds the given document (of type Category, Construct, Question, or Instruction) and corresponding link to the index.
+	"""
+	def addToIndex(self, document, link):
+		writer = self.index.writer()
+		if isinstance(document, Construct):
+			javaname = document.javaname
+		else:
+			javaname = ""
+		writer.add_document(title=document.name, javaname=javaname, link=link, description=document.description)
+		writer.commit()
+
+	"""
+	Returns a list of results that match the given keywords.
+	"""
+	def searchIndex(self, keywords):
+		with index.searcher() as searcher:
+			query = self.parser.parse(keywords)
+			results = searcher.search(query, limit=None)
+		return results
