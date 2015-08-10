@@ -182,6 +182,9 @@
         <py:otherwise><p>${description.description}</p></py:otherwise>
       </py:choose>
     </py:def>
+    <py:def function="getSearchHTML()">
+      
+    </py:def>
 
     <!-- Navigation bar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -212,7 +215,7 @@
               </py:choose>
             </py:for>
           </ul>
-          <form class="navbar-form navbar-right" role="search">
+          <form class="navbar-form navbar-right" role="search" action="" method="post">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="i.e. async"/>
             </div>
@@ -235,6 +238,7 @@
           <py:otherwise><div class="tab-pane" id="${functions.getInternalLink(tab.name)}">${getTabHTML(tab)}</div></py:otherwise>
         </py:choose>
       </py:for>
+      <div class="tab-pane" id="search">${getSearchHTML()}</div>
     </div>
 
     <!-- Footer -->
